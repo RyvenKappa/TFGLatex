@@ -26,3 +26,16 @@
 %Glosarios
 \input{glosario.tex}
 \renewcommand*\glspostdescription{\hfill}
+
+%Nuevos estilos de páginas por errores
+\fancypagestyle{specialpage}{%
+  \fancyhf{}
+  \fancyhead[L]{1. LISTA DE ACRÓNIMOS}
+}
+
+\fancypagestyle{abstract}{
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt} % Asegurarse de que la barra negra también se elimine en esta página
+    \fancyfoot[EL]{\thepage}
+    \fancyfoot[OR]{\thepage}
+}
