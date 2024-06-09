@@ -10,7 +10,10 @@ A partir de estas labores anteriores de investigación, se han podido obtener ma
 estos datos, en sucesivos trabajos del \acrshort{pran} se ha utilizado la herramienta \textit{BORIS}\cite{friardBORISFreeVersatile2016}, que ha permitido anotar diferentes momentos en los que 
 ha sucedido un movimiento.
 
-Es importante saber que este etiquetado manual no siempre se ha llevado a cabo por la misma persona, y por lo tanto, hay un factor de subjetividad que añade error humano a la medición de los 
+En concreto, el grabado y etiquetado manual se llevó a cabo por los técnicos Juan Enrique Barrios Sánchez\cite{barriossanchezPruebaRedEvaluando2023}  y Almudena Gallego Fernández, bajo la supervisión de los investigadores 
+Álvaro De la LLave-Propín y Morris Villarroel Robinson.
+
+Por lo tanto, el etiquetado manual no siempre se ha llevado a cabo por la misma persona, con lo que puede existir un factor de subjetividad que añade error humano a la medición de los 
 movimientos de los peces.
 
 \subsection{Conjunto de datos disponibles: videos}
@@ -42,30 +45,29 @@ Como último punto importante, en estos videos se puede observar que se realiza 
 
 \subsubsection{Videos nuevos}
 
-Este es el conjunto de datos mas amplio y detallado. Cuenta en total con 4 experimentos \textit{NetTest}, en los que se realiza el experimento a 10 jaulas en total (10 peces por jaula). 
+Este es el conjunto de datos más amplio y detallado. Cuenta en total con 4 experimentos \textit{NetTest}, en los que se realiza el experimento a 10 jaulas en total (10 peces por jaula). 
 Cada jaula consta de un  video que muestra el experimento entero y luego una serie de subvideos que los investigadores de \acrshort{pran} han sacado recortando el original para eliminar 
 momentos en los que no hay ningún experimento en pantalla. Esta estructura final se puede ver en la \autoref{fig:EstrucutraNuevos}:
 
 \begin{figure}[h]
     \centering
-    \begin{subfigure}[b]{0.7\textwidth}
+    \begin{subfigure}[b]{0.5\textwidth}
     \dirtree{%
     .1 \vdots.
     .1 \textbf{Net Test 1}.
-    .2 \textbf{Jaula 1}.
-    .2 \textbf{Jaula 2}.
-    .2 \textbf{Jaula 3}.
     .2 \vdots.
     .1 \textbf{Net Test 2}.
     .2 \vdots.
     .2 \textbf{Jaula 7}.
-    .3 \textbf{23 NT R2 J2}.
-    .3 \textbf{23 NT R2 J2 P1-2}.
+    .3 \textbf{23 NT R2 J7}.
+    .3 \textbf{23 NT R2 J7 P1-2}.
     .3 \vdots.
-    .3 \textbf{23 NT R2 J2 P9-10}.
+    .3 \textbf{23 NT R2 J7 P9-10}.
     .2 \vdots.
-    .1 \vdots.
+    .1 \textbf{Net Test 3}.
+    .2 \vdots.
     .1 \textbf{Net Test 4}.
+    .2 \vdots.
     }
     \end{subfigure}
     \caption{Estructura de los  videos nuevos}
@@ -113,18 +115,17 @@ De todos los datos, los útiles van a ser los referentes a los movimientos, que 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/3/Excel1.png}
+    \fbox{\includegraphics[width=0.7\textwidth]{images/3/Excel1.png}}
     \caption{Columnas del Excel con los datos de \textit{frames} en los que sucede un movimiento}
     \label{fig:Excel1}
 \end{figure}
-\clearpage
 El segundo archivo Excel nos proporciona información ya procesada por los investigadores del \acrshort{pran}, en los cuales aparecen 
 los movimientos finales totales para cada pez según grupo y número de experimento \textit{NetTest}. Un ejemplo de una sección del archivo se 
 puede ver en la \autoref{fig:Excel2}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/3/Excel2.png}
+    \fbox{\includegraphics[width=0.7\textwidth]{images/3/Excel2.png}}
     \caption{Sección del archivo de movimientos finales para los videos nuevos}
     \label{fig:Excel2}
 \end{figure}
