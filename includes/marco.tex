@@ -1,1 +1,58 @@
 \section{MARCO TECNOLÓGICO}
+
+El problema que se busca solucionar en este trabajo entra directamente en campos de estudio relacionados con la visión por ordenador. Estos campos pertenecen al estudio  de la Ingeniería Informática que busca, 
+a través de sistemas de captación y procesamiento de imágenes, generar información y automatizar procesos con ordenadores. \newline Dentro de este campo se han desarrollado tecnologías que usamos día a día
+\cite{szeliskiComputerVisionAlgorithms2022}:
+
+\begin{itemize}
+    \item \textbf{\textit{\acrfull{ocr}}} para realizar reconocimiento de texto en imágenes y documentos.
+    \item \textbf{Detección de fallos en maquinaria} en procesos de fabricación.
+    \item \textbf{Fotogrametría} para mapear imágenes a modelos 3D.
+    \item \textbf{Imagen médica} para uso en operaciones a tiempo real\cite{NEMESIS3DCM}.
+    \item \textbf{Detección de objetos} en imágenes o videos.
+    \item \textbf{Detección de movimiento} y seguimiento de objetos en escenas.
+\end{itemize}
+
+Las aplicaciones que usan herramientas basadas en este tipo de soluciones suelen seguir una estructura similar a la siguiente:
+
+\begin{enumerate}
+    \item Capturar información a través de cámaras o flujos de video IP de diferentes características.
+    \item (A veces) Realizar un preprocesamiento de las imágenes para adaptarlas al sistema.
+    \item Procesar las imágenes para extraer información relevante para el sistema. Este procesamiento puede tener en cuenta la relación temporal entre fotogramas o no.
+    \item Transformar la información extraída a través de algoritmos inteligentes para construir una base de datos que sea útil para el usuario de la aplicación.
+\end{enumerate}
+
+En el caso de este trabajo, se tratan problemas de detección de objetos y seguimiento de movimientos. En los siguientes apartados se van a explicar la definición de estas tareas, las técnicas que se 
+suelen usar y soluciones modernas que se aplican hoy en día.
+
+\subsection{Detección de Objetos}
+
+Teniendo una imagen, puede surgir la necesidad de analizar la existencia de un objeto en la misma y; opcionalmente, localizar la posición del objeto. Para realizar este tipo de tareas se han ido 
+desarrollando técnicas tradicionales basadas en algoritmos extremadamente deterministas, pero, con el auge de las redes neuronales, a partir de 2012\cite{zouObjectDetection202023} 
+el paradigma pasó a centrarse en la creación de sistemas detectores basados en \textit{Deep Learning} (Sistemas de Redes Neuronales con una gran cantidad de capas ocultas).
+
+Ambas técnicas se basan en la extracción de características de las imágenes, esto es, la caracterización de imágenes o zonas de interés a través de algoritmos o filtros. Ejemplos de características 
+muy usadas son:
+\begin{itemize}
+    \item Nitidez de la imagen aplicando filtros laplacianos como el visto en la \autoref{fig:LaplaceKernel}.
+    \item Histogramas de color.
+    \item Existencia de formas específicas en la imagen.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \(
+    \begin{vmatrix}
+        0 & -1 & 0 \\
+        -1 & 4 & -1 \\
+        0 & -1 & 0
+    \end{vmatrix}
+    \)
+    \caption{Aspecto de un \textit{kernel} de laplace de tamaño \texttt{3x3}}
+    \label{fig:LaplaceKernel}
+\end{figure}
+
+
+\subsection{Seguimiento de Movimientos}
+
+\subsection{Entornos de desarrollo, sistemas de despliegue y \textit{Hardware} transparente}
