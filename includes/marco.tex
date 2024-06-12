@@ -26,13 +26,39 @@ En el caso de este trabajo, se tratan problemas de detección de objetos y anál
 años, con el auge del aprendizaje automático, se ha creado un nuevo paradigma.
 
 En los siguientes puntos se va a describir de forma breve las técnicas de aprendizaje automático, los sistemas de detección de objetos, seguimiento de cambio y los entornos de desarrollo y despliegue 
-de estas técnicas de forma transparente al \textit{Hardware} disponible.
+de estas técnicas de forma transparente al \textit{Hardware} disponible así como proyectos relacionados con este trabajo.
 \clearpage
 
-\subsection{Aprendizaje automático y el uso del \textit{Deep Learning}}
+\subsection{Aprendizaje Automático y \textit{Deep Learning}}
+
+\subsubsection{Definición y tipos de tareas}
 
 El campo del aprendizaje automático busca desarrollar soluciones a través de algoritmos y sistemas que permitan a los ordenadores tratar los datos entrantes como el cerebro humano, siendo capaz de 
 generalizar las propiedades que les definen y encontrar patrones.
+
+Este aprendizaje automático se realiza sobre un conjunto de datos que aporta el usuario con el objetivo de abstraer diferentes informaciones específicas o agrupar los datos según patrones. Este aprendizaje 
+habitualmente se realiza a través de un bucle de tres fases (ver \autoref{fig:FasesAprendizaje}) en las cuales se configura el sistema para aprender, se válida el sistema resultante y se reconfiguran los parámetros para acercarse a un sistema 
+que aporte mejores resultados.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/4/Fases.png}
+    \caption{Bucle de fases de aprendizaje en un sistema de \textit{Machine Learning}}
+    \label{fig:FasesAprendizaje}
+\end{figure}
+
+Dentro del campo existen diferentes ramas dependientes del objetivo del aprendizaje que se busca y los datos con los que vamos a alimentar el sistema:
+
+\begin{itemize}
+    \item \textbf{Entrenamiento supervisado}: es un tipo de entrenamiento en el que se conoce la relación entre los datos de entrada y los datos esperados. 
+    \item \textbf{Entrenamiento no supervisado}: el objetivo de este aprendizaje es aprender las relaciones de los datos de entrada entre sí.
+    \item \textbf{Entrenamiento reforzado}: es una variación del entrenamiento supervisado en el que el investigador proporciona feedback sobre los resultados como parte de la fase de aprendizaje. Se utiliza 
+    mucho en el ámbito de la robótica.
+\end{itemize}
+
+Entre todas las técnicas que implementan este tipo de tareas, uno de los sistemas modernos más conocidos son las redes neuronales.
+
+\subsubsection{Redes Neuronales}
 
 Este campo tiene su origen en una publicación de Warren McCulloch y Walter Pitts en 1943\cite{mccullochLOGICALCALCULUSIDEAS} en el que presentaban la idea de neurona como una unidad lógica básica 
 implementable cuyo estado se puede definir como un "todo o nada", lo cual se representa en el campo de las telecomunicaciones con una función escalón como se ve en la \autoref{fig:Escalon}. Este 
@@ -40,14 +66,14 @@ trabajo y diseño de neurona sería conocido más tarde como perceptron.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\textwidth]{images/4/Escalon.png}
+    \includegraphics[width=0.3\textwidth]{images/4/Escalon.png}
     \caption{Figura de activación escalón de las primeras neuronas}
     \label{fig:Escalon}
 \end{figure}
 
-La estructura básica del perceptron se puede observar en la consiste en un nodo con un número \(\mathcal{N}\) de conexiones entrantes, con unos pesos asociados \(\mathcal{W}\). 
-El nodo calcula el sumatorio de cada conexión con su respectivo peso. Al resultado de este cálculo se le añade un factor de \textit{bias} y por último, mediante una función de activación como 
-la vista anteriormente, se decide el resultado de salida de la neurona. 
+La estructura básica del perceptron se puede observar en la \autoref{fig:Perceptron} consiste en un nodo con un número \(\mathcal{N}\) de conexiones entrantes, con un peso asociado \(\mathcal{W}\) 
+a cada entrada. El nodo calcula el sumatorio de cada conexión con su respectivo peso. Al resultado de este cálculo se le añade un factor de \textit{bias} y por último, mediante una función de 
+activación como la vista anteriormente, se decide el resultado de salida de la neurona. 
 
 \begin{figure}[H]
     \centering
@@ -56,40 +82,133 @@ la vista anteriormente, se decide el resultado de salida de la neurona.
     \label{fig:Perceptron}
 \end{figure}
 
-Más tarde, se conseguiría implementar un diseño electrónico de esta neurona, e interconectar más neuronas entre sí. Estas interconexiones dan lugar a la creación del conecpto de redes neuronales, 
-siendo una de las primeras redes complejas de tipo \acrfullr{mlp} (conexión de muchos perceptrones simples).
-
-\subsection{Detección de Objetos}
-
-La detección de objetos como tarea surge de la necesidad de analizar la existencia de objetos en imágenes y; opcionalmente, posicionarlos en las mismas.Para realizar este tipo de tareas se han ido 
-desarrollando técnicas tradicionales basadas en algoritmos extremadamente deterministas, pero, con el auge del \textit{Machine Learning}, a partir de 2012\cite{zouObjectDetection202023} 
-el paradigma pasó a centrarse en la creación de sistemas detectores basados en \textit{Deep Learning} (Sistemas de Redes Neuronales con una gran cantidad de capas ocultas).
-
-Ambas técnicas se basan en la extracción de características de las imágenes, esto es, la caracterización de imágenes o zonas de interés a través de algoritmos o filtros. Ejemplos de características 
-muy usadas que un humano puede entender son:
-\begin{itemize}
-    \item \textbf{Nitidez} de la imagen aplicando filtros laplacianos como el visto en la \autoref{fig:LaplaceKernel}.
-    Con esto nos referimos a x
-
-    hola prueba
-    \item Histogramas de color.
-    \item Existencia de formas específicas en la imagen.
-\end{itemize}
+Más tarde, se conseguiría implementar un diseño electrónico de esta neurona, e interconectar más neuronas entre sí. Estas interconexiones dan lugar a la creación del concepto de \textbf{redes neuronales}, 
+siendo una de las primeras redes complejas funcionales de tipo \acrfullr{mlp}. Estos sistemas serían clave para la evolución del aprendizaje automático, apareciendo multitud de 
+variaciones en la arquitectura de la red según las necesidades (ver \autoref{fig:ArquitecturasRedes}).
 
 \begin{figure}[H]
     \centering
-    \(
-    \begin{vmatrix}
-        0 & -1 & 0 \\
-        -1 & 4 & -1 \\
-        0 & -1 & 0
-    \end{vmatrix}
-    \)
-    \caption{Aspecto de un \textit{kernel} de laplace de tamaño \texttt{3x3}}
-    \label{fig:LaplaceKernel}
+    \begin{subfigure}[b]{0.25\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/4/FeedForward.png}
+        \caption{Red FeedForward}
+        \label{fig:a}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.25\textwidth}
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/4/Recursiva.png}
+        \caption{Red recursiva}
+        \label{fig:b}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.4\textwidth]{images/4/FeedForwardLateral.png}
+        \caption{Red FeedForward con inhibidores laterales}
+        \label{fig:c}
+    \end{subfigure}
+    \caption{Diferentes ejemplos de arquitecturas simples de redes neuronales\cite{duNeuralNetworksStatistical2013}}
+    \label{fig:ArquitecturasRedes}
 \end{figure}
 
+El avance progresivo de la capacidad de cómputo de los ordenadores ha permitido el uso de redes neuronales de mayor tamaño, que permiten mayor capacidad de abstracción. Es en este marco donde aparece el término 
+\textit{Deep Learning}, que no indica nada más que el uso de redes neuronales con una cantidad masiva de capas intermedias. Además, son sistemas que trabajan muy bien en sistemas con gran grado de paralelización, 
+aunque esto se explicará más adelante.
 
-\subsection{Análisis de cambio}
+Este tipo de sistemas han demostrado su gran capacidad de abstracción y rapidez, es por esto mismo que las redes neuronales profundas son una de las principales herramientas que se utilizan hoy en día en 
+visión por ordenador.
+
+\clearpage
+\subsection{Detección de Objetos con redes neuronales}
+
+La detección de objetos como tarea surge de la necesidad de analizar la existencia de objetos en imágenes y; opcionalmente, posicionarlos en las mismas.Para realizar este tipo de tareas se han ido 
+desarrollando técnicas tradicionales basadas en algoritmos extremadamente deterministas, pero, con el auge del aprendizaje automático, a partir de 2012\cite{zouObjectDetection202023} 
+el paradigma pasó a centrarse en la creación de sistemas detectores basados en \textit{Deep Learning} (Sistemas de Redes Neuronales con una gran cantidad de capas ocultas).
+
+Ambas técnicas se basan en la extracción y el análisis de características de las imágenes, esto es, la caracterización de imágenes o zonas de interés a través de algoritmos o filtros. Podemos entender la caracterización 
+de una imagen como la parametrización de los elementos que la definen. Dentro de la vista humana existen muchos elementos que se pueden usar para definir una imagen, algunos ejemplos son:
+\begin{itemize}
+    \item \textbf{Nitidez}.
+    \item \textbf{Color}.
+    \item \textbf{Presencia de ciertas formas geométricas}.
+    \item \textbf{Brillo}.
+    \item \textbf{Ruido}
+\end{itemize}
+
+Pero estos ejemplos son características que da un humano para una imagen, las redes neuronales trabajan con características de bajo nivel (P.Ej.: existencia de bordes en una zona específica, colores en un area, 
+patrones de puntos, etc.) que permitan analizar zonas de la imagen. Sin embargo, las redes neuronales tipo \textit{\acrshort{mlp}} no están pensadas para obtener características (el análisis de características 
+no escala bien con el aumento de resolución), ya que utilizan los valores para realizar la aproximación.
+
+Por estos motivos, se buscó una forma de añadir independencia espacial a la entrada de las redes neuronales. Esto se consigue mediante el uso de diferentes arquitecturas, siendo la más importante las redes 
+neuronales convolucionales.\newline
+
+\subsubsection{Redes convolucionales \textit{(CNN)}}
+
+Definen una arquitectura basada en dos pasos: la extracción de las características de las imágenes y la clasificación de las imágenes según las características. Su estructura básica se compone de dos subredes 
+que cumplen dos funciones diferentes: la extracción de características y la clasificación de la imagen a través de las características (ver \autoref{fig:ArquitecturaCNN}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/4/ArquitecturaCNN.png}
+    \caption{Arquitectura básica de una CNN\cite{sahaComprehensiveGuideConvolutional2022}}
+    \label{fig:ArquitecturaCNN}
+\end{figure}
+
+\clearpage
+
+La fase de caracterización se compone principalmente de capas neuronales convolucionales y, habitualmente capas de polling:
+
+\begin{itemize}
+    \item Capas convolucionales: tienen como objetivo la extracción de carácteristicas a través de neuronas que implementan operaciones de convolución sobre las imágenes. 
+    Al ser las imágenes tensores, se les aplican filtros convolucionales implementados a través de \textit{Kernels}. 
+    Dependiendo de la característica a buscar, existen diferentes filtros convolucionales y en las fases de entrenamiento se va conformando el \textit{Kernel} que caracteriza mejor esa zona de la imagen para los datos esperados.
+
+    Un ejemplo de \textit{Kernel} es un filtro laplaciano gaussiano como el de la \autoref{fig:LaplaceKernel}, que, a través del gradiente, sirve para darle más énfasis a los bordes de la imagen, como se puede ver 
+    en la \autoref{fig:LaplaceResultado}
+    \begin{figure}[H]
+        \centering
+        \(
+        \begin{vmatrix}
+            1 & 1 & 1 \\
+            1 & 8 & 1 \\
+            1 & 1 & 1
+        \end{vmatrix}
+        \)
+        \caption{Aspecto de un \textit{kernel} de laplace de tamaño \texttt{3x3}}
+        \label{fig:LaplaceKernel}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{images/4/KernelsTipicos.jpg}
+        \caption{Aplicación de un filtro gaussiano de Laplace a una imagen médica\cite{LaplacianFilterOverview}}
+        \label{fig:LaplaceResultado}
+    \end{figure}
+
+    Estas capas convolucionales van obteniendo la abstracción de las características transformando los volúmenes de entrada a volúmenes de salida.
+
+    \item Capas de polling: Su objetivo es ir haciendo sub-muestreo de las capas convolucionales superiores para conformar el volumen de entrada de la siguiente capa convolucional, reduciendo la carga computacional necesaria. 
+    Se puede ver su funcionamiento en la \autoref{fig:MuestreoCNN}, donde sub-muestrean un volumen de resolución \texttt{28x28} a una resolución \texttt{14x14}.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{images/4/EjemploPolling.png}
+        \caption{CNN con detalle de la caracterización y el sub-muestreo\cite{ConvolutionalNeuralNetwork}}
+        \label{fig:MuestreoCNN}
+    \end{figure}
+
+\end{itemize}
+
+La fase de clasificación habitualmente usa una red neuronal profunda conectada completamente entre capas como se ha podido ver en la anterior sección, similar a la idea de una \textit{\acrshort{mlp}}.
+
+
+
+
+
+
+\subsection{Técnicas para el análisis  de movimiento en la visión por ordenador}
+
+\subsubsection{Definición y uso del análisis de flujo óptico}
+
+\subsubsection{Uso en acuicultura}
+
+\subsubsection{Problemas asociados}
 
 \subsection{Entornos de desarrollo, sistemas de despliegue y \textit{Hardware} transparente}
