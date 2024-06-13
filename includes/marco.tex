@@ -144,7 +144,7 @@ neuronales convolucionales.\newline
 \subsubsection{Redes convolucionales \textit{(CNN)}}
 
 Definen una arquitectura basada en dos pasos: la extracción de las características de las imágenes y la clasificación de las imágenes según las características. Su estructura básica se compone de dos subredes 
-que cumplen dos funciones diferentes: la extracción de características y la clasificación de la imagen a través de las características (ver \autoref{fig:ArquitecturaCNN}).
+que cumplen las dos funciones diferentes para los datos de entrada (ver \autoref{fig:ArquitecturaCNN}).
 
 \begin{figure}[H]
     \centering
@@ -178,12 +178,12 @@ La fase de caracterización se compone principalmente de capas neuronales convol
     \end{figure}
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.6\textwidth]{images/4/KernelsTipicos.jpg}
+        \includegraphics[width=0.5\textwidth]{images/4/KernelsTipicos.jpg}
         \caption{Aplicación de un filtro gaussiano de Laplace a una imagen médica\cite{LaplacianFilterOverview}}
         \label{fig:LaplaceResultado}
     \end{figure}
 
-    Estas capas convolucionales van obteniendo la abstracción de las características transformando los volúmenes de entrada a volúmenes de salida.
+    Estas capas convolucionales van obteniendo la abstracción de las características transformando los volúmenes de entrada a volúmenes de salida de mayor profundidad pero de menor resolución vertical y horizontal.
 
     \item Capas de polling: Su objetivo es ir haciendo sub-muestreo de las capas convolucionales superiores para conformar el volumen de entrada de la siguiente capa convolucional, reduciendo la carga computacional necesaria. 
     Se puede ver su funcionamiento en la \autoref{fig:MuestreoCNN}, donde sub-muestrean un volumen de resolución \texttt{28x28} a una resolución \texttt{14x14}.
@@ -196,9 +196,80 @@ La fase de caracterización se compone principalmente de capas neuronales convol
 
 \end{itemize}
 
-La fase de clasificación habitualmente usa una red neuronal profunda conectada completamente entre capas como se ha podido ver en la anterior sección, similar a la idea de una \textit{\acrshort{mlp}}.
+La fase de clasificación habitualmente usa una red neuronal profunda conectada completamente entre capas como se ha podido ver en la anterior sección, similar a la idea de una \textit{\acrshort{mlp}}. Esta 
+red toma como entrada un vector aplanado final de la parte de extracción de características y realiza la clasificación.
 
+\subsubsection{Redes neuronales para acuicultura}
 
+El uso de una red neuronal para solucionar un problema está asociado al tipo de trabajo a realizar. Cuando se define un problema en el que se va a aplicar esta técnica, normalmente cae en tres tipos de 
+categorías(ver \autoref{fig:tareasCNN}). Además, esta selección tiene unas implicaciones en la complejidad computacional de la tarea, ya que la capa de clasificación debe ser cambiada para soportarla.
+
+\begin{itemize}
+    \item Clasificación: las imágenes son marcadas dependiendo de si existe (binario) un elemento dentro de ella.
+    \item Detección de objetos: regiones locales de la imagen son clasificadas y marcadas dependiendo de la existencia del elemento en cuestión.
+    \item Segmentación semántica: se realiza una clasificación por cada pixel para delimitar todos los píxeles que conforman la instancia del objeto
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/4/TiposTareas.png}
+    \caption{Tareas típicas de una CNN\cite{kallfelzsirmacekSEQUENTIALIMAGEPROCESSING2019}}
+    \label{fig:tareasCNN}
+\end{figure}
+
+La evolución de las \textit{\acrshort{cnn}} ha sido exponencial y han aparecido arquitecturas que han ido añadiendo mejoras de eficiencia, calidad de resultados y estándares a la hora de crear nuevos 
+sistemas:
+\begin{itemize}
+    \item R-CNN (Region-CNN)(2014): introdujo el análisis solo en regiones con datos interesantes.
+    \item Fast R-CNN (2015): mejora R-CNN introduciendo búsqueda selectiva, definiendo un número máximo de \acrfullr{roi} a tratar.
+    \item Faster R-CNN (2015).
+    \item YOLO (You Only Look Once)\cite{redmonYouOnlyLook2016}: arquitectura extremadamente rápida perteneciente al estado del arte moderno en redes neuronales, que ha ido mejorandose en forma de versiones.
+\end{itemize}
+
+Cada arquitectura ha traído consigo mejoras y a veces, a cambio de perdida de rendimiento. Esto es un problema que debe tenerse en cuenta y existen diversos trabajos\cite{hanAdvancedDeepLearningTechniques2018}\cite{manojkumarPerformanceComparisonReal2023}\cite{bhagyaOverviewDeepLearning2019} 
+que tratan simplemente las diferencias existentes entre diferentes arquitecturas.\newline
+Uno de estos trabajos\cite{hanAdvancedDeepLearningTechniques2018} compara diferentes arquitecturas contra el conjunto de datos de la universidad de Oxford "Pascal2012"\cite{PASCALVisualObject}, que contiene 20 clases de objetos.\newline
+Como resultado de este análisis; resumido en la \autoref{ResumenCNN}, se puede observar que YOLOv2, aún no siendo el mejor, tiene un rendimiento bastante competente. Si nos quedásemos con solo este dato, podriamos pensar que YOLO 
+no tiene porque ser la mejor elección, pero hay que tener en cuenta el factor de rendimiento, que se mide principalmente en el tiempo que se tarda en realizar la inferencia en una imagen. En este caso, podemos observar 
+que YOLOv2 es capaz de superar a SSD512 obteniendo un mejor \acrfullr{map}(parámetro de caracterización del error medio generalizado sobre todo el dataset) con el doble de rendimiento.
+
+\begin{table}[h]
+    \begin{center} {\footnotesize
+    \begin{tabular}{lcccc}
+    \hline
+     & \multicolumn{1}{c}{bike} & \multicolumn{1}{c}{bird} & \multicolumn{1}{c}{train} & \multicolumn{1}{c}{mAP}\\
+    \hline
+    \raisebox{0ex}{Faster R-CNN} & 81.6 & 77.2 & 84.7 & 73.8\\[0ex]
+    \raisebox{0ex}{SSD300} & 80.1 & 70.5 & 81.9 & 72.4\\[0ex]
+    \raisebox{0ex}{SSD512} & 82.3 & 75.8 & 86.3 & 74.9\\[0ex]
+    \raisebox{0ex}{YOLO} & 67.2 & 57.7 & 73.9 & 57.9\\[0ex]
+    \raisebox{0ex}{YOLOv2 $544x544$} & 82.0 & 74.8 & 83.8 & 73.4\\[0ex]
+    \hline
+    \end{tabular} }
+    \end{center}
+    \caption{\footnotesize Resumen de la comparación entre CNN con el dataset PASCAL2012\cite{hanAdvancedDeepLearningTechniques2018}}
+    \label{ResumenCNN}
+\end{table}
+
+\begin{table}[h]
+    \begin{center} {\footnotesize
+    \begin{tabular}{lcc}
+    \hline
+     & \multicolumn{1}{c}{mAP} & \multicolumn{1}{c}{FPS}\\
+    \hline
+    \raisebox{0ex}{Faster R-CNN} & 76.4 & 5\\[0ex]
+    \raisebox{0ex}{SSD300} & 74.3 & 46\\[0ex]
+    \raisebox{0ex}{SSD512} & 76.8 & 19\\[0ex]
+    \raisebox{0ex}{YOLO} & 63.4 & 45\\[0ex]
+    \raisebox{0ex}{YOLOv2 $544x544$} & 78.6 & 40\\[0ex]
+    \hline
+    \end{tabular} }
+    \end{center}
+    \caption{\footnotesize Detalle de rendimiento en \acrshort{fps} en la comparativa\cite{hanAdvancedDeepLearningTechniques2018}}
+    \label{ResumenCNNFPS}
+\end{table}
+
+Estos resultados comparativos, a diferencias de otros artículos, sirven como marco por el uso de reglas tales como la comparación bajo mismo dataset e indicar tamaño de imagen de entrada a la red neuronal.
 
 
 
