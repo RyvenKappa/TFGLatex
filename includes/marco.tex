@@ -280,29 +280,110 @@ comparan diferentes versiones posteriores a la versión 5 en el conjunto de dato
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{images/4/YOLOVersiones.png}
-    \caption{Rendimiento de diferentes versiones de YOLO superiores a la 5 en el conjunto de datos COCO\cite{ultralyticsYOLOv8}}
+    \includegraphics[width=0.8\textwidth]{images/4/YOLOVersiones.png}
+    \caption{Rendimiento de diferentes versiones de YOLO superiores a la 5 en el \textit{dataset} COCO\cite{ultralyticsYOLOv8}}
     \label{fig:YOLOVersiones}
 \end{figure}
 
 Esto ha convertido a YOLO en un estándar de facto en la implementación rápida de soluciones basadas en \textit{Deep Learning} para muchos investigadores por sus resultados basados en obtener detección en tiempo real.
 
-\clearpage
-
 \subsubsection{Uso de redes neuronales en acuicultura}
 
-La acuicultura es un trabajo que engloba desde la producción de algas hasta la crianza de marisco en cautiverio. Además, dentro de cada rama podemos tener especies que sean similares o parecidas.
+La acuicultura es un trabajo que engloba desde la producción de algas hasta la crianza de marisco en cautiverio. Además, dentro de cada rama podemos tener especies que sean similares..
 
-En la literatura de este ámbito se lleva implementando tecnologías basadas en aprendizaje automático mucho tiempo
+En la literatura de este ámbito se lleva implementando tecnologías basadas en aprendizaje automático para diferentes tareas, en el caso del uso de \acrshort{cnn}:
+\begin{itemize}
+    \item Sistemas de conteo de peces\cite{castillomoralSistemaConteoPeces2022}.
+    \item Sistemas de análisis de densidad.
+    \item Sistemas de seguimiento\cite{leeDetectionCatfishActivity2024}.
+    \item Sistemas de diferenciación y detección de especies en entornos abiertos\cite{xiaSituSeaCucumber2018}\cite{ladeAutomatedFishSpecies2023}: aprovechando la existencia de conjuntos de datos
+    \cite{ulucanLargeScaleDatasetFish2020} para experimentos con diferentes peces.
+\end{itemize}
 
+Existen ejemplos del uso de estas tecnologías son proyectos como el del \acrfullr{citsem} ``Acuicultura 4.0"\cite{Acuicultura} y diversos trabajos de fin de grado y máster relacionados, pero no para el conteo de movimientos a través de YOLO.
 
+\subsection{Técnicas para el análisis de movimiento en la visión por ordenador}
 
-\subsection{Técnicas para el análisis  de movimiento en la visión por ordenador}
+Estas técnicas son muy importantes en el campo de la vigilancia, para poder percibir el cambio de elementos en la imagen y realizar su seguimiento. Según los autores M.Sonka y V.Hlavac\cite{sonkaImageProcessingAnalysis2013}, los problemas que 
+trata se pueden dividir en tres grupos:
+
+\begin{itemize}
+    \item Detección de movimiento general, clasificando una imagen con o sin movimiento a través de un descriptor global.
+    \item Detección y localización de objetos en movimiento, donde la escena es estática y el objeto se mueve sobre ella.
+    \item Uso del movimiento para la reconstrucción 3D de una escena.
+\end{itemize}
+
+De los anteriores puntos, el más relevante en este trabajo es la detección y localización de objetos en movimiento (conteo de movimiento de un pez).
+
+Debemos entender que el análisis de movimiento tiene en cuenta el eje temporal entre las imágenes, que puede tener muestras equiespaciadas o no. Es en este eje sobre el que queremos realizar el análisis, pero 
+cabe destacar que hay muy poco análisis realizado sobre el uso de aprendizaje automático para estimación de movimiento en video. Los principales sistemas se basan en análisis a través de algoritmos.
+
+\begin{itemize}
+    \item \textbf{Análisis diferencial}: un ejemplo de esta técnica es la resta de una imagen número $n$ con la imagen número $n-1$, para obtener una diferencia de en ciertos pixeles y determinar a través de un límite 
+    la existencia de movimiento. Uno de los tipos de algoritmos más interesantes en este campo es el análisis de flujo óptico.
+    \item \textbf{Correspondencia de puntos de interés}: se basa en la detección y seguimiento a través del eje temporal de ciertos puntos claves, para detectar el movimiento de elementos. Existen operadores para este 
+    objetivo, pero no se adaptan bien a cambios demasiado rápidos.
+    \item \textbf{Detección de patrones de movimiento}: uno de los pocos sistemas que se basa en entrenar un clasificador capaz de detectar patrones de movimiento, sin embargo son herramientas muy complejas 
+    de implementación y tienen un alto coste computacional, ya que normalmente realizan las tres tareas: detección, clasificación y segmentación.
+\end{itemize}
+
+La mayoría de herramientas desarrolladas en este campo tienen necesidades muy específicas y no se adaptan bien a cambios demasiado bruscos, la única que puede manejarlos es una herramienta como el análisis de flujo óptico. 
+Esto es debido a que se puede usar para analizar cambios entre todos los píxeles de las imágenes.
 
 \subsubsection{Definición y uso del análisis de flujo óptico}
 
-\subsubsection{Uso en acuicultura}
+El análisis de flujo óptico o \textit{OpticalFlow} apareció por primera vez en 1981\cite{hornDeterminingOpticalFlow1981} y se basa en asumir:
 
-\subsubsection{Problemas asociados}
+\begin{enumerate}
+    \item El brillo observado en un punto del objeto es constante en el eje temporal
+    \item Puntos cercanos se mueven de la misma manera
+\end{enumerate}
 
-\subsection{Entornos de desarrollo, sistemas de despliegue y \textit{Hardware} transparente}
+El problema es que en las imágenes reales las reglas sobre el brillo y la suavidez del cambio es habitual que no sean respetadas. Esto puede ser por diversos motivos como poco \textit{framerate} o movimientos 
+muy cercanos a la cámara que generen cambios bruscos en los pixeles.
+
+Es una técnica que se usa mucho en las carreteras, por la existencia de entornos muy estáticos. Se puede ver un ejemplo de su aplicación en la \autoref{fig:OpticalFlowEjemplo}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/4/OpticalFlow.png}
+    \caption{Análisis del flujo óptico entre 2 fotogramas de una escena\cite{schusterCombiningStereoDisparity2018}}
+    \label{fig:OpticalFlowEjemplo}
+\end{figure}
+
+Actualmente, existen tres algoritmos principales para calcular el flujo óptico de una escena:
+
+\begin{itemize}
+    \item Método Horn-Schunck: devuelve una estimación global.
+    \item Método de Lucas-Kanade: asume que el flujo va a ser constante en los vecinos, y con esto, realiza una serie de estimaciones locales.
+    \item Método combinado local-global: calcula el flujo óptico en zonas rectangulares de la imagen.
+\end{itemize}
+
+\subsubsection{Uso del OpticalFlow en acuicultura}
+
+El análisis de flujo óptico se ha usado en acuicultura de forma diversa:
+
+\begin{itemize}
+    \item Analizar comportamientos de grupo, por ejemplo, para determinar la actividad de un conjunto de peces de forma global\cite{kobayashiAquaColonyFully2023}.
+    \item Realizar una detección, conteo y seguimiento de peces en un tanque en la India, mezclando YOLOv5 con OpticalFlow\cite{paiComputerVisionBased2022}. Este método dió buenos resultados porque 
+    la distancia del pez a la cámara era lo suficientemente grande como para que no hubiese movimientos demasiado grandes como se puede ver en .
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/4/OpticalFlowIndia.png}
+    \caption{Datos obtenidos por OpticalFlow respetando las reglas de distancia sobre peces\cite{paiComputerVisionBased2022}}
+\end{figure}
+\clearpage
+
+
+\subsection{Entornos de desarrollo y despliegue en \textit{HardWare} transparente}
+
+\begin{itemize}
+    \item \textbf{Entornos de desarrollo de Redes Neuronales}: Para trabajar en la creación de redes neuronales, se usan principalmente dos librerías: pytorch y Keras. Siendo una de las principales 
+    diferencias bla bla bla. En el caso de YOLO, \todo{Metemos su historia}, por lo tanto no es necesario saber de las anteriores herramientas mencionadas.
+    \item \textbf{Entornos para uso de análisis de flujo óptico}: En la mayoría de lenguajes existen librerías que implementan los algoritmos de análisis de flujo óptico, pero, al ser herramientas de 
+    caracterización de imagen, existen muchas facilidades en entornos matemáticos como MATLAB o de procesado de datos como el lenguaje de programación Python, mas concretamente la libreria de \textit{OpenCV}.
+    
+    \item \textbf{Despliegue de redes transparentes al \textit{HardWare}}
+\end{itemize}
