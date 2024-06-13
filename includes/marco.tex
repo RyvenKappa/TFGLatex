@@ -198,11 +198,11 @@ La fase de caracterización se compone principalmente de capas neuronales convol
 
 La fase de clasificación habitualmente usa una red neuronal profunda conectada completamente entre capas como se ha podido ver en la anterior sección, similar a la idea de una \textit{\acrshort{mlp}}. Esta 
 red toma como entrada un vector aplanado final de la parte de extracción de características y realiza la clasificación.
+\clearpage
 
-\subsubsection{Redes neuronales para acuicultura}
 
-El uso de una red neuronal para solucionar un problema está asociado al tipo de trabajo a realizar. Cuando se define un problema en el que se va a aplicar esta técnica, normalmente cae en tres tipos de 
-categorías(ver \autoref{fig:tareasCNN}). Además, esta selección tiene unas implicaciones en la complejidad computacional de la tarea, ya que la capa de clasificación debe ser cambiada para soportarla.
+El uso de estas redes neuronales convolucionales para solucionar un problema está asociado al tipo de trabajo a realizar. Cuando se define un problema en el que se va a aplicar esta técnica, normalmente 
+cae en tres tipos de categorías(ver \autoref{fig:tareasCNN}). Además, esta selección tiene unas implicaciones en la complejidad computacional de la tarea, ya que la capa de clasificación debe ser cambiada para soportarla.
 
 \begin{itemize}
     \item Clasificación: las imágenes son marcadas dependiendo de si existe (binario) un elemento dentro de ella.
@@ -218,7 +218,7 @@ categorías(ver \autoref{fig:tareasCNN}). Además, esta selección tiene unas im
 \end{figure}
 
 La evolución de las \textit{\acrshort{cnn}} ha sido exponencial y han aparecido arquitecturas que han ido añadiendo mejoras de eficiencia, calidad de resultados y estándares a la hora de crear nuevos 
-sistemas:
+sistemas. Algunos ejemplos de esto son:
 \begin{itemize}
     \item R-CNN (Region-CNN)(2014): introdujo el análisis solo en regiones con datos interesantes.
     \item Fast R-CNN (2015): mejora R-CNN introduciendo búsqueda selectiva, definiendo un número máximo de \acrfullr{roi} a tratar.
@@ -226,14 +226,14 @@ sistemas:
     \item YOLO (You Only Look Once)\cite{redmonYouOnlyLook2016}: arquitectura extremadamente rápida perteneciente al estado del arte moderno en redes neuronales, que ha ido mejorandose en forma de versiones.
 \end{itemize}
 
-Cada arquitectura ha traído consigo mejoras y a veces, a cambio de perdida de rendimiento. Esto es un problema que debe tenerse en cuenta y existen diversos trabajos\cite{hanAdvancedDeepLearningTechniques2018}\cite{manojkumarPerformanceComparisonReal2023}\cite{bhagyaOverviewDeepLearning2019} 
-que tratan simplemente las diferencias existentes entre diferentes arquitecturas.\newline
+Cada arquitectura ha traído consigo mejoras y a veces, a cambio de perdida de rendimiento. Esto es un problema que debe tenerse en cuenta y existen diversos trabajos que tratan simplemente las diferencias 
+existentes entre diferentes arquitecturas.\newline
 Uno de estos trabajos\cite{hanAdvancedDeepLearningTechniques2018} compara diferentes arquitecturas contra el conjunto de datos de la universidad de Oxford "Pascal2012"\cite{PASCALVisualObject}, que contiene 20 clases de objetos.\newline
 Como resultado de este análisis; resumido en la \autoref{ResumenCNN}, se puede observar que YOLOv2, aún no siendo el mejor, tiene un rendimiento bastante competente. Si nos quedásemos con solo este dato, podriamos pensar que YOLO 
 no tiene porque ser la mejor elección, pero hay que tener en cuenta el factor de rendimiento, que se mide principalmente en el tiempo que se tarda en realizar la inferencia en una imagen. En este caso, podemos observar 
-que YOLOv2 es capaz de superar a SSD512 obteniendo un mejor \acrfullr{map}(parámetro de caracterización del error medio generalizado sobre todo el dataset) con el doble de rendimiento.
+que YOLOv2 es capaz de superar a SSD512 obteniendo un mejor \acrfullr{map}(parámetro de caracterización del error medio típico sobre todo el dataset) con el doble de rendimiento.
 
-\begin{table}[h]
+\begin{table}[H]
     \begin{center} {\footnotesize
     \begin{tabular}{lcccc}
     \hline
@@ -243,7 +243,7 @@ que YOLOv2 es capaz de superar a SSD512 obteniendo un mejor \acrfullr{map}(pará
     \raisebox{0ex}{SSD300} & 80.1 & 70.5 & 81.9 & 72.4\\[0ex]
     \raisebox{0ex}{SSD512} & 82.3 & 75.8 & 86.3 & 74.9\\[0ex]
     \raisebox{0ex}{YOLO} & 67.2 & 57.7 & 73.9 & 57.9\\[0ex]
-    \raisebox{0ex}{YOLOv2 $544x544$} & 82.0 & 74.8 & 83.8 & 73.4\\[0ex]
+    \raisebox{0ex}{YOLOv2 $544\cdot544$} & 82.0 & 74.8 & 83.8 & 73.4\\[0ex]
     \hline
     \end{tabular} }
     \end{center}
@@ -251,7 +251,7 @@ que YOLOv2 es capaz de superar a SSD512 obteniendo un mejor \acrfullr{map}(pará
     \label{ResumenCNN}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[H]
     \begin{center} {\footnotesize
     \begin{tabular}{lcc}
     \hline
@@ -261,7 +261,7 @@ que YOLOv2 es capaz de superar a SSD512 obteniendo un mejor \acrfullr{map}(pará
     \raisebox{0ex}{SSD300} & 74.3 & 46\\[0ex]
     \raisebox{0ex}{SSD512} & 76.8 & 19\\[0ex]
     \raisebox{0ex}{YOLO} & 63.4 & 45\\[0ex]
-    \raisebox{0ex}{YOLOv2 $544x544$} & 78.6 & 40\\[0ex]
+    \raisebox{0ex}{YOLOv2 $544\cdot544$} & 78.6 & 40\\[0ex]
     \hline
     \end{tabular} }
     \end{center}
@@ -269,8 +269,18 @@ que YOLOv2 es capaz de superar a SSD512 obteniendo un mejor \acrfullr{map}(pará
     \label{ResumenCNNFPS}
 \end{table}
 
-Estos resultados comparativos, a diferencias de otros artículos, sirven como marco por el uso de reglas tales como la comparación bajo mismo dataset e indicar tamaño de imagen de entrada a la red neuronal.
+Estos resultados comparativos, a diferencias de otros artículos\cite{manojkumarPerformanceComparisonReal2023}, son útiles, ya que utilizan reglas tales como la comparación bajo mismo conjunto de datos e 
+indicar tamaño de imagen de entrada a la red neuronal. Esto permite realizar una comparación lo más realista y cercana posible a lo esperable.
 
+Podemos observar además, que YOLOv2 tiene ciertos problemas al tratar con objetos pequeños. Algunos estudios\cite{bhagyaOverviewDeepLearning2019} ya han observado que es un problema bastante típico de YOLO y es una de las situaciones en las que 
+peor funciona.
+
+
+\subsubsection{Uso de redes neuronales en acuicultura}
+
+La acuicultura es un trabajo que engloba desde la producción de algas hasta la crianza de marisco en cautiverio. Además, dentro de cada rama podemos tener especies que sean similares o parecidas.
+
+En la literatura de este ámbito se lleva implementando tecnologías basadas en aprendizaje automático mucho tiempo
 
 
 
