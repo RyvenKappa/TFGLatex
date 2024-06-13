@@ -227,7 +227,8 @@ sistemas. Algunos ejemplos de esto son:
 \end{itemize}
 
 Cada arquitectura ha traído consigo mejoras y a veces, a cambio de perdida de rendimiento. Esto es un problema que debe tenerse en cuenta y existen diversos trabajos que tratan simplemente las diferencias 
-existentes entre diferentes arquitecturas.\newline
+existentes entre diferentes arquitecturas.
+
 Uno de estos trabajos\cite{hanAdvancedDeepLearningTechniques2018} compara diferentes arquitecturas contra el conjunto de datos de la universidad de Oxford "Pascal2012"\cite{PASCALVisualObject}, que contiene 20 clases de objetos.\newline
 Como resultado de este análisis; resumido en la \autoref{ResumenCNN}, se puede observar que YOLOv2, aún no siendo el mejor, tiene un rendimiento bastante competente. Si nos quedásemos con solo este dato, podriamos pensar que YOLO 
 no tiene porque ser la mejor elección, pero hay que tener en cuenta el factor de rendimiento, que se mide principalmente en el tiempo que se tarda en realizar la inferencia en una imagen. En este caso, podemos observar 
@@ -273,8 +274,20 @@ Estos resultados comparativos, a diferencias de otros artículos\cite{manojkumar
 indicar tamaño de imagen de entrada a la red neuronal. Esto permite realizar una comparación lo más realista y cercana posible a lo esperable.
 
 Podemos observar además, que YOLOv2 tiene ciertos problemas al tratar con objetos pequeños. Algunos estudios\cite{bhagyaOverviewDeepLearning2019} ya han observado que es un problema bastante típico de YOLO y es una de las situaciones en las que 
-peor funciona.
+peor funciona.\newline
+Estos problemas de YOLO han ido solucionándose con el tiempo, a través de la mejora y el aumento de rendimiento y puntuación \acrshort{map}. Esto se puede ver en la \autoref{fig:YOLOVersiones}, donde se 
+comparan diferentes versiones posteriores a la versión 5 en el conjunto de datos COCO.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/4/YOLOVersiones.png}
+    \caption{Rendimiento de diferentes versiones de YOLO superiores a la 5 en el conjunto de datos COCO\cite{ultralyticsYOLOv8}}
+    \label{fig:YOLOVersiones}
+\end{figure}
+
+Esto ha convertido a YOLO en un estándar de facto en la implementación rápida de soluciones basadas en \textit{Deep Learning} para muchos investigadores por sus resultados basados en obtener detección en tiempo real.
+
+\clearpage
 
 \subsubsection{Uso de redes neuronales en acuicultura}
 
