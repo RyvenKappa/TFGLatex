@@ -377,13 +377,32 @@ El análisis de flujo óptico se ha usado en acuicultura de forma diversa:
 \clearpage
 
 
-\subsection{Entornos de desarrollo y despliegue en \textit{HardWare} transparente}
+\subsection{Herramientas de desarrollo y despliegue en HardWare transparente}
 
 \begin{itemize}
-    \item \textbf{Entornos de desarrollo de Redes Neuronales}: Para trabajar en la creación de redes neuronales, se usan principalmente dos librerías: pytorch y Keras. Siendo una de las principales 
-    diferencias bla bla bla. En el caso de YOLO, \todo{Metemos su historia}, por lo tanto no es necesario saber de las anteriores herramientas mencionadas.
-    \item \textbf{Entornos para uso de análisis de flujo óptico}: En la mayoría de lenguajes existen librerías que implementan los algoritmos de análisis de flujo óptico, pero, al ser herramientas de 
-    caracterización de imagen, existen muchas facilidades en entornos matemáticos como MATLAB o de procesado de datos como el lenguaje de programación Python, mas concretamente la libreria de \textit{OpenCV}.
+    \item \textbf{Librerías de desarrollo para Redes Neuronales}: Para trabajar en la creación de redes neuronales, se usan principalmente dos librerías: \texttt{Keras}, \texttt{PyTorch}.
+    \texttt{Keras} es una librería de alto nivel, mientras que \texttt{PyTorch} es de bajo nivel y tiene mejores herramientas de \textit{debugging} y de control del rendimiento de la red creada. 
+    Aparte de esto, \texttt{PyTorch} esta pensada para su uso directamente en \texttt{Python} y soporta entrenamiento en sistemas distribuidos.
+
+
+    En el caso de YOLO, la empresa \texttt{Ultralytics} retomó el proyecto y creo las versiones a partir de YOLOv5. El objetivo de esto ha sido crear una librería para 
+    que el usuario no tenga que interactuar con las librerías de bajo nivel. Esto nos permite entrenar, validar y desplegar modelos a través de modelos base.
+    \item \textbf{Transfer Learning y Fine Tunning}: Entrenar una red neuronal desde 0 es demasiado complejo, por ejemplo, una red YOLOv8s tiene \texttt{11.2} millones de pesos que 
+    deben ser configurados. Estos pesos son contabilizando las capas convolucionales y la capa de clasificación.\newline
+    Pero lo habitual es obtener un modelo ya entrenado, cuyas capas convolucionales sean capaces de extraer características típicas de cualquier imagen y, solo entrenar la parte de clasificación. 
+    Esto reduce mucho el coste computacional de entrenamiento y por lo tanto, el tiempo requerido para llegar al objetivo deseado con la red. Esta técnica se conoce como \texttt{Transfer Learning} 
+    y se puede ver en la \autoref{fig:TransferLearning}.
     
-    \item \textbf{Despliegue de redes transparentes al \textit{HardWare}}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\textwidth]{images/4/TransferLearning.png}
+        \caption{Uso de parámetros realizando \texttt{Transfer Learning}\cite{doBasicsDeepLearning2020}}
+        \label{fig:TransferLearning}
+    \end{figure}
+
+    Posteriormente, cuando se alcanza el rendimiento esperado, se pueden desbloquear los pesos de las capas de convolución y hacer entrenamiento de toda la red. Esta fase se llama \texttt{Fine Tunning}.
+    \item \textbf{Herramientas comunes para el análisis de flujo óptico}: En la mayoría de lenguajes existen librerías que implementan los algoritmos de análisis de flujo óptico, pero, al ser herramientas de 
+    caracterización de imagen, existen muchas facilidades en entornos matemáticos como MATLAB o de procesado de datos como el lenguaje de programación Python, más concretamente la librería de \textit{OpenCV}.
+    
+    \item \textbf{Abstracción de la red neuronal al \texttt{HardWare}}
 \end{itemize}
