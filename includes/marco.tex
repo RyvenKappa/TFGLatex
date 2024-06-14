@@ -388,21 +388,50 @@ El análisis de flujo óptico se ha usado en acuicultura de forma diversa:
     En el caso de YOLO, la empresa \texttt{Ultralytics} retomó el proyecto y creo las versiones a partir de YOLOv5. El objetivo de esto ha sido crear una librería para 
     que el usuario no tenga que interactuar con las librerías de bajo nivel. Esto nos permite entrenar, validar y desplegar modelos a través de modelos base.
     \item \textbf{Transfer Learning y Fine Tunning}: Entrenar una red neuronal desde 0 es demasiado complejo, por ejemplo, una red YOLOv8s tiene \texttt{11.2} millones de pesos que 
-    deben ser configurados. Estos pesos son contabilizando las capas convolucionales y la capa de clasificación.\newline
+    deben ser entrenados y ajustados. Estos pesos son contabilizando las capas convolucionales y la capa de clasificación.\newline
     Pero lo habitual es obtener un modelo ya entrenado, cuyas capas convolucionales sean capaces de extraer características típicas de cualquier imagen y, solo entrenar la parte de clasificación. 
     Esto reduce mucho el coste computacional de entrenamiento y por lo tanto, el tiempo requerido para llegar al objetivo deseado con la red. Esta técnica se conoce como \texttt{Transfer Learning} 
     y se puede ver en la \autoref{fig:TransferLearning}.
     
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.75\textwidth]{images/4/TransferLearning.png}
+        \includegraphics[width=0.65\textwidth]{images/4/TransferLearning.png}
         \caption{Uso de parámetros realizando \texttt{Transfer Learning}\cite{doBasicsDeepLearning2020}}
         \label{fig:TransferLearning}
     \end{figure}
 
-    Posteriormente, cuando se alcanza el rendimiento esperado, se pueden desbloquear los pesos de las capas de convolución y hacer entrenamiento de toda la red. Esta fase se llama \texttt{Fine Tunning}.
+    Posteriormente, cuando se alcanza el rendimiento esperado, se pueden desbloquear los pesos de las capas de convolución y hacer entrenamiento de toda la red. Esta fase se llama \texttt{Fine Tunning}. 
+    Su objetivo es ajustar la capa de convolución también para solo analizar las características de la imagen más relevantes para la tarea.
     \item \textbf{Herramientas comunes para el análisis de flujo óptico}: En la mayoría de lenguajes existen librerías que implementan los algoritmos de análisis de flujo óptico, pero, al ser herramientas de 
-    caracterización de imagen, existen muchas facilidades en entornos matemáticos como MATLAB o de procesado de datos como el lenguaje de programación Python, más concretamente la librería de \textit{OpenCV}.
+    caracterización de imagen, existen muchas facilidades en entornos matemáticos como MATLAB o de procesado de datos como el lenguaje de programación \texttt{Python}, más concretamente la librería de \textit{OpenCV}.
     
-    \item \textbf{Abstracción de la red neuronal al \texttt{HardWare}}
+    \clearpage
+    
+    \item \textbf{Abstracción de la red neuronal al \texttt{HardWare}}: A la hora de desplegar una red neuronal, se debe diseñar una estrategia para 
+    poder aprovechar todos los recursos del sistema que va a ejecutar la red. Esto es debido a que una red neuronal se aprovecha de la computación en paralelo, ya que principalmente 
+    resuelve problemas y multiplicaciones con \texttt{tensores}.
+
+    En este sentido, los despliegues más eficientes son los que son capaces de aprovechar elementos como las \texttt{\acrfullr{gpu}}, que se centran en este tipo de operaciones. Al contrario 
+    que una \texttt{\acrfullr{cpu}}, la \texttt{GPU} cuenta con más núcleos de cómputo de menor potencia como se puede ver en la \autoref{fig:GPUCPU}.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\textwidth]{images/4/GPUCores.jpg}
+        \caption{Diferencia de cantidad de núcleos en una \texttt{CPU} y una \texttt{GPU}\cite{GPUVsCPU}}
+        \label{fig:GPUCPU}
+    \end{figure}
+
+    En este sentido, según la plataforma de desarrollo de red neuronal que se utilice, el despliegue podrá aprovechar la gráfica dependiendo de factores como:
+    
+    \begin{itemize}
+        \item Marca: \texttt{NVidia}, \texttt{AMD} o \texttt{Intel}.
+        \item Generación del \texttt{HardWare}.
+        \item Sistema Operativo en el que se despliega el sistema.
+    \end{itemize}
+
+    Por ejemplo, una red neuronal desarrollada en PyTorch solo soporta gráficas de \texttt{AMD} si el sistema operativo es \texttt{Linux}. Es por este motivo 
+    que han surgido librerías abiertas que permiten el uso de una aceleración por \texttt{HardWare} común a muchos más dispositivos. Ejemplo de esto son los modelos 
+    desarrollados en el entorno \texttt{ONNX}.
+    De hecho, algunas empresas como \texttt{Intel} desarrollan sus propias librerías de herramientas para permitir compatibilidad con sus sistemas de aceleración. Estas librerías 
+    suelen contener además, herramientas de transformación entre modelos para aportar más transparencia al usuario final y evitar problemas de compatibilidad.
 \end{itemize}
