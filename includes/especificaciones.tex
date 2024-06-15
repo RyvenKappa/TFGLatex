@@ -1,28 +1,55 @@
 \section{REQUISITOS Y RESTRICCIONES DE DISEÑO}
 
 Como proyecto de ingeniería, el análisis previo de requisitos y restricciones del sistema se ha realizado para modelar el comportamiento esperado 
-resultante del desarrollo de la solución propuesta. \newline
-Dentro del análisis de requisitos, se han diferenciado entre funcionales(definiciones del alto nivel) y no funcionales(definiciones técnicas y de bajo nivel).
+resultante del desarrollo de la solución propuesta
+
+Dentro del análisis de requisitos, se han diferenciado entre funcionales(definiciones del comportamiento del sistema) y no funcionales(definiciones de atributos de control de calidad).
 
 \subsection{Análisis de requisitos}
 \begin{table}[H]
     \begin{center}
         \begin{tabular}{p{0.1\textwidth} | p{0.7\textwidth} p{0.1\textwidth}}
-            Req. ID & Descripción de requisito no funcional & Prioridad\\
+            Req. ID & Descripción de requisito funcional & Prioridad\\
             \hline
-            0& Descripción 0\newline prueba de meter mas texto en mas lineas & Alta\\
+            0& Los cálculos automáticos deben ser transparentes a los conocimientos del usuario & Alta\\
             \hline
-            1& Descripción 1 & Alta\\
+            1& El usuario deberá poder seleccionar el nivel de agresividad del sistema & Media\\
             \hline
-            2& Descripción 2 & Alta\\
+            2& Se deberá llevar un registro por usuario de las predicciones anteriores & Baja\\
             \hline
-            3& Descripción 3 & Alta\\
+            3& El usuario debe poder cambiar de usuario & Baja\\
             \hline
-            4& Descripción 4 & Alta\\
+            3& El usuario debe poder ver cuáles usuarios existen & Baja\\
             \hline
-            5& Descripción 5 & Alta\\
+            4& La inferencia debe hacerse posterior a la selección y confirmación del video & Alta\\
             \hline
-            6& Descripción 6 & Alta\\
+            5& El usuario deberá poder seleccionar diferentes formatos de video sobre los que inferir de forma transparente & Alta\\
+            \hline
+            6& Si ocurre un error en la selección de fichero, se informará por un pop-up & Alta\\
+            \hline
+            7& La inferencia se realizará de forma transparente al usuario en una pantalla de carga & Alta\\
+            \hline
+            8& La inferencia se podrá cancelar para evitar perdidas de tiempo & Media\\
+            \hline
+            9& En la pantalla de carga se informará de cuanto queda para acabar la inferencia & Alta\\
+            \hline
+            10& Si ocurre un error en la inferencia se deberá informar con un pop-up y volver a la pantalla inicial & Alta\\
+            \hline
+            11& Se deberá hacer la inferencia en paralelo para no colgar la aplicación & Alta\\
+            \hline
+            12& Si se completa la inferencia, deberá pasarse a la pantalla de resultados & Alta\\
+            \hline
+            13& En la pantalla de resultados el usuario deberá poder elegir guardarlos en csv y excel & Alta\\
+            \hline
+            14& En la pantalla de resultados el usuario debe poder verificar los resultados obtenidos & Alta\\
+            \hline
+            15& En la pantalla de resultados el usuario debe poder añadir o eliminar movimientos de los resultados obtenidos & Media\\
+            \hline
+            16& En la pantalla de resultados el usuario debe poder volver a la pantalla inicial & Media\\
+            \hline
+            17& En la pantalla de resultados el usuario puede elegir guardar estos resultados en su perfil (sin guardar el video, solo el registro de movimientos y el nombre del video) & Bajo\\
+            \hline
+            18& Si el usuario guarda un resultado por primera vez, ese nuevo usuario se quedará registrado en la aplicación  & Bajo\\
             \hline
         \end{tabular} 
     \end{center}
