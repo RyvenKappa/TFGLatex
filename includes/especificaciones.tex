@@ -82,13 +82,17 @@ Dentro del análisis de requisitos, se han diferenciado entre funcionales(defini
             \hline
             28& Se utilizará una librería para la interfaz de usuario que permita el renderizado sobre OpenGL o similares para descargar la \texttt{\acrshort{cpu}} & Alta\\
             \hline
+            29& La capa de inferencia debe dar unos resultados transparentes independientemente del modelo utilizado & Baja\\
+            \hline
+            30& El modelo debe poder cambiar en tamaño para ajustarse a diferentes requerimientos en un futuro & Media\\
+            \hline
+            31& El fichero de datos de usuario debe poder ser portátil para que el ejecutable lo detecte y cargue los datos de usuario si existen & Baja\\
+            \hline
         \end{tabular} 
     \end{center}
     \caption{Análisis de requisitos no funcionales}
     \label{ReqNoFuncionales}
 \end{table}
-
-\clearpage
 
 \subsection{Análisis de restricciones}
 
@@ -97,19 +101,15 @@ Dentro del análisis de requisitos, se han diferenciado entre funcionales(defini
         \begin{tabular}{p{0.1\textwidth} | p{0.8\textwidth}}
             Rest. ID & Descripción de restricción\\
             \hline
-            0& Descripción 0\newline prueba de meter mas texto en mas lineas\\
+            0& La aplicación debe poder correr en un ordenador con \texttt{Windows}\\
             \hline
-            1& Descripción 1\\
+            1& La aplicación se implementará usando el lenguaje de programación \texttt{Python}\\
             \hline
-            2& Descripción 2\\
+            2& Se usará en la medida de lo posible, librerías y herramientas de código abierto y/o gratis\\
             \hline
-            3& Descripción 3\\
+            3& La aplicación se desarrollará usando \texttt{Git} para realizar un control de versiones\\
             \hline
-            4& Descripción 4\\
-            \hline
-            5& Descripción 5\\
-            \hline
-            6& Descripción 6\\
+            4& Los datos de la aplicación que aporten persistencia se guardarán en claro, no tienen un riesgo de seguridad\\%TODO pedro truco
             \hline
         \end{tabular} 
     \end{center}
