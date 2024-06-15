@@ -1,7 +1,7 @@
 \section{DESCRIPCIÓN DE LOS DATOS}
 
 Como se ha comentado anteriormente, la búsqueda por mejorar las condiciones animales en los procesos de crianza ha fomentado la investigación en 
-diferentes marcadores biológicos.
+diferentes marcadores biológicos relacionados con el estrés.
 
 El \acrfullr{pran}\cite{ObservatorioUPM}, perteneciente a la \acrfullr{ETSIAAB}, realiza investigaciones en estas líneas, siendo una principal el bienestar animal en peces, 
 usando experimentos como el \textit{NetTest}.
@@ -18,16 +18,17 @@ movimientos de los peces.
 
 \subsection{Conjunto de datos disponibles: videos}
 
-Los videos se pueden separar en 2 subconjuntos dependiendo del momento en el que se realizó la grabación, lo cual se ve reflejado en la calidad de la grabación.
+Los videos se pueden separar en 2 subconjuntos dependiendo del momento en el que se realizó la grabación, lo cual se ve reflejado en la calidad de la misma y la facilidad para identificar el movimiento 
+del pez a lo largo de los fotogramas.
 
 \subsubsection{Videos antiguos}
 
-Para este tipo de videos se cuenta en total de un conjunto de 6 videos completos de un experimento \textit{NetTest} sobre todos los peces de un grupo, pero no se tiene mas información relevante sobre 
+Para este tipo de videos se cuenta en total con un conjunto de 6 videos completos de un experimento \textit{NetTest} sobre todos los peces de un grupo, pero no se tiene más información relevante sobre 
 los especímenes que aparecen en los videos.
 
 Se tratan de videos en formato \texttt{16:9}, con resolución \texttt{1920x1080}, con la cámara posicionada fija verticalmente encima de una mesa donde se lleva a cabo el experimento. Esto se puede ver 
 en la \autoref{fig:ExperimentoAntiguo}. En este caso, el experimento se lleva a cabo con redes negras, lo cual puede ser problemático teniendo en cuenta que los peces tienen 
-tonalidades similares al marrón y grises.
+tonalidades similares al marrón y gris.
 
 \begin{figure}[h]
     \centering
@@ -37,7 +38,7 @@ tonalidades similares al marrón y grises.
 \end{figure}
 
 Las especificaciones de la cámara en el momento de grabación son desconocidas, pero a través de los detalles de los archivos se observa que son archivos con extensión 
-\textit{\acrfullr{mts}}, grabados a 25 \acrshort{fps} y con un bitrate (tasa de datos por segundo) de \texttt{16.96 Mbps}.
+\textit{\acrfullr{mts}}, grabados a 25 \acrshort{fps} y con una tasa de datos por segundo de \texttt{16.96 Mbps}.
 
 En estos videos, se realizan el experimento 5 veces con 2 peces a la vez para maximizar el tiempo. Por lo tanto, puede ser necesario segmentarlo manualmente.
 
@@ -45,9 +46,9 @@ Como último punto importante, en estos videos se puede observar que se realiza 
 
 \subsubsection{Videos nuevos}
 
-Este es el conjunto de datos más amplio y detallado. Cuenta en total con 4 experimentos \textit{NetTest}, en los que se realiza el experimento a 10 jaulas en total (10 peces por jaula). 
+Este es el conjunto de datos más amplio y detallado. Cuenta en total con 4 experimentos \textit{NetTest}, en los que se realiza el experimento a 10 jaulas en total (10 peces por jaula en parejas). 
 Cada jaula consta de un  video que muestra el experimento entero y luego una serie de subvideos que los investigadores de \acrshort{pran} han sacado recortando el original para eliminar 
-momentos en los que no hay ningún experimento en pantalla. Esta estructura final se puede ver en la \autoref{fig:EstrucutraNuevos}:
+momentos en los que no hay ningún experimento en pantalla. Esta estructura final se puede ver en la \autoref{fig:EstrucutraNuevos}.
 
 \begin{figure}[h]
     \centering
@@ -74,12 +75,12 @@ momentos en los que no hay ningún experimento en pantalla. Esta estructura fina
     \label{fig:EstrucutraNuevos}
 \end{figure}
 
-Se tiene en cuenta que para los videos siempre se sigue el orden \textit{\acrfullr{ltr}}, por lo tanto, para el video \verb|23_NT_R2_J2_P1_2|, el pez de la izquierda será el pez número 1 y 
+Hay que tener en cuenta que para los videos siempre se sigue el orden \textit{\acrfullr{ltr}}. Por ejemplo, para el video \verb|23_NT_R2_J2_P1_2|, el pez de la izquierda será el pez número 1 y 
 el pez de la derecha el número 2.
 
 Los videos mantienen las características de formato en \texttt{16:9}, con resolución \texttt{1920x1080} y cámara apuntando verticalmente a la mesa del experimento 
 (\autoref{fig:ExperimentoNuevo}), sin embargo, podemos ver que se ha pasado a usar una red verde que aporta cierto contraste respecto al cuerpo del pez. Aparte de esto, 
-el marco de la red también ha cambiado y tiene un color plateado.
+el marco de la red también ha cambiado y tiene un color plateado. En otros experimentos como los del \textit{NetTest}3 también se observa el uso de redes negras.
 
 \begin{figure}[H]
     \centering
@@ -91,7 +92,7 @@ el marco de la red también ha cambiado y tiene un color plateado.
 Las especificaciones de la cámara para estos videos siguen siendo desconocidas, pero se puede asumir que los parámetros han cambiado por el aumento de la luminosidad de la imagen.
 Además, se ha movido un poco la colocación de la mesa y la línea negra queda justo en el medio entre las dos truchas con las que se realiza el experimento.
 
-Respecto a datos técnicos del video, el contenedor ha cambiado a \textit{\acrfullr{mov}}, se mantienen los 25 \acrshort{fps} y el bitrate aumenta hasta los \texttt{21 Mbps}.
+Respecto a datos técnicos del video, el contenedor ha cambiado a \textit{\acrfullr{mov}}, se mantienen los 25 \acrshort{fps} y la tasa de datos aumenta hasta los \texttt{21 Mbps}.
 
 Los videos obtenidos en este caso también contienen videos de experimentos en grupo, es decir, varios experimentos a varias parejas de truchas. Sin embargo, a diferencia de los videos antiguos, 
 en este caso los experimentos \textit{NetTest} duran 15 segundos aproximadamente.
@@ -103,23 +104,23 @@ contar los movimientos de los videos más antiguos.
 
 \subsubsection{Videos nuevos}
 
-Existen dos archivos Excel, el primero de ellos contiene toda la información sobre los experimentos:
+Existen dos archivos \texttt{Excel}, el primero de ellos contiene toda la información sobre los experimentos:
 \begin{itemize}
     \item Chip de cada individuo del experimento por grupo, pez y \textit{NetTest}.
     \item Pez de cada grupo y \textit{NetTest}.
-    \item Todos los \textit{frames} en los que cada pez ha realizado un movimiento, tomando como referencia el frame 0 del video no recortado.
+    \item Todos los fotogramas en los que cada pez ha realizado un movimiento, tomando como referencia el fotograma 0 del video no recortado.
     \item Momento en el tiempo del video en el que sucede cada movimiento, tomando como referencia el tiempo del video no recortado.
 \end{itemize}
 
-De todos los datos, los útiles van a ser los referentes a los movimientos, que se pueden ver en la \autoref{fig:Excel1}.
+De todos los datos, los útiles van a ser los referentes a los movimientos, que se pueden ver en la \autoref{fig:Excel1}. Esto se debe a que los datos sobre el chip no nos aportan información.
 
 \begin{figure}[H]
     \centering
     \fbox{\includegraphics[width=0.7\textwidth]{images/3/Excel1.png}}
-    \caption{Columnas del Excel con los datos de \textit{frames} en los que sucede un movimiento}
+    \caption{Columnas del \texttt{Excel} con los datos de los fotogramas en los que sucede un movimiento}
     \label{fig:Excel1}
 \end{figure}
-El segundo archivo Excel nos proporciona información ya procesada por los investigadores del \acrshort{pran}, en los cuales aparecen 
+El segundo archivo \texttt{Excel} nos proporciona información ya procesada por los investigadores del \acrshort{pran}, en los cuales aparecen 
 los movimientos finales totales para cada pez según grupo y número de experimento \textit{NetTest}. Un ejemplo de una sección del archivo se 
 puede ver en la \autoref{fig:Excel2}.
 
