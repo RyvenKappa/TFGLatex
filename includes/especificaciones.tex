@@ -11,7 +11,7 @@ Dentro del análisis de requisitos, se han diferenciado entre funcionales(defini
         \begin{tabular}{p{0.1\textwidth} | p{0.7\textwidth} p{0.1\textwidth}}
             Req. ID & Descripción de requisito funcional & Prioridad\\
             \hline
-            0& Los cálculos automáticos deben ser transparentes a los conocimientos del usuario & Alta\\
+            0& Los cálculos automáticos deben ser transparentes a los conocimientos de los usuarios & Alta\\
             \hline
             1& El usuario deberá poder seleccionar el nivel de agresividad del sistema & Media\\
             \hline
@@ -47,9 +47,11 @@ Dentro del análisis de requisitos, se han diferenciado entre funcionales(defini
             \hline
             16& En la pantalla de resultados el usuario debe poder volver a la pantalla inicial & Media\\
             \hline
-            17& En la pantalla de resultados el usuario puede elegir guardar estos resultados en su perfil (sin guardar el video, solo el registro de movimientos y el nombre del video) & Bajo\\
+            17& En la pantalla de resultados el usuario puede elegir guardar estos resultados en su perfil (sin guardar el video, solo el registro de movimientos y el nombre del video) & Baja\\
             \hline
-            18& Si el usuario guarda un resultado por primera vez, ese nuevo usuario se quedará registrado en la aplicación  & Bajo\\
+            18& Si el usuario guarda un resultado por primera vez, ese nuevo usuario se quedará registrado en la aplicación  & Baja\\
+            \hline
+            19& La aplicación debe tener incorporado en el menu un botón para abrir un manual  & Media\\
             \hline
         \end{tabular} 
     \end{center}
@@ -62,19 +64,23 @@ Dentro del análisis de requisitos, se han diferenciado entre funcionales(defini
         \begin{tabular}{p{0.1\textwidth} | p{0.7\textwidth} p{0.1\textwidth}}
             Req. ID & Descripción de requisito no funcional & Prioridad\\
             \hline
-            0& Descripción 0\newline prueba de meter mas texto en mas lineas & Alta\\
+            0& El sistema automático deberá permitir a los científicos realizar su tarea en menos tiempo que manualmente & Alta\\
             \hline
-            1& Descripción 1 & Alta\\
+            1& El sistema debe poder ser manejado por cualquier usuario que sepa realizar tareas de ofimática & Alta\\
             \hline
-            2& Descripción 2 & Alta\\
+            2& El sistema debe poder compilarse en un ejecutable para que el usuario no necesite manejar dependencias  & Alta\\
             \hline
-            3& Descripción 3 & Alta\\
+            3& Los errores no deben bloquear la aplicación, deben ser manejados y controlados correctamente en lo posible & Media\\
             \hline
-            4& Descripción 4 & Alta\\
+            4& Las entradas de datos si fuesen necesarias se harán de forma simple para el usuario, ya sea a través de darle a botones o usar el ratón & Media\\
             \hline
-            5& Descripción 5 & Alta\\
+            5& El sistema debe aprovechar al máximo los recursos \texttt{HardWare} a ser posible, seleccionando el mejor modelo para el ordenador en el que se lanza la aplicación & Alta\\
             \hline
-            6& Descripción 6 & Alta\\
+            6& La comunicación entre procesos debe manejar problemas de concurrencia & Alta\\
+            \hline
+            7& La inferencia se realizará fotograma por fotograma para limitar el uso de memoria RAM del sistema al mínimo necesario & Alta\\
+            \hline
+            8& Se utilizará una librería para la interfaz de usuario que permita el renderizado sobre OpenGL o similares para descargar la \texttt{\acrshort{cpu}} & Alta\\
             \hline
         \end{tabular} 
     \end{center}
