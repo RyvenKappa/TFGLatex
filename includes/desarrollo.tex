@@ -43,7 +43,7 @@ Dentro de este módulo se busca automatizar la obtención de datos y parametriza
 En este sentido se plantearon dos alternativas para su desarrollo usando diferentes tecnologías:
 
 \begin{enumerate}
-    \item \textbf{Solución basada en \textit{OpticalFlow}}: La idea general de este método era caracterizar el movimiento de la trucha respecto al 
+    \item \textbf{Solución basada en \textit{OpticalFlow}}: La idea general de este método es caracterizar el movimiento de la trucha respecto al 
     fondo de la imagen.\newline
     Si tenemos en cuenta que el análisis por \texttt{OpticalFlow} nos da como resultado una serie de vectores que representan el cambio en los 
     píxeles de la imagen, cabe la posibilidad que con el suficiente preprocesado y estimación de la posición de la trucha, obtener una serie de 
@@ -118,15 +118,32 @@ En este sentido se plantearon dos alternativas para su desarrollo usando diferen
     Como se puede observar, la idea es obtener un conjunto de vectores en el contorno del pez que nos permitan 
     saber diferentes datos:
     \begin{itemize}
-        \item Si se ha movido o no: podemos saberlo a través de la suma de todos los vectores y la obtención del 
-        módulo del vector global. Si este valor es mayor que cierto umbral, podríamos indicar que esta sucediendo 
+        \item Si se ha movido o no: a través de la suma de todos los vectores y la obtención del 
+        módulo del vector global. Si este valor es mayor que cierto umbral, se podría indicar que está sucediendo 
         un movimiento entre los dos fotogramas.
-        \item Hacia donde se ha movido: a través del análisis de la dirección del vector global; y si esta ocurriendo 
+        \item Hacia donde se ha movido: a través del análisis de la dirección del vector global; y si está ocurriendo 
         un movimiento, podemos decir hacia donde está ocurriendo y aportar más información.
     \end{itemize}
 
-    \item \textbf{Solución basada en el uso de \textit{YOLO} como herramienta de análisis}:
+    \item \textbf{Solución basada en el uso de \textit{YOLO} como herramienta de análisis}: A través del uso de una \texttt{\acrshort{cnn}} 
+    se procesa el video, obteniendo información sobre los objetos detectados como truchas.\newline
+    Para realizar esto, hay que definir la tarea que realizaría la red:
+    \begin{itemize}
+        \item Clasificación: no es útil, ya que no aporta información sobre la posición de los objetos detectados en la imagen.
+        \item Segmentación: puede ser útil, pero para entrenar la red en esta tarea, los datos etiquetados deben ser segmentos de la imagen. 
+        Esto puede llevar demasiado tiempo y; como se verá más tarde, no es la única tarea que pueda aportar información para la automatización.
+        \item Detección: es la más interesante, ya que nos permite conseguir unos tiempos de procesado por imagen muy bajos a la vez que nos da datos 
+        relacionados con la posición y el tamaño aproximado de una caja rectangular que envuelva al pez.
+    \end{itemize}
+    Para realizar esto, sería necesario etiquetar datos para entrenar la red neuronal. Además de esto, sería necesario hacer una validación de 
+    los entrenamientos realizados para conseguir cumplir con las necesidades. Esto es debido a que al contrario que el \texttt{OpticalFlow}, las 
+    redes neuronales no son deterministas y dependiendo del fotograma sobre el que se realice inferencia, podemos obtener resultados alejados de 
+    los esperados.
 \end{enumerate}
+ 
+\vspace{3\baselineskip}
+
+Para decidir cuál método podía dar mejores resultados, se probaron las diferentes tecnologías aplicadas en el video \texttt{23}
 
 
 \clearpage
