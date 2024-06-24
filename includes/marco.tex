@@ -7,7 +7,7 @@ a través de sistemas de captación y procesamiento de imágenes, generar inform
 \begin{itemize}
     \item \textbf{\textit{\acrfullr{ocr}}} para realizar reconocimiento de texto en imágenes y documentos.
     \item \textbf{Detección de fallos en maquinaria} en procesos de fabricación.
-    \item \textbf{Fotogrametría} para mapear imágenes a modelos 3D.
+    \item \textbf{Fotogrametría} para mapear imágenes a modelos \texttt{3D}.
     \item \textbf{Imagen médica} para uso en operaciones a tiempo real\cite{NEMESIS3DCM}.
     \item \textbf{Detección de objetos} en imágenes o videos.
     \item \textbf{Detección de movimiento} y seguimiento de objetos en escenas.
@@ -26,10 +26,10 @@ En el caso de este trabajo, se tratan problemas de detección de objetos y anál
 años, con el auge del aprendizaje automático, se ha creado un nuevo paradigma.
 
 En los siguientes puntos se va a describir de forma breve las técnicas de aprendizaje automático, los sistemas de detección de objetos, seguimiento de cambio y los entornos de desarrollo y despliegue 
-de estas técnicas de forma transparente al \textit{Hardware} disponible así como proyectos relacionados con este trabajo.
+de estas técnicas de forma transparente al \texttt{Hardware} disponible así como proyectos relacionados con este trabajo.
 \clearpage
 
-\subsection{Aprendizaje Automático y \textit{Deep Learning}}
+\subsection{Aprendizaje Automático y \texttt{Deep Learning}}
 
 \subsubsection{Definición y tipos de tareas}
 
@@ -37,13 +37,13 @@ El campo del aprendizaje automático busca desarrollar soluciones a través de a
 generalizar las propiedades que les definen y encontrar patrones.
 
 Este aprendizaje automático se realiza sobre un conjunto de datos que aporta el usuario con el objetivo de abstraer diferentes informaciones específicas o agrupar los datos según patrones. Este aprendizaje 
-habitualmente se realiza a través de un bucle de tres fases (ver \autoref{fig:FasesAprendizaje}) en las cuales se configura el sistema para aprender, se válida el sistema resultante y se reconfiguran los parámetros para acercarse a un sistema 
+habitualmente se realiza a través de un bucle de tres fases (ver \autoref{fig:FasesAprendizaje}) en las cuales se configura el sistema para aprender, se valida el sistema resultante y se reconfiguran los parámetros para acercarse a un sistema 
 que aporte mejores resultados.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{images/4/Fases.png}
-    \caption{Bucle de fases de aprendizaje en un sistema de \textit{Machine Learning}}
+    \caption{Bucle de fases de aprendizaje en un sistema de \texttt{Machine Learning}}
     \label{fig:FasesAprendizaje}
 \end{figure}
 
@@ -72,7 +72,7 @@ trabajo y diseño de neurona sería conocido más tarde como perceptron.
 \end{figure}
 
 La estructura básica del perceptron se puede observar en la \autoref{fig:Perceptron} consiste en un nodo con un número \(\mathcal{N}\) de conexiones entrantes, con un peso asociado \(\mathcal{W}\) 
-a cada entrada. El nodo calcula el sumatorio de cada conexión con su respectivo peso. Al resultado de este cálculo se le añade un factor de \textit{bias} y por último, mediante una función de 
+a cada entrada. El nodo calcula el sumatorio de cada conexión con su respectivo peso. Al resultado de este cálculo se le añade un factor de \texttt{bias} y por último, mediante una función de 
 activación como la vista anteriormente, se decide el resultado de salida de la neurona. 
 
 \begin{figure}[H]
@@ -83,7 +83,7 @@ activación como la vista anteriormente, se decide el resultado de salida de la 
 \end{figure}
 
 Más tarde, se conseguiría implementar un diseño electrónico de esta neurona, e interconectar más neuronas entre sí. Estas interconexiones dan lugar a la creación del concepto de \textbf{redes neuronales}, 
-siendo una de las primeras redes complejas funcionales de tipo \acrfullr{mlp}. Estos sistemas serían clave para la evolución del aprendizaje automático, apareciendo multitud de 
+siendo una de las primeras redes complejas funcionales de tipo \texttt{\acrfullr{mlp}}. Estos sistemas serían clave para la evolución del aprendizaje automático, apareciendo multitud de 
 variaciones en la arquitectura de la red según las necesidades (ver \autoref{fig:ArquitecturasRedes}).
 
 \begin{figure}[H]
@@ -111,7 +111,7 @@ variaciones en la arquitectura de la red según las necesidades (ver \autoref{fi
 \end{figure}
 
 El avance progresivo de la capacidad de cómputo de los ordenadores ha permitido el uso de redes neuronales de mayor tamaño, que permiten mayor capacidad de abstracción. Es en este marco donde aparece el término 
-\textit{Deep Learning}, que no indica nada más que el uso de redes neuronales con una cantidad masiva de capas intermedias. Además, son sistemas que trabajan muy bien en sistemas con gran grado de paralelización, 
+\texttt{Deep Learning}, que no indica nada más que el uso de redes neuronales con una cantidad masiva de capas intermedias. Además, son sistemas que trabajan muy bien en sistemas con gran grado de paralelización, 
 aunque esto se explicará más adelante.
 
 Este tipo de sistemas han demostrado su gran capacidad de abstracción y rapidez, es por esto mismo que las redes neuronales profundas son una de las principales herramientas que se utilizan hoy en día en 
@@ -122,7 +122,7 @@ visión por ordenador.
 
 La detección de objetos como tarea surge de la necesidad de analizar la existencia de objetos en imágenes y; opcionalmente, posicionarlos en las mismas.Para realizar este tipo de tareas se han ido 
 desarrollando técnicas tradicionales basadas en algoritmos extremadamente deterministas, pero, con el auge del aprendizaje automático, a partir de 2012\cite{zouObjectDetection202023} 
-el paradigma pasó a centrarse en la creación de sistemas detectores basados en \textit{Deep Learning} (Sistemas de Redes Neuronales con una gran cantidad de capas ocultas).
+el paradigma pasó a centrarse en la creación de sistemas detectores basados en \texttt{Deep Learning} (Sistemas de Redes Neuronales con una gran cantidad de capas ocultas).
 
 Ambas técnicas se basan en la extracción y el análisis de características de las imágenes, esto es, la caracterización de imágenes o zonas de interés a través de algoritmos o filtros. Podemos entender la caracterización 
 de una imagen como la parametrización de los elementos que la definen. Dentro de la vista humana existen muchos elementos que se pueden usar para definir una imagen, algunos ejemplos son:
@@ -134,35 +134,35 @@ de una imagen como la parametrización de los elementos que la definen. Dentro d
     \item \textbf{Ruido}
 \end{itemize}
 
-Pero estos ejemplos son características que da un humano para una imagen, las redes neuronales trabajan con características de bajo nivel (P.Ej.: existencia de bordes en una zona específica, colores en un area, 
-patrones de puntos, etc.) que permitan analizar zonas de la imagen. Sin embargo, las redes neuronales tipo \textit{\acrshort{mlp}} no están pensadas para obtener características (el análisis de características 
+Pero estos ejemplos son características que da un humano para una imagen, las redes neuronales trabajan con características de bajo nivel (P. ej.: existencia de bordes en una zona específica, colores en un área, 
+patrones de puntos, etc.) que permitan analizar zonas de la imagen. Sin embargo, las redes neuronales tipo \texttt{\acrshort{mlp}} no están pensadas para obtener características (el análisis de características 
 no escala bien con el aumento de resolución), ya que utilizan los valores para realizar la aproximación.
 
 Por estos motivos, se buscó una forma de añadir independencia espacial a la entrada de las redes neuronales. Esto se consigue mediante el uso de diferentes arquitecturas, siendo la más importante las redes 
 neuronales convolucionales.\newline
 
-\subsubsection{Redes convolucionales \textit{(CNN)}}
+\subsubsection{Arquitecturas de redes neuronales tipo \texttt{CNN}}
 
-Definen una arquitectura basada en dos pasos: la extracción de las características de las imágenes y la clasificación de las imágenes según las características. Su estructura básica se compone de dos subredes 
+Las \texttt{\acrfullr{cnn}} definen una arquitectura basada en dos pasos: la extracción de las características de las imágenes y la clasificación de las imágenes según las características. Su estructura básica se compone de dos subredes 
 que cumplen las dos funciones diferentes para los datos de entrada (ver \autoref{fig:ArquitecturaCNN}).
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{images/4/ArquitecturaCNN.png}
-    \caption{Arquitectura básica de una CNN\cite{sahaComprehensiveGuideConvolutional2022}}
+    \caption{Arquitectura básica de una \texttt{CNN}\cite{sahaComprehensiveGuideConvolutional2022}}
     \label{fig:ArquitecturaCNN}
 \end{figure}
 
 \clearpage
 
-La fase de caracterización se compone principalmente de capas neuronales convolucionales y, habitualmente capas de polling:
+La fase de caracterización se compone principalmente de capas neuronales convolucionales y, habitualmente capas de \texttt{polling}:
 
 \begin{itemize}
-    \item Capas convolucionales: tienen como objetivo la extracción de carácteristicas a través de neuronas que implementan operaciones de convolución sobre las imágenes. 
-    Al ser las imágenes tensores, se les aplican filtros convolucionales implementados a través de \textit{Kernels}. 
-    Dependiendo de la característica a buscar, existen diferentes filtros convolucionales y en las fases de entrenamiento se va conformando el \textit{Kernel} que caracteriza mejor esa zona de la imagen para los datos esperados.
+    \item Capas convolucionales: tienen como objetivo la extracción de características a través de neuronas que implementan operaciones de convolución sobre las imágenes. 
+    Al ser las imágenes tensores, se les aplican filtros convolucionales implementados a través de \texttt{Kernels}. 
+    Dependiendo de la característica a buscar, existen diferentes filtros convolucionales y en las fases de entrenamiento se va conformando el \texttt{Kernel} que caracteriza mejor esa zona de la imagen para los datos esperados.
 
-    Un ejemplo de \textit{Kernel} es un filtro laplaciano gaussiano como el de la \autoref{fig:LaplaceKernel}, que, a través del gradiente, sirve para darle más énfasis a los bordes de la imagen, como se puede ver 
+    Un ejemplo de \texttt{Kernel} es un filtro laplaciano gaussiano como el de la \autoref{fig:LaplaceKernel}, que, a través del gradiente, sirve para darle más énfasis a los bordes de la imagen, como se puede ver 
     en la \autoref{fig:LaplaceResultado}
     \begin{figure}[H]
         \centering
@@ -173,7 +173,7 @@ La fase de caracterización se compone principalmente de capas neuronales convol
             1 & 1 & 1
         \end{vmatrix}
         \)
-        \caption{Aspecto de un \textit{kernel} de laplace de tamaño \texttt{3x3}}
+        \caption{Aspecto de un \texttt{kernel} de Laplace de tamaño \texttt{3x3}}
         \label{fig:LaplaceKernel}
     \end{figure}
     \begin{figure}[H]
@@ -185,18 +185,18 @@ La fase de caracterización se compone principalmente de capas neuronales convol
 
     Estas capas convolucionales van obteniendo la abstracción de las características transformando los volúmenes de entrada a volúmenes de salida de mayor profundidad pero de menor resolución vertical y horizontal.
 
-    \item Capas de polling: Su objetivo es ir haciendo sub-muestreo de las capas convolucionales superiores para conformar el volumen de entrada de la siguiente capa convolucional, reduciendo la carga computacional necesaria. 
+    \item Capas de \texttt{polling}: Su objetivo es ir haciendo sub-muestreo de las capas convolucionales superiores para conformar el volumen de entrada de la siguiente capa convolucional, reduciendo la carga computacional necesaria. 
     Se puede ver su funcionamiento en la \autoref{fig:MuestreoCNN}, donde sub-muestrean un volumen de resolución \texttt{28x28} a una resolución \texttt{14x14}.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.6\textwidth]{images/4/EjemploPolling.png}
-        \caption{CNN con detalle de la caracterización y el sub-muestreo\cite{ConvolutionalNeuralNetwork}}
+        \caption{\texttt{CNN} con detalle de la caracterización y el sub-muestreo\cite{ConvolutionalNeuralNetwork}}
         \label{fig:MuestreoCNN}
     \end{figure}
 
 \end{itemize}
 
-La fase de clasificación habitualmente usa una red neuronal profunda conectada completamente entre capas como se ha podido ver en la anterior sección, similar a la idea de una \textit{\acrshort{mlp}}. Esta 
+La fase de clasificación habitualmente usa una red neuronal profunda conectada completamente entre capas como se ha podido ver en la anterior sección, similar a la idea de una \texttt{\acrshort{mlp}}. Esta 
 red toma como entrada un vector aplanado final de la parte de extracción de características y realiza la clasificación.
 \clearpage
 
@@ -205,7 +205,7 @@ El uso de estas redes neuronales convolucionales para solucionar un problema est
 cae en tres tipos de categorías(ver \autoref{fig:tareasCNN}). Además, esta selección tiene unas implicaciones en la complejidad computacional de la tarea, ya que la capa de clasificación debe ser cambiada para soportarla.
 
 \begin{itemize}
-    \item Clasificación: las imágenes son marcadas dependiendo de si existe (binario) un elemento dentro de ella.
+    \item Clasificación: las imágenes son marcadas dependiendo de si existe o no un elemento específico dentro de ella.
     \item Detección de objetos: regiones locales de la imagen son clasificadas y marcadas dependiendo de la existencia del elemento en cuestión.
     \item Segmentación semántica: se realiza una clasificación por cada pixel para delimitar todos los píxeles que conforman la instancia del objeto
 \end{itemize}
@@ -213,26 +213,26 @@ cae en tres tipos de categorías(ver \autoref{fig:tareasCNN}). Además, esta sel
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{images/4/TiposTareas.png}
-    \caption{Tareas típicas de una CNN\cite{kallfelzsirmacekSEQUENTIALIMAGEPROCESSING2019}}
+    \caption{Tareas típicas de una \texttt{CNN}\cite{kallfelzsirmacekSEQUENTIALIMAGEPROCESSING2019}}
     \label{fig:tareasCNN}
 \end{figure}
 
-La evolución de las \textit{\acrshort{cnn}} ha sido exponencial y han aparecido arquitecturas que han ido añadiendo mejoras de eficiencia, calidad de resultados y estándares a la hora de crear nuevos 
+La evolución de las \texttt{\acrshort{cnn}} ha sido exponencial y han aparecido arquitecturas que han ido añadiendo mejoras de eficiencia, calidad de resultados y estándares a la hora de crear nuevos 
 sistemas. Algunos ejemplos de esto son:
 \begin{itemize}
-    \item R-CNN (Region-CNN)(2014): introdujo el análisis solo en regiones con datos interesantes.
-    \item Fast R-CNN (2015): mejora R-CNN introduciendo búsqueda selectiva, definiendo un número máximo de \acrfullr{roi} a tratar.
-    \item Faster R-CNN (2015).
-    \item YOLO (You Only Look Once)\cite{redmonYouOnlyLook2016}: arquitectura extremadamente rápida perteneciente al estado del arte moderno en redes neuronales, que ha ido mejorandose en forma de versiones.
+    \item \texttt{R-CNN (Region-CNN)}(2014): introdujo el análisis solo en regiones con datos interesantes.
+    \item \texttt{Fast R-CNN} (2015): mejora R-CNN introduciendo búsqueda selectiva, definiendo un número máximo de \texttt{\acrfullr{roi}} a tratar.
+    \item \texttt{Faster R-CNN} (2015).
+    \item \texttt{\acrfullr{yolo}}\cite{redmonYouOnlyLook2016}: arquitectura extremadamente rápida perteneciente al estado del arte moderno en redes neuronales, que ha ido mejorándose en forma de versiones.
 \end{itemize}
 
 Cada arquitectura ha traído consigo mejoras y a veces, a cambio de perdida de rendimiento. Esto es un problema que debe tenerse en cuenta y existen diversos trabajos que tratan simplemente las diferencias 
 existentes entre diferentes arquitecturas.
 
 Uno de estos trabajos\cite{hanAdvancedDeepLearningTechniques2018} compara diferentes arquitecturas contra el conjunto de datos de la universidad de Oxford "Pascal2012"\cite{PASCALVisualObject}, que contiene 20 clases de objetos.\newline
-Como resultado de este análisis; resumido en la \autoref{ResumenCNN}, se puede observar que YOLOv2, aún no siendo el mejor, tiene un rendimiento bastante competente. Si nos quedásemos con solo este dato, podriamos pensar que YOLO 
-no tiene porque ser la mejor elección, pero hay que tener en cuenta el factor de rendimiento, que se mide principalmente en el tiempo que se tarda en realizar la inferencia en una imagen. En este caso, podemos observar 
-que YOLOv2 es capaz de superar a SSD512 obteniendo un mejor \acrfullr{map}(parámetro de caracterización del error medio típico sobre todo el dataset) con el doble de rendimiento.
+Como resultado de este análisis; resumido en la \autoref{ResumenCNN}, se puede observar que \texttt{YOLOv2}, aún no teniendo la mejor precisión, tiene un rendimiento bastante competente. Si nos quedásemos con solo este dato, podríamos llegar a pensar que \texttt{YOLO} 
+no tiene por qué ser la mejor elección, pero hay que tener en cuenta el factor de rendimiento, que se mide principalmente en el tiempo que se tarda en realizar la inferencia en una imagen. En este caso, podemos observar 
+que \texttt{YOLOv2} es capaz de superar a \texttt{SSD512} obteniendo un mejor \texttt{\acrfullr{map}}(parámetro de caracterización del error medio típico sobre todo el conjunto de datos) con el doble de rendimiento.
 
 \begin{table}[H]
     \begin{center} {\footnotesize
@@ -248,7 +248,7 @@ que YOLOv2 es capaz de superar a SSD512 obteniendo un mejor \acrfullr{map}(pará
     \hline
     \end{tabular} }
     \end{center}
-    \caption{Resumen de la comparación entre CNN con el dataset PASCAL2012\cite{hanAdvancedDeepLearningTechniques2018}}
+    \caption{Resumen de la comparación entre diferentes arquitecturas de \texttt{CNN} con el conjunto de datos \texttt{PASCAL2012}\cite{hanAdvancedDeepLearningTechniques2018}}
     \label{ResumenCNN}
 \end{table}
 
@@ -266,32 +266,32 @@ que YOLOv2 es capaz de superar a SSD512 obteniendo un mejor \acrfullr{map}(pará
     \hline
     \end{tabular} }
     \end{center}
-    \caption{Detalle de rendimiento en \acrshort{fps} en la comparativa\cite{hanAdvancedDeepLearningTechniques2018}}
+    \caption{Detalle de rendimiento en \texttt{\acrshort{fps}} en la comparativa de arquitecturas de \texttt{CNN}\cite{hanAdvancedDeepLearningTechniques2018}}
     \label{ResumenCNNFPS}
 \end{table}
 
 Estos resultados comparativos, a diferencias de otros artículos\cite{manojkumarPerformanceComparisonReal2023}, son útiles, ya que utilizan reglas tales como la comparación bajo mismo conjunto de datos e 
 indicar tamaño de imagen de entrada a la red neuronal. Esto permite realizar una comparación lo más realista y cercana posible a lo esperable.
 
-Podemos observar además, que YOLOv2 tiene ciertos problemas al tratar con objetos pequeños. Algunos estudios\cite{bhagyaOverviewDeepLearning2019} ya han observado que es un problema bastante típico de YOLO y es una de las situaciones en las que 
+Podemos observar además, que \texttt{YOLOv2} tiene ciertos problemas al tratar con objetos pequeños. Algunos estudios\cite{bhagyaOverviewDeepLearning2019} ya han observado que es un problema bastante típico de \texttt{YOLO} y es una de las situaciones en las que 
 peor funciona.\newline
-Estos problemas de YOLO han ido solucionándose con el tiempo, a través de la mejora y el aumento de rendimiento y puntuación \acrshort{map}. Esto se puede ver en la \autoref{fig:YOLOVersiones}, donde se 
-comparan diferentes versiones posteriores a la versión 5 en el conjunto de datos COCO.
+Estos problemas han ido solucionándose con el tiempo, a través de la mejora y el aumento de rendimiento y puntuación \texttt{\acrshort{map}}. Esto se puede ver en la \autoref{fig:YOLOVersiones}, donde se 
+comparan diferentes versiones posteriores a la versión 5 en el conjunto de datos \texttt{COCO}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/4/YOLOVersiones.png}
-    \caption{Rendimiento de diferentes versiones de YOLO superiores a la 5 en el \textit{dataset} COCO\cite{ultralyticsYOLOv8}}
+    \caption{Rendimiento de diferentes versiones de \texttt{YOLO} superiores a la 5 en el conjunto de datos \texttt{COCO}\cite{ultralyticsYOLOv8}}
     \label{fig:YOLOVersiones}
 \end{figure}
 
-Esto ha convertido a YOLO en un estándar de facto en la implementación rápida de soluciones basadas en \textit{Deep Learning} para muchos investigadores por sus resultados basados en obtener detección en tiempo real.
+Esto ha convertido a \texttt{YOLO} en un estándar de facto en la implementación rápida de soluciones basadas en \texttt{Deep Learning} para muchos investigadores por sus resultados basados en obtener detección en tiempo real.
 
 \subsubsection{Uso de redes neuronales en acuicultura}
 
-La acuicultura es un trabajo que engloba desde la producción de algas hasta la crianza de marisco en cautiverio. Además, dentro de cada rama podemos tener especies que sean similares..
+La acuicultura es un trabajo que engloba desde la producción de algas hasta la crianza de marisco en cautiverio. Además, dentro de cada rama podemos tener especies que sean similares y que deban ser diferenciadas.
 
-En la literatura de este ámbito se lleva implementando tecnologías basadas en aprendizaje automático para diferentes tareas, en el caso del uso de \acrshort{cnn}:
+En la literatura de este ámbito se lleva implementando tecnologías basadas en aprendizaje automático para diferentes tareas, en el caso del uso de \texttt{\acrshort{cnn}} podemos ver sistemas para:
 \begin{itemize}
     \item Sistemas de conteo de peces\cite{castillomoralSistemaConteoPeces2022}.
     \item Sistemas de análisis de densidad.
@@ -332,14 +332,14 @@ Esto es debido a que se puede usar para analizar cambios entre todos los píxele
 
 \subsubsection{Definición y uso del análisis de flujo óptico}
 
-El análisis de flujo óptico o \textit{OpticalFlow} apareció por primera vez en 1981\cite{hornDeterminingOpticalFlow1981} y se basa en asumir:
+El análisis de flujo óptico u \texttt{OpticalFlow} apareció por primera vez en 1981\cite{hornDeterminingOpticalFlow1981} y se basa en asumir:
 
 \begin{enumerate}
-    \item El brillo observado en un punto del objeto es constante en el eje temporal
-    \item Puntos cercanos se mueven de la misma manera
+    \item El brillo observado en un punto del objeto es constante en el eje temporal.
+    \item Puntos cercanos se mueven de la misma manera.
 \end{enumerate}
 
-El problema es que en las imágenes reales las reglas sobre el brillo y la suavidez del cambio es habitual que no sean respetadas. Esto puede ser por diversos motivos como poco \textit{framerate} o movimientos 
+El problema es que en las imágenes reales las reglas sobre el brillo y la suavidez del cambio es habitual que no sean respetadas. Esto puede ser por diversos motivos como poco \texttt{framerate} o movimientos 
 muy cercanos a la cámara que generen cambios bruscos en los pixeles.
 
 Es una técnica que se usa mucho en las carreteras, por la existencia de entornos muy estáticos. Se puede ver un ejemplo de su aplicación en la \autoref{fig:OpticalFlowEjemplo}.
@@ -359,35 +359,36 @@ Actualmente, existen tres algoritmos principales para calcular el flujo óptico 
     \item Método combinado local-global: calcula el flujo óptico en zonas rectangulares de la imagen.
 \end{itemize}
 
-\subsubsection{Uso del OpticalFlow en acuicultura}
+\subsubsection{Uso del análisis del flujo óptico en entornos de acuicultura}
 
 El análisis de flujo óptico se ha usado en acuicultura de forma diversa:
 
 \begin{itemize}
     \item Analizar comportamientos de grupo, por ejemplo, para determinar la actividad de un conjunto de peces de forma global\cite{kobayashiAquaColonyFully2023}.
-    \item Realizar una detección, conteo y seguimiento de peces en un tanque en la India, mezclando YOLOv5 con OpticalFlow\cite{paiComputerVisionBased2022}. Este método dió buenos resultados porque 
-    la distancia del pez a la cámara era lo suficientemente grande como para que no hubiese movimientos demasiado grandes como se puede ver en .
+    \item Realizar una detección, conteo y seguimiento de peces en un tanque en la India, mezclando \texttt{YOLOv5} con \texttt{OpticalFlow}\cite{paiComputerVisionBased2022}. Este método dio buenos resultados porque 
+    la distancia del pez a la cámara era lo suficientemente grande como para que no hubiese movimientos demasiado grandes como se puede ver en la \autoref{fig:DatosOpticalEstudio}.
 \end{itemize}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{images/4/OpticalFlowIndia.png}
     \caption{Datos obtenidos por OpticalFlow respetando las reglas de distancia sobre peces\cite{paiComputerVisionBased2022}}
+    \label{fig:DatosOpticalEstudio}
 \end{figure}
 \clearpage
 
 
-\subsection{Herramientas de desarrollo y despliegue en HardWare transparente}
+\subsection{Herramientas de desarrollo y despliegue en \texttt{HardWare} transparente}
 
 \begin{itemize}
-    \item \textbf{Librerías de desarrollo para Redes Neuronales}: Para trabajar en la creación de redes neuronales, se usan principalmente dos librerías: \texttt{Keras}, \texttt{PyTorch}.
-    \texttt{Keras} es una librería de alto nivel, mientras que \texttt{PyTorch} es de bajo nivel y tiene mejores herramientas de \textit{debugging} y de control del rendimiento de la red creada. 
-    Aparte de esto, \texttt{PyTorch} esta pensada para su uso directamente en \texttt{Python} y soporta entrenamiento en sistemas distribuidos.
+    \item \textbf{Librerías de desarrollo para Redes Neuronales}: Para trabajar en la creación de redes neuronales, se usan principalmente dos librerías: \texttt{Keras} y \texttt{PyTorch}.
+    \texttt{Keras} es una librería de alto nivel, mientras que \texttt{PyTorch} es de bajo nivel y tiene mejores herramientas de manejo de errores y de control del rendimiento de la red creada. 
+    Aparte de esto, \texttt{PyTorch} está pensado para su uso directamente en \texttt{Python} y soporta entrenamiento en sistemas distribuidos.
 
 
-    En el caso de YOLO, la empresa \texttt{Ultralytics} retomó el proyecto y creo las versiones a partir de YOLOv5. El objetivo de esto ha sido crear una librería para 
+    En el caso de \texttt{YOLO}, la empresa \texttt{Ultralytics} retomó el proyecto y creo las versiones a partir de \texttt{YOLOv5}. El objetivo de esto ha sido crear una librería para 
     que el usuario no tenga que interactuar con las librerías de bajo nivel. Esto nos permite entrenar, validar y desplegar modelos a través de modelos base.
-    \item \textbf{Transfer Learning y Fine Tunning}: Entrenar una red neuronal desde 0 es demasiado complejo, por ejemplo, una red YOLOv8s tiene \texttt{11.2} millones de pesos que 
+    \item \textbf{Transfer Learning y Fine Tunning}: Entrenar una red neuronal desde 0 es demasiado complejo, por ejemplo, una red \texttt{YOLOv8} de tamaño pequeño tiene \texttt{11.2} millones de pesos que 
     deben ser entrenados y ajustados. Estos pesos son contabilizando las capas convolucionales y la capa de clasificación.\newline
     Pero lo habitual es obtener un modelo ya entrenado, cuyas capas convolucionales sean capaces de extraer características típicas de cualquier imagen y, solo entrenar la parte de clasificación. 
     Esto reduce mucho el coste computacional de entrenamiento y por lo tanto, el tiempo requerido para llegar al objetivo deseado con la red. Esta técnica se conoce como \texttt{Transfer Learning} 
@@ -403,13 +404,13 @@ El análisis de flujo óptico se ha usado en acuicultura de forma diversa:
     Posteriormente, cuando se alcanza el rendimiento esperado, se pueden desbloquear los pesos de las capas de convolución y hacer entrenamiento de toda la red. Esta fase se llama \texttt{Fine Tunning}. 
     Su objetivo es ajustar la capa de convolución también para solo analizar las características de la imagen más relevantes para la tarea.
     \item \textbf{Herramientas comunes para el análisis de flujo óptico}: En la mayoría de lenguajes existen librerías que implementan los algoritmos de análisis de flujo óptico, pero, al ser herramientas de 
-    caracterización de imagen, existen muchas facilidades en entornos matemáticos como MATLAB o de procesado de datos como el lenguaje de programación \texttt{Python}, más concretamente la librería de \textit{OpenCV}.
+    caracterización de imagen, existen muchas facilidades en entornos matemáticos como MATLAB o de procesado de datos como el lenguaje de programación \texttt{Python}, más concretamente la librería de \texttt{OpenCV}.
     
     \clearpage
     
     \item \textbf{Abstracción de la red neuronal al \texttt{HardWare}}: A la hora de desplegar una red neuronal, se debe diseñar una estrategia para 
     poder aprovechar todos los recursos del sistema que va a ejecutar la red. Esto es debido a que una red neuronal se aprovecha de la computación en paralelo, ya que principalmente 
-    resuelve problemas y multiplicaciones con \texttt{tensores}.
+    resuelve problemas y multiplicaciones con matrices.
 
     En este sentido, los despliegues más eficientes son los que son capaces de aprovechar elementos como las \texttt{\acrfullr{gpu}}, que se centran en este tipo de operaciones. Al contrario 
     que una \texttt{\acrfullr{cpu}}, la \texttt{\acrfullr{gpu}} cuenta con más núcleos de cómputo de menor potencia como se puede ver en la \autoref{fig:GPUCPU}.
