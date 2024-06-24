@@ -13,45 +13,39 @@ Dentro del análisis de requisitos, se han diferenciado entre funcionales(defini
             \hline
             0& Los cálculos automáticos deben ser transparentes a los conocimientos de los usuarios & Alta\\
             \hline
-            1& El usuario deberá poder seleccionar el nivel de agresividad del sistema & Media\\
+            1& El usuario deberá poder ver un manual del sistema & Baja\\
             \hline
-            2& Se deberá llevar un registro por usuario de las predicciones anteriores & Baja\\
+            2& Si el video seleccionado dura menos de 50 fotogramas, la inferencia debe cancelarse y se informará al usuario & Alta\\
             \hline
-            3& El usuario debe poder cambiar de usuario & Baja\\
+            3& La inferencia debe hacerse posterior a la selección, verificación y confirmación del video & Alta\\
             \hline
-            3& El usuario debe poder ver cuáles usuarios existen & Baja\\
+            4& El usuario deberá poder seleccionar diferentes formatos de video sobre los que inferir de forma transparente & Media\\
             \hline
-            4& La inferencia debe hacerse posterior a la selección y confirmación del video & Alta\\
+            5& Si ocurre un error en la selección de fichero, se informará por un pop-up & Alta\\
             \hline
-            5& El usuario deberá poder seleccionar diferentes formatos de video sobre los que inferir de forma transparente & Alta\\
+            6& La inferencia se realizará de forma transparente al usuario en una pantalla de carga & Alta\\
             \hline
-            6& Si ocurre un error en la selección de fichero, se informará por un pop-up & Alta\\
+            7& La inferencia se podrá cancelar para evitar perdidas de tiempo & Media\\
             \hline
-            7& La inferencia se realizará de forma transparente al usuario en una pantalla de carga & Alta\\
+            8& En la pantalla de carga se informará de cuanto queda para acabar la inferencia & Alta\\
             \hline
-            8& La inferencia se podrá cancelar para evitar perdidas de tiempo & Media\\
+            9& Si ocurre un error en la inferencia se deberá informar con un pop-up y volver a la pantalla inicial & Alta\\
             \hline
-            9& En la pantalla de carga se informará de cuanto queda para acabar la inferencia & Alta\\
+            10& Se deberá hacer la inferencia en paralelo para no colgar la aplicación & Alta\\
             \hline
-            10& Si ocurre un error en la inferencia se deberá informar con un pop-up y volver a la pantalla inicial & Alta\\
+            11& Si se completa la inferencia, deberá pasarse a la pantalla de resultados & Alta\\
             \hline
-            11& Se deberá hacer la inferencia en paralelo para no colgar la aplicación & Alta\\
+            12& En la pantalla de resultados el usuario deberá poder elegir guardarlos en \texttt{CSV}& Alta\\
             \hline
-            12& Si se completa la inferencia, deberá pasarse a la pantalla de resultados & Alta\\
+            13& En la pantalla de resultados el usuario debe poder verificar los resultados obtenidos & Alta\\
             \hline
-            13& En la pantalla de resultados el usuario deberá poder elegir guardarlos en csv y excel & Alta\\
+            14& En la pantalla de resultados el usuario debe poder añadir o eliminar movimientos de los resultados obtenidos & Media\\
             \hline
-            14& En la pantalla de resultados el usuario debe poder verificar los resultados obtenidos & Alta\\
+            15& En la pantalla de resultados el usuario debe poder volver a la pantalla inicial & Media\\
             \hline
-            15& En la pantalla de resultados el usuario debe poder añadir o eliminar movimientos de los resultados obtenidos & Media\\
+            16& La aplicación se abrirá desde un ejecutable para facilitar el uso& Media\\
             \hline
-            16& En la pantalla de resultados el usuario debe poder volver a la pantalla inicial & Media\\
-            \hline
-            17& En la pantalla de resultados el usuario puede elegir guardar estos resultados en su perfil (sin guardar el video, solo el registro de movimientos y el nombre del video) & Baja\\
-            \hline
-            18& Si el usuario guarda un resultado por primera vez, ese nuevo usuario se quedará registrado en la aplicación  & Baja\\
-            \hline
-            19& La aplicación debe tener incorporado en el menu un botón para abrir un manual  & Media\\
+            17& El usuario debe poder elegir la carpeta de guardado del \texttt{CSV}& Media\\
             \hline
         \end{tabular} 
     \end{center}
@@ -64,31 +58,39 @@ Dentro del análisis de requisitos, se han diferenciado entre funcionales(defini
         \begin{tabular}{p{0.1\textwidth} | p{0.7\textwidth} p{0.1\textwidth}}
             Req. ID & Descripción de requisito no funcional & Prioridad\\
             \hline
-            20& El sistema automático deberá permitir a los científicos realizar su tarea en menos tiempo que manualmente & Alta\\
+            18& El sistema automático deberá permitir a los científicos realizar su tarea en menos tiempo que manualmente & Alta\\
             \hline
-            21& El sistema debe poder ser manejado por cualquier usuario que sepa realizar tareas de ofimática & Alta\\
+            19& El sistema debe poder ser manejado por cualquier usuario que sepa realizar tareas de ofimática & Alta\\
             \hline
-            22& El sistema debe poder compilarse en un ejecutable para que el usuario no necesite manejar dependencias  & Alta\\
+            20& El sistema debe poder compilarse en un ejecutable para que el usuario no necesite manejar dependencias  & Alta\\
             \hline
-            23& Los errores no deben bloquear la aplicación, deben ser manejados y controlados correctamente en lo posible & Media\\
+            21& Los errores no deben bloquear la aplicación, deben ser manejados y controlados correctamente en lo posible & Media\\
             \hline
-            24& Las entradas de datos si fuesen necesarias se harán de forma simple para el usuario, ya sea a través de darle a botones o usar el ratón & Media\\
+            22& Las entradas de datos si fuesen necesarias se harán de forma simple para el usuario, ya sea a través de darle a botones o usar el ratón & Media\\
             \hline
-            25& El sistema debe aprovechar al máximo los recursos \texttt{HardWare} a ser posible, seleccionando el mejor modelo para el ordenador en el que se lanza la aplicación & Alta\\
+            23& El sistema debe aprovechar al máximo los recursos \texttt{HardWare} a ser posible, seleccionando el mejor modelo para el ordenador en el que se lanza la aplicación & Alta\\
             \hline
-            26& La comunicación entre procesos debe manejar problemas de concurrencia & Alta\\
+            24& La comunicación entre procesos debe manejar problemas de concurrencia & Alta\\
             \hline
-            27& La inferencia se realizará fotograma por fotograma para limitar el uso de memoria RAM del sistema al mínimo necesario & Alta\\
+            25& La inferencia se realizará fotograma por fotograma para limitar el uso de memoria RAM del sistema al mínimo necesario & Alta\\
             \hline
-            28& Se utilizará una librería para la interfaz de usuario que permita el renderizado sobre OpenGL o similares para descargar la \texttt{\acrshort{cpu}} & Alta\\
+            26& Se utilizará una librería para la interfaz de usuario que permita el renderizado sobre OpenGL o similares para descargar la \texttt{\acrshort{cpu}} & Alta\\
             \hline
-            29& La capa de inferencia debe dar unos resultados transparentes independientemente del modelo utilizado & Baja\\
+            27& La capa de inferencia debe dar unos resultados transparentes independientemente del modelo utilizado & Baja\\
             \hline
-            30& El modelo debe poder cambiar en tamaño para ajustarse a diferentes requerimientos en un futuro & Media\\
+            28& El modelo debe poder cambiar en tamaño para ajustarse a diferentes requerimientos en un futuro & Media\\
             \hline
-            31& El fichero de datos de usuario debe poder ser portátil para que el ejecutable lo detecte y cargue los datos de usuario si existen & Baja\\
+            29& El fichero de datos de usuario debe poder ser portátil para que el ejecutable lo detecte y cargue los datos de usuario si existen & Baja\\
             \hline
-            32& El usuario no tiene por qué especificar el número de truchas que contiene el video, se estima solo & Media\\
+            30& El usuario no tiene por qué especificar el número de truchas que contiene el video, se debe estimar solo & Media\\
+            \hline
+            31& La pantalla de muestra de datos ocultará gráficas en función del número de peces que existan & Alta\\
+            \hline
+            32& Los elementos de la interfaz deben ser en su mayoría redimensionables para que el usuario pueda ajustarlos para ver mejor & Media\\
+            \hline
+            33& Se intentará usar letras claras para mejorar la accesibilidad de la aplicación & Baja\\
+            \hline
+            34& En el \texttt{CSV} guardado, se almacenará el nombre del video, los números de movimiento de cada lado y los fotogramas en los que ocurren & Baja\\
             \hline
         \end{tabular} 
     \end{center}
@@ -111,7 +113,7 @@ Dentro del análisis de requisitos, se han diferenciado entre funcionales(defini
             \hline
             3& La aplicación se desarrollará usando \texttt{Git} para realizar un control de versiones\\
             \hline
-            4& Los datos de la aplicación que aporten persistencia se guardarán en claro, no tienen un riesgo de seguridad\\%TODO pedro truco
+            4& Los datos de la aplicación sobre los videos se guardarán en claro, no tienen un riesgo de seguridad\\
             \hline
             5& Los videos de entrada no podrán contener menos de 50 fotogramas\\
             \hline
