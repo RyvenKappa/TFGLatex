@@ -224,6 +224,23 @@ tipo de información de manera consistente para todo el video es el método de H
 
 \subsubsection{Pruebas de concepto con \texttt{YOLO}}
 
+Para realizar esta prueba, creo un conjunto de datos con el que entrenar a través de fotogramas del video \verb|23_NT_R1_J1_P1_2.mp4|. Esto se realizó a través de la herramienta \texttt{\acrfullr{cvat}}.\newline
+Esta herramienta de código abierto\cite{cvat.aicorporationComputerVisionAnnotation2023} es mantenida por los creadores de la librería \texttt{OpenCV}. Dispone de una versión online limitada al número de 
+archivos que se pueden subir a \texttt{500 MB} y en otros aspectos, pero también dispone de una versión desplegable por \texttt{Docker}. Uno de sus puntos fuertes y el motivo de su uso en este trabajo es 
+la compatibilidad con muchos formatos de exportación de etiquetas.
+
+Como parte de este proyecto y como sistema que sirviese de soporte para guardar todos los conjuntos de datos necesarios, se desplegó como contenedor en el servidor \acrfullr{nas} del \acrfullr{gamma}.
+
+Con esta aplicación se realizó el etiquetado de 24 imágenes para realizar un primer entrenamiento, el conjunto de datos se dividió de la siguiente manera:
+\begin{itemize}
+    \item 16 imágenes para el conjunto de entrenamiento.
+    \item 4 imágenes para el conjunto de validación.
+    \item 4 imágenes para el conjunto de pruebas
+\end{itemize}
+
+Posteriormente se realizó el entrenamiento de la red neuronal \texttt{YOLOv8} versión \texttt{nano}, que es la más pequeña y rápida de entrenar
+
+\vspace{3\baselineskip}
 Hay que hablar del entrenamiento, conjunto de datos usado, verificación de resultados, tiempo de procesado, viabilidad de solución, estimación de movimiento a través de las áreas de las bounding 
 boxes.
 

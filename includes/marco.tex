@@ -183,23 +183,43 @@ La fase de caracterización se compone principalmente de capas neuronales convol
         \label{fig:LaplaceResultado}
     \end{figure}
 
-    Estas capas convolucionales van obteniendo la abstracción de las características transformando los volúmenes de entrada a volúmenes de salida de mayor profundidad pero de menor resolución vertical y horizontal.
-
+    Estas capas convolucionales van obteniendo la abstracción de las características transformando los volúmenes de entrada a volúmenes de salida de mayor profundidad pero de menor resolución vertical y horizontal.\newline
+    Habitualmente es la parte convolucional se utilizan funciones de activación como la \acrfullr{relu} de la \autoref{fig:relu}.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\textwidth]{images/4/relu.jpeg}
+        \caption{Función de activación \texttt{ReLU}}
+        \label{fig:relu}
+    \end{figure}
+    \clearpage
     \item Capas de \texttt{polling}: Su objetivo es ir haciendo sub-muestreo de las capas convolucionales superiores para conformar el volumen de entrada de la siguiente capa convolucional, reduciendo la carga computacional necesaria. 
-    Se puede ver su funcionamiento en la \autoref{fig:MuestreoCNN}, donde sub-muestrean un volumen de resolución \texttt{28x28} a una resolución \texttt{14x14}.
+    Se puede ver su funcionamiento en la \autoref{fig:MuestreoCNN}, donde sub-muestrean un volumen de resolución \texttt{28x28} a una resolución \texttt{14x14}, pero habitualmente se aumenta la profundidad del tensor.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.6\textwidth]{images/4/EjemploPolling.png}
         \caption{\texttt{CNN} con detalle de la caracterización y el sub-muestreo\cite{ConvolutionalNeuralNetwork}}
         \label{fig:MuestreoCNN}
     \end{figure}
+    
+    Este sistema se va repitiendo para cada capa de convolución, hasta que en la última capa de polling, la salida es un vector horizontal cuya profundidad es la misma que neuronas de entrada tenga la etapa de clasificación. 
 
 \end{itemize}
 
-La fase de clasificación habitualmente usa una red neuronal profunda conectada completamente entre capas como se ha podido ver en la anterior sección, similar a la idea de una \texttt{\acrshort{mlp}}. Esta 
-red toma como entrada un vector aplanado final de la parte de extracción de características y realiza la clasificación.
-\clearpage
 
+La fase de clasificación habitualmente usa una red neuronal profunda conectada completamente entre capas como se ha podido ver en la anterior sección, similar a la idea de una \texttt{\acrshort{mlp}}. Esta 
+red toma como entrada un vector aplanado final de la parte de extracción de características y realiza la clasificación. Habitualmente utiliza funciones de activación que son capaces de tener \(\mathcal{N}\) salidas 
+una de estas funciones habituales es la \texttt{SoftMax} de la \autoref{fig:softmax}, que mapea un vector de entrada a un vector de salida de probabilidades que escalan según los valores de entrada.
+
+\begin{figure}[H]
+    \centering
+    \begin{equation*}
+        \text{softmax}(z_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}
+    \end{equation*}
+    \caption{Función de activación \texttt{SoftMax}}
+    \label{fig:softmax}
+\end{figure}
+
+\vspace{3\baselineskip}
 
 El uso de estas redes neuronales convolucionales para solucionar un problema está asociado al tipo de trabajo a realizar. Cuando se define un problema en el que se va a aplicar esta técnica, normalmente 
 cae en tres tipos de categorías(ver \autoref{fig:tareasCNN}). Además, esta selección tiene unas implicaciones en la complejidad computacional de la tarea, ya que la capa de clasificación debe ser cambiada para soportarla.
@@ -217,7 +237,33 @@ cae en tres tipos de categorías(ver \autoref{fig:tareasCNN}). Además, esta sel
     \label{fig:tareasCNN}
 \end{figure}
 
-La evolución de las \texttt{\acrshort{cnn}} ha sido exponencial y han aparecido arquitecturas que han ido añadiendo mejoras de eficiencia, calidad de resultados y estándares a la hora de crear nuevos 
+Toda red neuronal sobre la que se realice entrenamiento supervisado debe ser entrenada con un conjunto de datos etiquetados de forma coherente a la tarea que se quiera realizar. Por ejemplo, una \texttt{CNN} 
+entrenada para clasificar imágenes deberá ser alimentada con etiquetas adecuadas, no con coordenadas sobre la posición del elemento detectado.
+
+Estos conjuntos de datos que se preparan para las redes neuronales se dividen habitualmente en conjuntos con diferentes objetivos y diferentes propósitos en el entrenamiento de la red neuronal:
+
+\begin{itemize}
+    \item Conjunto de datos de entrenamiento: es el conjunto de datos sobre el que la red va a aprender, aplicando de forma constante su algoritmo. Pasar por este conjunto entero 1 vez suele llamarse época 
+    de entrenamiento.
+    \item Conjunto de datos de prueba: es un conjunto de datos completamente separado que nunca se aplicará a la red en la fase de entrenamiento. Su objetivo es evaluar al final del entrenamiento el 
+    rendimiento general de la red en un conjunto de datos que nunca haya visto.
+    \item Conjunto de datos de validación: este conjunto es dependiente de la arquitectura de red neuronal que se utilice, esto es debido porque es un conjunto de datos de referencia entre épocas. Existen 
+    algunos algoritmos que modifican hiperparámetros específicos del entrenamiento de la red entre épocas.\newline
+    Cuando se habla de los parámetros de la red, habitualmente se refieren a cosas como los pesos entre neuronas, la función de activación, el número de capas ocultas, etc\dots Sin embargo, los parámetros 
+    que se definen para el entrenamiento como el número de épocas, parámetros del algoritmo de aprendizaje, tamaño de los datos introducidos a la vez, etc., son llamados hiperparámetros.
+\end{itemize}
+
+Normalmente estos conjuntos de datos se preparan a la vez y luego se separan los conjuntos. Es habitual una separación de \texttt{70\%} para el conjunto de entrenamiento, \texttt{15\%} para el conjunto de 
+validación y \texttt{15\%} para el conjunto de prueba.
+
+La incorrecta preparación del conjunto de datos puede afectar severamente a los resultados obtenidos. Por lo tanto es habitual intentar evitar redundancia de datos y alimentar a la red con datos que no sean muy 
+similares entre sí para que sea capaz de generalizar correctamente en la mayor cantidad de situaciones posibles.\newline
+Justo con este propósito podemos encontrar técnicas de aumento de datos, que generan artificialmente datos extra haciendo transformaciones en las imágenes, cambiando el color o incluso aplicando distorsión. 
+Esto permite solucionar situaciones en las que se dispongan de pocos datos o los datos sean demasiado parecidos entre sí como para poder asegurar una buena generalización a otros tipos de situaciones.
+
+\clearpage
+
+La evolución de estas \texttt{\acrshort{cnn}} ha sido exponencial y han aparecido arquitecturas que han ido añadiendo mejoras de eficiencia, calidad de resultados y estándares a la hora de crear nuevos 
 sistemas. Algunos ejemplos de esto son:
 \begin{itemize}
     \item \texttt{R-CNN (Region-CNN)}(2014): introdujo el análisis solo en regiones con datos interesantes.
@@ -302,6 +348,7 @@ En la literatura de este ámbito se lleva implementando tecnologías basadas en 
 
 Existen ejemplos del uso de estas tecnologías son proyectos como el del \acrfullr{citsem} ``Acuicultura 4.0"\cite{Acuicultura} y diversos trabajos de fin de grado y máster relacionados, pero no para el conteo de movimientos a través de YOLO.
 
+\clearpage
 \subsection{Técnicas para el análisis de movimiento en la visión por ordenador}
 
 Estas técnicas son muy importantes en el campo de la vigilancia, para poder percibir el cambio de elementos en la imagen y realizar su seguimiento. Según los autores M.Sonka y V.Hlavac\cite{sonkaImageProcessingAnalysis2013}, los problemas que 
