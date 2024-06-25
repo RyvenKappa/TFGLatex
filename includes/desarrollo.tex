@@ -29,8 +29,8 @@ pantalla inicial para seleccionar otro video para continuar con el proceso.
 La solución se implementará de manera que se puedan aprovechar al máximo los recursos del sistema, permitiendo una reducción en el tiempo global 
 que toma procesar un experimento.
 
-En los siguientes puntos, se explicará el desarrollo que se ha seguido para el desarrollo de la propuesta, empezando por los componentes internos 
-del módulo de obtención de datos, luego su procesado en una arquitectura monolítica y finalmente la implementación en una aplicación completa.
+En los siguientes puntos, se explicará el desarrollo que se ha seguido para la implementación de la propuesta, empezando por los componentes internos 
+del módulo de obtención de datos, luego su procesado en una arquitectura secuencial y finalmente la implementación en una aplicación completa.
 
 \clearpage
 \subsection{Pruebas de desarrollo: \texttt{OpticalFlow} y \texttt{YOLO}}
@@ -140,10 +140,64 @@ En este sentido se plantearon dos alternativas para su desarrollo usando diferen
     redes neuronales no son deterministas y dependiendo del fotograma sobre el que se realice inferencia, podemos obtener resultados alejados de 
     los esperados.
 \end{enumerate}
- 
-\vspace{3\baselineskip}
 
-Para decidir cuál método podía dar mejores resultados, se probaron las diferentes tecnologías aplicadas en el video \texttt{23}
+Para decidir cuál método podía dar mejores resultados, se probaron las diferentes tecnologías aplicadas en el video \verb|23_NT_R1_J1_P7_8.mp4|. Este video dura 15 segundos y contiene dos peces, uno a 
+la izquierda y otro a la derecha.
+
+
+\subsubsection{Pruebas de concepto con \texttt{OpticalFlow}}
+
+Para realizar las pruebas se utilizó el entorno de \texttt{MATLAB} en la versión \texttt{2023B}. En esta aplicación se disponen de 2 funciones principales 
+que implementan análisis de flujo óptico: 
+\begin{itemize}
+    \item Método de Horn-Schunck: método de análisis denso (aplicado para todos los píxeles de la imagen).
+    \item Método de Lucas-Kanade: método de análisis local (aplicado a áreas de píxeles que se asumen que tienen el mismo movimiento).
+\end{itemize}
+
+Ambas pruebas demostraron que los videos con los que se estaba trabajando tenían una tasa de fotogramas demasiado baja para la cantidad de movimiento que podía ocurrir entre fotogramas. 
+Esto se puede observar en el flujo óptico percibido cuando suceden cambios bruscos del pez como en la \autoref{fig:HSOpticalFlow} para el método Horn-Schunck y en la \autoref{fig:LKOpticalFlow} 
+para el método Lucas-Kanade.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/6/6.2.1/HSIzquierda1.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/6/6.2.1/HSIzquierda2.png}
+    \end{subfigure}
+    \caption{Flujo óptico detectado entre dos fotogramas por el método Horn-Schunck en los videos del \textit{NetText}}
+    \label{fig:HSOpticalFlow}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/6/6.2.1/LKIzquierda1.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/6/6.2.1/LKIzquierda2.png}
+    \end{subfigure}
+    \caption{Flujo óptico detectado entre dos fotogramas por el método Lucas-Kanade en los videos del \textit{NetText}}
+    \label{fig:LKOpticalFlow}
+\end{figure}
+
+El principal problema del método Horn-Schunck es que se ve muy afectado por el ruido, en el caso de este experimento, ese ruido aparece por el poco \texttt{bitrate} que tiene el video 
+en comparación con la velocidad de movimiento que tienen las truchas. Aparte de esto, es un método computacionalmente muy costoso, en el caso de este video de 15 segundos tardó cerca de 10 
+minutos en realizar el análisis completo del flujo óptico, lo cual incumple el requisito 18.
+
+Vemos cierta mejoría usando el método de Lucas-Kanade, pero al realizar el análisis de forma local en zonas con similitudes, en cuanto la trucha hace un movimiento, el análisis deja de funcionar 
+sobre la parte de la imagen en la que se sitúa la trucha. Esto elimina la posibilidad de utilizar este método para la parametrización del movimiento de la trucha.
+
+En ambos métodos se ha comprobado que mejorarían los resultados aplicando umbralizaciones a la imagen. También sería necesario un preprocesado para delimitar la sección de 
+imagen sobre la que es de interés realizar el análisis de flujo óptico (la zona de la red que contiene la trucha). Aún con lo comentado anteriormente, el único método que puede aportar algún 
+tipo de información de manera consistente para todo el video es el método de Horn-Schunck.
+
+\subsubsection{Pruebas de concepto con \texttt{YOLO}}
 
 
 \clearpage
