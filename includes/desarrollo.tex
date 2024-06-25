@@ -33,7 +33,7 @@ En los siguientes puntos, se explicará el desarrollo que se ha seguido para la 
 del módulo de obtención de datos, luego su procesado en una arquitectura secuencial y finalmente la implementación en una aplicación completa.
 
 \clearpage
-\subsection{Pruebas de desarrollo: \texttt{OpticalFlow} y \texttt{YOLO}}
+\subsection{Pruebas de concepto: \texttt{OpticalFlow} y \texttt{YOLO}}
 
 El desarrollo del módulo de procesado del video afectaba al tratamiento de datos que se iba a realizar posteriormente, por esto mismo se decidió 
 tratarlo como el primer problema a solucionar.
@@ -135,16 +135,40 @@ En este sentido se plantearon dos alternativas para su desarrollo usando diferen
         \item Detección: es la más interesante, ya que nos permite conseguir unos tiempos de procesado por imagen muy bajos a la vez que nos da datos 
         relacionados con la posición y el tamaño aproximado de una caja rectangular que envuelva al pez.
     \end{itemize}
-    Para realizar esto, sería necesario etiquetar datos para entrenar la red neuronal. Además de esto, sería necesario hacer una validación de 
-    los entrenamientos realizados para conseguir cumplir con las necesidades. Esto es debido a que al contrario que el \texttt{OpticalFlow}, las 
-    redes neuronales no son deterministas y dependiendo del fotograma sobre el que se realice inferencia, podemos obtener resultados alejados de 
-    los esperados.
+    
+    Siendo la más viable la tarea de detección, se entrenaría un modelo \texttt{YOLO} para que sea capaz de detectar las truchas. Esto se realizaría 
+    conformando un conjunto de datos de imágenes de truchas y sus respectivas etiquetas, que en este caso son dos esquinas de una caja (\texttt{Bounding Box}) que engloba el 
+    objeto que se quiere detectar.\newline
+    La red neuronal a la hora de realizar la inferencia nos devolvería objetos detectados de esa clase marcados con \texttt{Bounding Boxes} como se puede ver en el ejemplo de la \autoref{fig:IdeaYOLOGeneral}.
+    
+    A través de estas \texttt{Bounding Boxes}, podemos parametrizar un movimiento como la reducción del área o movimientos de la posición de la \texttt{Bounding Boxes}.
+
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}[t]{0.39\textwidth}
+            \centering
+            \includegraphics[width=0.8\textwidth]{images/6/EjemploYOLO.png}
+            \caption{Imagen procesada por \texttt{YOLO}}
+        \end{subfigure}
+        \begin{subfigure}[t]{0.59\textwidth}
+            \centering
+            \includegraphics[width=0.99\textwidth]{images/6/YOLOEjemploResultados.png}
+            \caption{Idea de estimación de movimiento a través de los resultados de las \texttt{Bounging Boxes}, marcando en rojo los movimientos}
+        \end{subfigure}
+        \caption{Idea general basada en \texttt{YOLO} para el módulo de procesamiento del video}
+        \label{fig:IdeaYOLOGeneral}
+    \end{figure}
+
+    Hay que tener en cuenta que sería necesario hacer una validación de los entrenamientos realizados para conseguir cumplir con las necesidades. 
+    Esto es debido a que al contrario que el \texttt{OpticalFlow}, las redes neuronales no son deterministas y dependiendo del fotograma sobre el que se realice inferencia, 
+    podemos obtener resultados alejados de los esperados.
 \end{enumerate}
 
+\vspace{1\baselineskip}
 Para decidir cuál método podía dar mejores resultados, se probaron las diferentes tecnologías aplicadas en el video \verb|23_NT_R1_J1_P7_8.mp4|. Este video dura 15 segundos y contiene dos peces, uno a 
 la izquierda y otro a la derecha.
 
-
+\clearpage
 \subsubsection{Pruebas de concepto con \texttt{OpticalFlow}}
 
 Para realizar las pruebas se utilizó el entorno de \texttt{MATLAB} en la versión \texttt{2023B}. En esta aplicación se disponen de 2 funciones principales 
@@ -187,11 +211,12 @@ para el método Lucas-Kanade.
 \end{figure}
 
 El principal problema del método Horn-Schunck es que se ve muy afectado por el ruido, en el caso de este experimento, ese ruido aparece por el poco \texttt{bitrate} que tiene el video 
-en comparación con la velocidad de movimiento que tienen las truchas. Aparte de esto, es un método computacionalmente muy costoso, en el caso de este video de 15 segundos tardó cerca de 10 
+en comparación con la velocidad de movimiento que tienen las truchas. Aparte de esto, es un método computacionalmente muy costoso. en el caso de este video de 15 segundos tardó cerca de 10 
 minutos en realizar el análisis completo del flujo óptico, lo cual incumple el requisito 18.
 
 Vemos cierta mejoría usando el método de Lucas-Kanade, pero al realizar el análisis de forma local en zonas con similitudes, en cuanto la trucha hace un movimiento, el análisis deja de funcionar 
-sobre la parte de la imagen en la que se sitúa la trucha. Esto elimina la posibilidad de utilizar este método para la parametrización del movimiento de la trucha.
+sobre la parte de la imagen en la que se sitúa la trucha. Aún siendo bastante rápido (sin llegar a ser tiempo real), esta situación elimina la posibilidad de utilizar este método para la 
+parametrización del movimiento de la trucha.
 
 En ambos métodos se ha comprobado que mejorarían los resultados aplicando umbralizaciones a la imagen. También sería necesario un preprocesado para delimitar la sección de 
 imagen sobre la que es de interés realizar el análisis de flujo óptico (la zona de la red que contiene la trucha). Aún con lo comentado anteriormente, el único método que puede aportar algún 
@@ -199,6 +224,10 @@ tipo de información de manera consistente para todo el video es el método de H
 
 \subsubsection{Pruebas de concepto con \texttt{YOLO}}
 
+Hay que hablar del entrenamiento, conjunto de datos usado, verificación de resultados, tiempo de procesado, viabilidad de solución, estimación de movimiento a través de las áreas de las bounding 
+boxes.
+
+Finalmente hablar de los resultados publicados en el congreso de Álvaro y su respectiva cita.
 
 \clearpage
 \subsection{Pruebas de desarrollo: sistema \texttt{StandAlone} con \texttt{YOLO}}
