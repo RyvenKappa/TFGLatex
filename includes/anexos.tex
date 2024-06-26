@@ -117,3 +117,27 @@ Adicionalmente, \texttt{YOLO} produce resultados adicionales, que dependiendo de
 \clearpage
 \subsection*{ANEXO B: Datos de entrenamiento}
 \label{subsec:B}
+\subsubsection*{Entrenamiento 1}
+\label{train:1}
+\begin{itemize}
+    \item \textbf{Fecha}: 9 de abril de 2024 (Prueba de concepto).
+    \item \textbf{Descripción del conjunto de datos}: 24 imágenes seleccionadas manualmente del video \verb|23_NT_R1_J1_P1_2.mp4|. Conjunto dividido en 70-15-15 para los respectivos subconjuntos.
+    \item \textbf{Resultados de entrenamiento}: En las siguientes figuras se observan  unos resultados que aparentan buenos  para ser un primer entrenamiento, pero debido al conjunto de datos con datos gran similares entre sí, en 
+    situaciones de posiciones de trucha nuevas, se observó problemas en la precisión de la red. Aparte de esto se puede ajustar más ya que con 100 épocas vemos que se para cuando todavía hay una tendencia 
+    descendente en el error en el conjunto de validación.
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/13/b/1/PR.png}
+        \caption{Gráficas de estadísticos finales del entrenamiento 1}
+        \label{fig:Estadisticos1}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/13/b/1/results.png}
+        \caption{Gráficas de evolución en épocas del entrenamiento 1}
+        \label{fig:Resultados1}
+    \end{figure}
+
+
+\end{itemize}
