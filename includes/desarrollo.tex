@@ -245,7 +245,7 @@ el movimiento como en la \autoref{fig:YOLOTrain1Bien}. Sin embargo, situaciones 
 necesidad de expandir el conjunto de datos.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.3\textwidth]{images/6/6.2.2/DeteccionTrain1.png}
+    \includegraphics[width=0.31\textwidth]{images/6/6.2.2/DeteccionTrain1.png}
     \caption{Correcta detección en la prueba de concepto de \texttt{YOLO} en situaciones de movimiento}
     \label{fig:YOLOTrain1Bien}
 \end{figure}
@@ -266,12 +266,31 @@ necesidad de expandir el conjunto de datos.
     \label{fig:YOLOTrain1Mal}
 \end{figure}
 
-\vspace{3\baselineskip}
+Aún con los problemas varios que se pudieron observar, se observó que en una \texttt{\acrshort{gpu}} \texttt{GTX 1060 6GB} de \texttt{NVidia} el procesado del video y la obtención de los resultados solo tardaba \texttt{10 ms} 
+por fotograma de video. Esto permitiría un procesado menor al tiempo del video hasta con 100 \acrshort{fps}.
 
-Hay que hablar del entrenamiento, conjunto de datos usado, verificación de resultados, tiempo de procesado, viabilidad de solución, estimación de movimiento a través de las áreas de las bounding 
-boxes.
+Esta prueba de concepto demuestra la viabilidad del uso de \texttt{YOLO} como herramienta para obtener datos sobre las truchas existentes en el video de forma rápida.
 
-Finalmente hablar de los resultados publicados en el congreso de Álvaro y su respectiva cita.
+Teniendo en cuenta que la mayoría de los movimientos observables de las truchas se basan en coletazos, podemos determinar que la trucha cuando busca realizar un movimiento, tendrá que comprimir su cuerpo en un menor 
+área y después volver a estirar el cuerpo. Esto es directamente caracterizable con los datos de las \texttt{Bounding Boxes} obtenidos usando \texttt{YOLO}.
+
+\vspace{2\baselineskip}
+
+\subsubsection{Análisis de las pruebas de concepto}
+
+En los anteriores puntos se presentaron dos alternativas:
+\begin{itemize}
+    \item \textbf{OpticalFlow}: aunque es una solución que idealmente debería funcionar, es incapaz de tener la suficiente consistencia con los videos usados en este trabajo, que tienen demasiado movimiento entre fotogramas. Aparte 
+    de esto, un punto negativo severo es que el único algoritmo que consigue sacar algo de información vectorial sobre el flujo en las zonas del pez es de tipo denso, tardando una relación de 40 veces la duración del video en procesar 
+    el resultado. Esto incumple el requisito de acelerar el experimento para los investigadores del \textit{NetTest}.
+    \item \textbf{YOLO}: aún con situaciones con problemas de detección, pueden ser en mayor grado solucionado con mayor entrenamiento y expansión del conjunto de datos. Como la tarea que realiza son solo de detección, alcanza unas 
+    velocidades que permiten la viabilidad del proyecto.
+\end{itemize}
+
+Por lo anterior, se ha decidido finalmente descartar la solución basada en \texttt{OpticalFlow} y utilizar un modelo \texttt{YOLO} como base para el análisis y obtención de datos del video. 
+
+Gracias a estas pruebas de concepto, se realizaron unas gráficas representativas sobre el cambio de área y centroide para demostrar la viabilidad de contar movimientos con este sistema. Esto se utilizó para el 
+aporte en un artículo de conferencia sobre el mismo tema llevado a cabo por el investigador Álvaro de la LLave-Propín\cite{alvarodelallave-propinEstilosAfrontamientoHacia2024}.
 
 \clearpage
 \subsection{Pruebas de desarrollo: sistema \texttt{StandAlone} con \texttt{YOLO}}

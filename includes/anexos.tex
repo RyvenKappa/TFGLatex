@@ -19,7 +19,7 @@ de entrenamiento para alcanzar unos valores de perdida adecuados. Algunos de los
 
 \begin{itemize}
     \item \textbf{Learning Rate inicial}: es el valor que afecta cuanto se cambian los pesos entre época. Por defecto es \texttt{0.01}, que puede parecer poco, pero es mejor dar pasos pequeños para llegar al mínimo global.
-    \item \textbf{Learning Rate final}: es una fracción del valor inicial. Cuanto más se entrena la red es normal reducir el \texttt{Learning Rate} para ajustar de forma más fina. Por defecto es \texttt{0.01}.
+    \item \textbf{Learning Rate final}: es una fracción del valor inicial. Según se realiza el entrenamiento de la red es normal reducir el \texttt{Learning Rate} para ajustar de forma más fina. Por defecto es \texttt{0.01}.
     \item \textbf{Momentum}: es una variable que permite tener en cuenta que camino se ha recorrido en la anterior época, para no volver a situaciones anteriores y seguir progresando. Por defecto es \texttt{0.937}.
     \item \textbf{Weight Decay}: hiperparámetro para prevenir sobreajuste y penalizar los pesos que son extremadamente grandes en la red.
     \item \textbf{Épocas de calentamiento}: número de épocas que se utilizaran para ir poco a poco acercándose a los valores iniciales de \texttt{Learning Rate}. Por defecto su valor es 3.
