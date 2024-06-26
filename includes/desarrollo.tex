@@ -238,8 +238,33 @@ Con esta aplicación se realizó el etiquetado de 24 imágenes para realizar un 
     \item 4 imágenes para el conjunto de pruebas
 \end{itemize}
 
-Posteriormente se realizó el entrenamiento de la red neuronal \texttt{YOLOv8} versión \texttt{nano}, que es la más pequeña y rápida de entrenar. Los detalles en profundidad de este entrenamiento se pueden 
-observar en el \hyperref[subsec:B]{anexo B}.
+Posteriormente se realizó el entrenamiento de la red neuronal \texttt{YOLOv8} versión \texttt{nano}, que es la más pequeña y rápida de entrenar. Los detalles en profundidad de resultados de este 
+entrenamiento se pueden observar en el \hyperref[train:1]{anexo B}. \newline
+Se consiguió unos buenos resultados y al inferir sobre el video \verb|23_NT_R1_J1_P7_8.mp4|, se observó que el seguimiento de la trucha se conseguía incluso en situaciones críticas donde la trucha realizaba 
+el movimiento como en la \autoref{fig:YOLOTrain1Bien}. Sin embargo, situaciones como las de la \autoref{fig:YOLOTrain1Mal},en donde la trucha tenía formas suficientemente extrañas o se ocultaba detrás del marco de la red resaltaron la falta de entrenamiento y la 
+necesidad de expandir el conjunto de datos.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{images/6/6.2.2/DeteccionTrain1.png}
+    \caption{Correcta detección en la prueba de concepto de \texttt{YOLO} en situaciones de movimiento}
+    \label{fig:YOLOTrain1Bien}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/6/6.2.2/DeteccionRaraTrain1.png}
+        \caption{Detección de poca confianza y de baja calidad en el primer entrenamiento}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/6/6.2.2/PocaConfianzaTrain1.png}
+        \caption{Detección de poca confianza por ocultación de la trucha}
+    \end{subfigure}
+    \caption{Situaciones negativas en la prueba de concepto de \texttt{YOLO}}
+    \label{fig:YOLOTrain1Mal}
+\end{figure}
 
 \vspace{3\baselineskip}
 
