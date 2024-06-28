@@ -504,17 +504,15 @@ Con el procesamiento de los datos realizados, se puede aplicar el algoritmo para
     \State $GradienteTotalSubconjunto \gets \texttt{suma de los gradientes del subconjunto}$
     \If{$gradienteTotalSubconjunto \geq -1 $} 
         \State $return -1$
-        \EndIf
-    \If{$\texttt{todos los valores del gradiente del subconjunto} \geq -0.8$}
+    \ElsIf{$\texttt{todos los valores del gradiente del subconjunto} \geq -0.8$}
         \State $return -1$
-        \EndIf
-    \If{$0.3 \leq \texttt{Todos los valores de la relacion ancho/área del subconjunto} \leq 2.7$}
+    \ElsIf{$0.3 \leq \texttt{Todos los valores de la relacion x/y del subconjunto} \leq 2.7$}
         \If{$\texttt{El mayor área del subconjunto} \geq \texttt{mediana de los datos}\cdot0.9$}
             \State $return -1$
         \Else{$ $}
             \State $resultado \gets \texttt{Fotograma del subconjunto con menor varianza del Blur}$
             \State $return \texttt{  resultado}$
-        \EndIf
+            \EndIf
     \Else{$ $}
         \State $return -1$
     \EndIf
