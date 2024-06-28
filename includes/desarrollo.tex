@@ -498,9 +498,31 @@ El \texttt{DataFrame} con todos los datos se procesa de la siguiente manera:
 \end{enumerate}
 
 Con el procesamiento de los datos realizados, se puede aplicar el algoritmo para buscar movimientos, que utiliza el siguiente pseudocodigo:
-
-
-E
+\begin{algorithm}
+    \caption{Estimación de movimiento}
+\begin{algorithmic}[1]
+    \State $GradienteTotalSubconjunto \gets \texttt{suma de los gradientes del subconjunto}$
+    \If{$gradienteTotalSubconjunto \geq -1 $} 
+        \State $return -1$
+        \EndIf
+    \If{$\texttt{todos los valores del gradiente del subconjunto} \geq -0.8$}
+        \State $return -1$
+        \EndIf
+    \If{$0.3 \leq \texttt{Todos los valores de la relacion ancho/área del subconjunto} \leq 2.7$}
+        \If{$\texttt{El mayor área del subconjunto} \geq \texttt{mediana de los datos}\cdot0.9$}
+            \State $return -1$
+        \Else{$ $}
+            \State $resultado \gets \texttt{Fotograma del subconjunto con menor varianza del Blur}$
+            \State $return \texttt{  resultado}$
+        \EndIf
+    \Else{$ $}
+        \State $return -1$
+    \EndIf
+\end{algorithmic}
+\end{algorithm}\newline
+Al algoritmo se le pasan todos los subconjuntos de fotogramas en los que el gradiente ha sido menor que 0, siendo necesario que sean subconjuntos mayores a 1 elemento y menores a 9. Esto ayuda a eliminar 
+situaciones en las que la \texttt{Bounding Box} cambia mucho entre fotogramas sin ningún movimiento de la trucha. Posteriormente, dentro del algoritmo se verifican los datos para eliminar situaciones 
+que pueden ser errores o pueden no ser representativas de un movimiento
 
 \clearpage
 \subsection{Desarrollo de aplicación completa}

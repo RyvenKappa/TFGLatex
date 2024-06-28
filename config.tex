@@ -21,6 +21,8 @@
 \usepackage{mathtools}
 \usepackage{amsmath}
 \usepackage{multirow}
+\usepackage{algpseudocodex}
+\usepackage{algorithm}
 \raggedbottom
 
 \addbibresource{TFGDiego.bib}
@@ -53,3 +55,8 @@
     \fancyfoot[EL]{\thepage}
     \fancyfoot[OR]{\thepage}
 }
+
+%Cosas para escribir pseudocodigo
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
