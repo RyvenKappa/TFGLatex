@@ -404,7 +404,7 @@ Más tarde en el documento se verá la integración de estos diferentes modelos 
 
 \clearpage
 
-\subsubsection{Pruebas de desarrollo: sistema secuencial con \texttt{YOLO}}
+\subsection{Análisis del número de movimientos en el video}
 
 
 
@@ -414,19 +414,14 @@ una \texttt{Bounding Box} de la trucha. Posteriormente estos datos son procesado
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{images/6/6.3/DiagramaStandAlone.png}
-    \caption{Diagrama del primer sistema \texttt{StandAlone} a desarrollar}
+    \caption{Diagrama del primer sistema secuencial desarrollado}
     \label{fig:IdeaSistemaBasico}
 \end{figure}
 
-Para plantear el procesamiento, primero se deben entender que datos es capaz de devolver un modelo \texttt{YOLO}, su formato y seleccionar los mas relevantes.\newline
-En los modelos de detección de objetos, hay 2 modelos principales que se quieren tratar en este trabajo:
+Para plantear el procesamiento, primero se deben entender que datos es capaz de devolver un modelo \texttt{YOLO}, su formato y seleccionar los mas relevantes. Esto depende en gran medida del tipo de 
+modelo que se esté usando.
 
-\begin{itemize}
-    \item Detección tradicional con \texttt{Bounding Boxes} con ejes paralelos a los ejes de la imagen.
-    \item Detección con \texttt{Bounding Boxes} orientadas, que es capaz de minimizar el área que define al pez, pero tarda más en realizar el procesamiento y tiene resultados en distinto formato.
-\end{itemize}
-
-\subsubsection{Obtención del número de truchas}
+\subsubsection{Obtención del número de truchas en el video}
 
 Los modelos de detección habitual de \texttt{YOLO} devuelven un objeto \texttt{ultralytics.engine.results}, cuyo contenido relevante para este trabajo ha sido:
 
@@ -456,7 +451,7 @@ De los elementos anteriores que contienen la información de las \texttt{Boundin
 \end{itemize}
 
 Una vez se obtienen todos estos elementos de un video, es necesario saber el pez al que pertenece para \texttt{Bounding Box} detectada. Esto es importante, ya que estos sistemas pueden detectar varias instancias de un objeto en la 
-misma posición de forma superpuesta. Un ejemplo de esto se ve en la \autoref{fig:Superposicion}. En este caso es esperable obtener 1 datos por fotograma, por lo tanto es necesario decidir la mejor \texttt{Bounding Box}.
+misma posición de forma superpuesta. Un ejemplo de esto se ve en la \autoref{fig:Superposicion}. En este caso es esperable obtener 1 datos por fotograma, por lo tanto se decide la mejor \texttt{Bounding Box}.
 
 \begin{figure}[H]
     \centering
@@ -482,4 +477,30 @@ el contenido de cada columna será un diccionario de \texttt{Python} con la info
 
 \clearpage
 
+De forma más concreta, por cada trucha y por cada fotograma se guarda:
+\begin{itemize}
+    \item Área de la \texttt{Bounding Box} en porcentaje respecto a la resolución de la imagen.
+    \item Posición \texttt{X} del centroide de la \texttt{Bounding Box}.
+    \item Posición \texttt{Y} del centroide de la \texttt{Bounding Box}.
+    \item Relación del ancho entre la altura de la \texttt{Bounding Box}.
+    \item Ángulo de rotación (Si no es detección \acrshort{obb}, será 0).
+    \item Valor del \texttt{Blur}: Se guarda la varianza del filtro laplaciano sobre la sección donde se encuentra la trucha. Esto es interesante porque un movimiento de una trucha implica una imagen más borrosa. A través 
+    del filtro laplaciano podemos buscar bordes, y cuantos menos aparezcan en la imagen, menor será la varianza.
+\end{itemize}
+
+\subsubsection{Obtención de los movimientos de cada trucha}
+
+El \texttt{DataFrame} con todos los datos se procesa de la siguiente manera:
+\begin{enumerate}
+    \item Para cada columna de trucha, se realiza un nuevo \texttt{DataFrame} que almacene en columnas separadas los valores de área, centroides, blur, etc. Esto es para no tratar con diccionarios.
+    \item Se calcula el gradiente de la columna del área. Esto nos permite ver el cambio entre fotogramas de área y es uno de los puntos importantes a la hora de buscar movimientos.
+    \item Se calcula el cambio absoluto de la posición del centroide de las \texttt{Bounding Boxes} entre fotogramas.
+\end{enumerate}
+
+Con el procesamiento de los datos realizados, se puede aplicar el algoritmo para buscar movimientos, que utiliza el siguiente pseudocodigo:
+
+
+E
+
+\clearpage
 \subsection{Desarrollo de aplicación completa}
