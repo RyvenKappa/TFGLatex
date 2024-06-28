@@ -134,10 +134,125 @@ Adicionalmente, \texttt{YOLO} produce resultados adicionales, que dependiendo de
     \end{figure}
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.8\textwidth]{images/13/b/1/results.png}
+        \includegraphics[width=0.9\textwidth]{images/13/b/1/results.png}
         \caption{Gráficas de evolución en épocas del entrenamiento 1}
         \label{fig:Resultados1}
     \end{figure}
+\end{itemize}
+\subsubsection*{Entrenamiento 2}
+\label{train:2}
+\begin{itemize}
+    \item \textbf{Fecha}: 25 de abril de 2024
+    \item \textbf{Descripción del conjunto de datos}: al conjunto del \hyperref[train:1]{entrenamiento de prueba} se le añadieron imágenes extra y situaciones con redes vacías. En total 50 imágenes en división 70-15-15 para los subconjuntos.
+    \item \textbf{Resultados del entrenamiento}: A través del aumento de datos del conjunto y con el mismo número de épocas, se puede observar en la \autoref{fig:Estadisticos2} que hemos mejorado mucho el \texttt{recall} teniendo menos falsos positivos, 
+    pero hemos perdido precisión en situaciones de poca confianza, esto puede ser debido al añadir imágenes de redes sin peces, pero no es nada problemático, ya que para \texttt{Bounding Boxes} con tan poca confianza, es mejor no procesarlas. 
+    Aparte se ve en la \autoref{fig:Resultados2} que hemos mejorado mucho la precisión en la perdida de las \texttt{Bounding Boxes}, esto era el objetivo. Vemos que el resto de parametros no han cambiado mucho, buena señal.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.82\textwidth]{images/13/b/2/graficas2.png}
+        \caption{Gráficas de estadísticos finales del entrenamiento 2}
+        \label{fig:Estadisticos2}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/13/b/2/results.png}
+        \caption{Gráficas de evolución en épocas del entrenamiento 2}
+        \label{fig:Resultados2}
+    \end{figure}
+\end{itemize}
+\subsubsection*{Entrenamiento 3}
+\label{train:3}
+\begin{itemize}
+    \item \textbf{Fecha}: 4 de mayo de 2024
+    \item \textbf{Descripción del conjunto de datos}: Mismo conjunto que el \hyperref[train:2]{entrenamiento anterior}
+    \item \textbf{Resultados del entrenamiento}: a través del aumento de las épocas hasta 300, se pudo observar como se podían alcanzar valores de error en las \texttt{Bounding Boxes} bastante más bajas. 
+    Este entrenamiento también dejo claro que el conjunto de datos de validación era demasiado reducido y no era suficientemente representativo, las imágenes eran muy similares entre sí.
 
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/13/b/3/graficas2.png}
+        \caption{Gráficas de estadísticos finales del entrenamiento 3}
+        \label{fig:Estadisticos3}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/13/b/3/results.png}
+        \caption{Gráficas de evolución en épocas del entrenamiento 3}
+        \label{fig:Resultados3}
+    \end{figure}
+\end{itemize}
+\clearpage
+\subsubsection*{Entrenamiento 4}
+\label{train:4}
+\begin{itemize}
+    \item \textbf{Fecha}: 4 de mayo de 2024
+    \item \textbf{Descripción del conjunto de datos}: el conjunto de datos fue expandido con imágenes de los videos antiguos, obteniendo en total 84 imágenes representativas divididas en 70-15-15.
+    \item \textbf{Resultados del entrenamiento}: por los nuevos tipos de imágenes añadidas, hemos perdido en la mayoría de métricas, pero esta red es mucho más representativa para los datos reales. 
+    Además de esto, el conjunto de validación que se usa de referencia ahora es mucho más realista y tiene imágenes difíciles que implican movimientos, ya que para imágenes de truchas estáticas ha 
+    estado funcionando correctamente durante todos los entrenamientos.
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/13/b/4/graficas2.png}
+        \caption{Gráficas de estadísticos finales del entrenamiento 4}
+        \label{fig:Estadisticos4}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/13/b/4/results.png}
+        \caption{Gráficas de evolución en épocas del entrenamiento 4}
+        \label{fig:Resultados4}
+    \end{figure}
+
+\end{itemize}
+
+\clearpage
+
+\subsubsection*{Entrenamiento Final}
+\label{train:final}
+\begin{itemize}
+    \item \textbf{Fecha}: 9 de junio de 2024
+    \item \textbf{Descripción del conjunto de datos}: 203 imágenes en total. Se añadieron fotogramas aleatorios de varios videos del experimento \textit{NetTest} para poder manejar un conjunto más grande.
+    \item \textbf{Resultados del entrenamiento}: resultados muy positivos, sobre todo en la \autoref{fig:ResultadosFinal} en la confianza con la que se realizan las clasificaciones y la curva F1, que aún siendo mejorable, solo tiene problemas 
+    con falsos positivos en valores de confianza muy altos. Aparte de esto, como se puede apreciar en la \autoref{fig:EstadisticosFinal}, el error de aproximación a la \texttt{Bounding Box} predicha se ha 
+    conseguido reducir mucho tanto en entrenamiento como en el conjunto de validación, que es principalmente lo que se necesitaba del modelo \texttt{YOLO} para este trabajo.
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/13/b/final/graficas2.png}
+        \caption{Gráficas de estadísticos del último entrenamiento}
+        \label{fig:EstadisticosFinal}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/13/b/final/results.png}
+        \caption{Gráficas de evolución en épocas del último entrenamiento}
+        \label{fig:ResultadosFinal}
+    \end{figure}
+\end{itemize}
+
+\clearpage
+
+\subsubsection*{Entrenamiento OBB}
+\label{OBB:1}
+\begin{itemize}
+    \item \textbf{Fecha}: 9 de mayo de 2024
+    \item \textbf{Descripción del conjunto de datos}: conjunto común al \hyperref[train:4]{entrenamiento 4}, 84 imágenes tanto de videos nuevos como de videos antiguos.
+    \item \textbf{Resultados del entrenamiento}: se observan los problemas que conllevan trabajar con \texttt{Bounding Boxes} orientadas, se pierde mucho tanto en métricas como en rendimiento general. 
+    El punto positivo de este sistema es acotar lo máximo posible la \texttt{Bounding Box} al elemento, pero principalmente se observa una dificultad añadida y necesidad de mucho más entrenamiento y 
+    ajuste de hiperparámetros para conseguir sobre todo mejorar el \acrshort{map}50-95.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/13/b/obb/graficas2.png}
+        \caption{Gráficas de estadísticos finales del entrenamiento \texttt{OBB}}
+        \label{fig:EstadisticosOBB}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/13/b/obb/results.png}
+        \caption{Gráficas de evolución en épocas del entrenamiento \texttt{OBB}}
+        \label{fig:ResultadosOBB}
+    \end{figure}
 
 \end{itemize}

@@ -290,12 +290,196 @@ En los anteriores puntos se presentaron dos alternativas:
 Por lo anterior, se ha decidido finalmente descartar la solución basada en \texttt{OpticalFlow} y utilizar un modelo \texttt{YOLO} como base para el análisis y obtención de datos del video. 
 
 Gracias a estas pruebas de concepto, se realizaron unas gráficas representativas sobre el cambio de área y centroide para demostrar la viabilidad de contar movimientos con este sistema. Esto se utilizó para el 
-aporte en un artículo de conferencia sobre el mismo tema llevado a cabo por el investigador Álvaro de la LLave-Propín\cite{alvarodelallave-propinEstilosAfrontamientoHacia2024}.
+aporte en un artículo de conferencia sobre el mismo tema llevado a cabo por el investigador Álvaro de la LLave-Propín\cite{delallave-propinEstilosAfrontamientoHacia2024}.
 
 \clearpage
-\subsection{Pruebas de desarrollo: sistema \texttt{StandAlone} con \texttt{YOLO}}
+\subsection{Entrenamiento progresivo de los diferentes modelos de \texttt{YOLO}}
+
+En la librería de \texttt{ultralytics}, existen dos modelos de detección que se busca soportar en el desarrollo de esta solución para el procesado de los videos:
+
+\begin{itemize}
+    \item Detección tradicional con \texttt{Bounding Boxes} con ejes paralelos a los ejes de la imagen.
+    \item Detección con \acrfullr{obb}, que es capaz de minimizar el área que define al pez, pero tarda más en realizar el procesamiento y tiene resultados en distinto formato.
+\end{itemize}
+
+Habitualmente, la detección tradicional, al no tener que lidiar con rotación, es capaz de ser mucho más rápida en el tiempo de inferencia, pero la posibilidad de desarrollar el sistema soportando redes de tipo \texttt{OBB} 
+puede permitir manejar mejores precisiones en un futuro.
+
+Al usar la herramienta de etiquetado \texttt{CVAT} se observó que la exportación a etiquetas para un modelo \texttt{YOLO OBB} no eran funcionales. Estas etiquetas requieren para cada imagen un archivo \texttt{.txt} que contenga 
+todas las instancias de los objetos en la imagen y los cuatro puntos que definen el cuadro que lo delimita.\newline
+Para poder entrenar la red \texttt{OBB}, se usó una herramienta disponible en un repositorio de \texttt{GitHub}\cite{kolesnikovKoldim2001COCO_to_YOLOv82024} que transformaba etiquetas en formato \texttt{COCO} (formato estándar 
+que se estructura en un \texttt{XML}) a las etiquetas necesarias. 
+
+En este proyecto, se buscan obtener buenos resultados en el entrenamiento para ciertos estadísticos, siendo el más importante la precisión de la \texttt{Bounding Box}, ya que queremos que se ajuste lo máximo posible al mínimo tamaño 
+necesario. También nos interesa mucho las métricas de precisión y obtener un área máxima bajo la curva \texttt{F1}, ya que tiene en cuenta la precisión y, si conseguimos buenos resultados en la parte alta para la confianza, implicará 
+que tenemos un buen número de verdaderos positivos respecto a falsos positivos con buena precisión. Al trabajar con una sola clase, los estadísticos relacionados con el ámbito de clasificación no son tan relevantes siendo que se 
+cumpla un mínimo de clasificación en las detecciones.
+
+Lo primero que se realizó fue un pequeño aumento de datos en los que se aumentó el conjunto de datos a 40 imágenes. Como se buscaba que la red generalizase mejor el concepto de trucha, se añadieron imágenes sin truchas como las de 
+la \autoref{fig:VaciasTrain2}, en la que apareciesen la mesa vacía y partes de la red vacías.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.55\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/6/6.3/esquinaTopVacia.jpg}
+        \caption{Imagen de esquina vacía del segundo conjunto}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.4\textwidth}
+        \centering
+        \includegraphics[width=0.3\textwidth]{images/6/6.3/medioVacio.jpg}
+        \caption{Imagen del área entre las truchas añadida al segundo conjunto}
+    \end{subfigure}
+    \caption{Imágenes extra para el segundo conjunto sin truchas}
+    \label{fig:VaciasTrain2}
+\end{figure}
+
+Esto permitió al modelo entrenado tener mejor capacidad de generalización de las truchas, además de tener menos falsos positivos (ver \hyperref[train:2]{anexo B: entrenamiento 2}). En otro entrenamiento 
+posterior aumentando las épocas hasta 300, se observó que se podía seguir reduciendo el error asociado al ajustado de las \texttt{Bounding Boxes} (ver \hyperref[train:3]{anexo B: entrenamiento 3}), por lo 
+tanto para los siguientes entrenamientos se decidió trabajar con un número de épocas mayor o igual a 300.
+\clearpage
+
+Posteriormente, se decidió usar el conjunto de videos antiguos del \textit{NetTest} para expandir el conjunto de datos. Esto se debía a 3 razones principales:
+\begin{enumerate}
+    \item \textbf{Aumento de datos y creación de un modelo más robusto}: el usar imágenes como las de los videos antiguos permitiría una capacidad alta al modelo de detectar truchas bajo diferentes condiciones de luz y de diferentes tamaños (las de esos videos son 
+    jovenes). Además de esto, los movimientos de los peces en los videos antiguos eran mas dificiles de analizar por su falta de detalle, mejorando la cantidad de datos que representaban movimiento.
+    \item \textbf{Evitar Overfitting para futuros entrenamientos}: el \texttt{overfitting} es una situación conocida en el entrenamiento de redes neuronales en las que las redes son entrenadas de forma excesiva, aprendiendo el ruido
+     del conjunto de datos. Esto se ve representado por la incapacidad del modelo de predecir correctamente sobre datos que no haya visto en ningún momento del entrenamiento. No es una situación que deba suceder, pero cuanto más 
+    variado sea el conjunto de datos, menos posibilidades hay de llegar a esta situación.
+\end{enumerate}
+
+En total se añadieron 34 imágenes de los videos antiguos, dando como resultado un conjunto de datos de 84 imágenes en la división 70-15-15.\newline
+Con este conjunto de datos se realizaron 2 entrenamientos(ver \hyperref[train:4]{anexo B}), uno con un modelo \texttt{YOLO} de detección tradicional y otro a un modelo \texttt{OBB}, el cual se tuvo que realizar en una herramienta similar a \texttt{Google collab} 
+llamada \texttt{Kaggle} (se decidio usar esta plataforma porque daba más flexibilidad y mayor potencia de \acrshort{gpu}).\newline
+Ambos modelos dieron buenos resultados en detectar todas las situaciones de la trucha completamente. 
+El modelo \acrshort{obb} se observó que tenía menos confianza en las predicciones de manera general, lo cual necesitaría mejorarse con mejores datos, etiquetas y ajuste de hiperparámetros.
+
+Más tarde se descubrió que no se había tenido en cuenta un factor importante: el color de la red. Este factor se vio cuando se intentó realizar inferencia sobre un video del \textit{NetTest} número 2, donde 
+la red era completamente negra y había fotogramas como el de la \autoref{fig:RedNegra} donde generalizar el pez era demasiado complicado para el modelo entrenado.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/6/6.3/RedNegra.jpg}
+    \caption{Fotograma de ejemplo en videos con red negra}
+    \label{fig:RedNegra}
+\end{figure}
+
+Para solucionar este problema y como entrenamiento final, se decidió hacer un último aumento del conjunto de datos. Para esto se tomaron imágenes aleatorias de los videos \verb|23_NT_R2_J1_P1_P2|, 
+\verb|23_NT_R3_J1_P1_P2| y \verb|23_NT_R3_J2_P1_P2|. En total el conjunto de datos fue aumentado hasta los 203 fotogramas.\newline
+Esto sumado a expandir el entrenamiento hasta las 600 épocas, permitió crear un modelo entrenado muy robusto para todo tipo de iluminaciones, cambios de redes y de variaciones de fondo.
 
 
 
 \clearpage
+
+Para poder aprovechar los diferentes recursos del sistema, se trabajó con 3 formatos de redes neuronales en los que \texttt{YOLO} es capaz de trabajar:
+\begin{itemize}
+    \item \textbf{PyTorch}: formato muy estandarizado y con soporte muy amplio. Es capaz de trabajar en \acrshort{cpu}, \acrshort{gpu} e incluso en dispositivos especializados para multiplicaciones de matrices como 
+    las \acrfullr{tpu}. Su principal problema es que no está optimizado realmente para funcionar en \acrshort{cpu}. Obteniendo muy malos tiempos por fotograma. Su uso ideal es sobre las \texttt{GPU} de \texttt{NVidia}, 
+    aprovechando el uso de operaciones \texttt{CUDA} para hacer cálculos con matrices. 
+    \item \textbf{ONNX}: plataforma de traducción abierta entre modelos, ofrece mucho mejor soporte a distintos \texttt{HardWare} y ofrece mejor rendimiento si se quiere inferir sobre \texttt{cpu}.
+    \item \textbf{OpenVino}: plataforma propietaria de \texttt{Intel}, que optimiza redes neuronales para todo el \texttt{HardWare} de su marca. Funciona extremadamente bien.
+\end{itemize}
+
+En un ordenador con un \texttt{i7-8700} y una \texttt{GTX 1060 6GB} se han visto los resultados para cada modelo mostrados en la \autoref{DiferenciasFormatos}.
+
+\begin{table}[H]
+    \begin{center} {
+    \begin{tabular}{lc}
+    \hline
+     & \multicolumn{1}{c}{tiempo (ms) por fotograma}\\
+    \hline
+    \raisebox{0ex}{PyTorch-CPU} & 60 \\[0ex]
+    \raisebox{0ex}{PyTorch-CUDA} & 10 \\[0ex]
+    \raisebox{0ex}{ONNX} & 40 \\[0ex]
+    \raisebox{0ex}{OpenVino} & 13 \\[0ex]
+    \hline
+    \end{tabular} }
+    \end{center}
+    \caption{Diferencia de tiempo de inferencia por formato de modelo de \texttt{YOLO}}
+    \label{DiferenciasFormatos}
+\end{table}
+
+Más tarde en el documento se verá la integración de estos diferentes modelos en la aplicación y en el uso dependiendo del \texttt{HardWare} del usuario.
+
+\clearpage
+
+\subsubsection{Pruebas de desarrollo: sistema secuencial con \texttt{YOLO}}
+
+
+
+Se buscó desarrollar un sistema secuencial como el representado en la \autoref{fig:IdeaSistemaBasico}, donde se utiliza \texttt{YOLO} para procesar los videos y detectar en cada fotograma 
+una \texttt{Bounding Box} de la trucha. Posteriormente estos datos son procesados y, a través de la aplicación de un algoritmo, detectar el número de movimientos que han ocurrido y cuando han sucedido.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/6/6.3/DiagramaStandAlone.png}
+    \caption{Diagrama del primer sistema \texttt{StandAlone} a desarrollar}
+    \label{fig:IdeaSistemaBasico}
+\end{figure}
+
+Para plantear el procesamiento, primero se deben entender que datos es capaz de devolver un modelo \texttt{YOLO}, su formato y seleccionar los mas relevantes.\newline
+En los modelos de detección de objetos, hay 2 modelos principales que se quieren tratar en este trabajo:
+
+\begin{itemize}
+    \item Detección tradicional con \texttt{Bounding Boxes} con ejes paralelos a los ejes de la imagen.
+    \item Detección con \texttt{Bounding Boxes} orientadas, que es capaz de minimizar el área que define al pez, pero tarda más en realizar el procesamiento y tiene resultados en distinto formato.
+\end{itemize}
+
+\subsubsection{Obtención del número de truchas}
+
+Los modelos de detección habitual de \texttt{YOLO} devuelven un objeto \texttt{ultralytics.engine.results}, cuyo contenido relevante para este trabajo ha sido:
+
+\begin{itemize}
+    \item \textbf{Boxes}: objeto con información sobre los elementos detectados, tamaño, posición y confianza de clasificación.
+    \item \textbf{OBB}: en este caso es \texttt{None} por que no se realiza este tipo de tarea.
+    \item \textbf{Imagen original}: objeto que contiene la imagen original de ese fotograma.
+    \item \textbf{Tamaño de la imagen}: diccionario de dos elementos con el tamaño de la imagen de tipo \texttt{(ancho, altura)} expresado en píxeles.
+\end{itemize}
+
+Sin embargo, los modelos que se basan en detectar \texttt{Bounding Boxes} orientadas devuelven:
+
+\begin{itemize}
+    \item \textbf{Boxes}: en este caso \texttt{None}
+    \item \textbf{OBB}: objeto con la información sobre las detecciones, igual que \texttt{Boxes} en contenido pero estructurado de forma diferente.
+    \item \textbf{Imagen original}.
+    \item \textbf{Tamaño de la imagen}.
+\end{itemize}
+
+\clearpage
+
+De los elementos anteriores que contienen la información de las \texttt{Bounding Boxes}, se deciden utilizar ciertos elementos respectivamente:
+\begin{itemize}
+    \item \textbf{Boxes}: Este objeto contiene un elemento llamado \texttt{xywh} conteniendo la posición \texttt{x} e \texttt{y} del centro de cada \texttt{Bounding Boxes} en la imagen respecto a la esquina 
+    superior izquierda. Además contiene el ancho \texttt{w} y el alto \texttt{h} de cada una. Es de tipo \texttt{Tensor} internamente.
+    \item \textbf{OBB}: Este objeto contiene un elemento llamado \texttt{xywhr} igual que el elemento anterior, pero al ser cajas orientadas, se añade un elemento extra que representa la rotación de la \texttt{Bounding Box}.
+\end{itemize}
+
+Una vez se obtienen todos estos elementos de un video, es necesario saber el pez al que pertenece para \texttt{Bounding Box} detectada. Esto es importante, ya que estos sistemas pueden detectar varias instancias de un objeto en la 
+misma posición de forma superpuesta. Un ejemplo de esto se ve en la \autoref{fig:Superposicion}. En este caso es esperable obtener 1 datos por fotograma, por lo tanto es necesario decidir la mejor \texttt{Bounding Box}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/6/6.3/Superposicion.png}
+    \caption{Presencia de varias \texttt{Bounding Boxes} superpuestas para una trucha en el experimento}
+    \label{fig:Superposicion}
+\end{figure}
+
+Para saber cuantos peces aparecían en el video, se utilizó la media de la posición \texttt{x} de las primeras 50 muestras para analizar el punto medio de la imagen entre los datos. 
+Posteriormente se calcula la desviación de las muestras para analizar si la desviación es mayor a un límite según la resolución del video. Este sistema permite saber si hay 1 o 2 truchas en el experimento, 
+añadiendo flexibilidad al sistema.
+
+Posterior a esto, se realiza una transformación de datos para construir un objeto \texttt{DataFrame} de la librería \texttt{Pandas}, usada en la ciencia de datos por su capacidad de manejar muchos datos de forma 
+extremadamente rápida, ya que internamente utiliza el lenguaje de programación \texttt{C}. \newline
+Para cada fotograma, se selecciona la \texttt{Bounding Box} que ha tenido mayor confianza por la red para cada zona en la que existe una trucha. Cada índice de este \texttt{dataframe} representa el fotograma y 
+el contenido de cada columna será un diccionario de \texttt{Python} con la información relevante. Esto se puede ver en la \autoref{fig:DatosEstructurados}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/6/6.3/DatosEstructurados.png}
+    \caption{Datos estructurados procesados por fotograma y por trucha para las \texttt{Bounding Boxes}}
+    \label{fig:DatosEstructurados}
+\end{figure}
+
+\clearpage
+
 \subsection{Desarrollo de aplicación completa}
