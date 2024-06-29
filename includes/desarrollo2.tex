@@ -36,5 +36,155 @@ Para realizar el diseño de la aplicación, se diseñó a través de la herramie
 Usando este esquema como idea general, se fue desarrollando la aplicación poco a poco, desde la ventana inicial hasta la ventana de datos
 
 \begin{itemize}
-    \item Ventana inicial de la interfaz
+    \item \textbf{Ventana inicial de la interfaz}: esta ventana tiene como objetivo que el usuario seleccione el video sobre el que quiere realizar la detección automática de movimiento, su aspecto se puede ver en la 
+    \autoref{fig:InicialSinSeleccion}.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/6/6.5/VentanaInicial.png}
+        \caption{Pantalla inicial sin video seleccionado}
+        \label{fig:InicialSinSeleccion}
+    \end{figure}
+
+    Esta ventana contiene un botón que permite abril una ventana modal que contiene un manual de usuario. Esto se implementó para que las personas que usen esta aplicación no necesiten tener el documento de este trabajo a mano. 
+    El aspecto de la ventana del manual se puede observar en la \autoref{fig:InicialManual}.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/6/6.5/Manual.png}
+        \caption{Aspecto del manual contenido en la pantalla inicial de la aplicación}
+        \label{fig:InicialManual}
+    \end{figure}
+
+    El usuario puede selecciona a través de un explorador de archivos, el fichero (debe ser un fichero soportado, lo cual se indica en el manual) sobre el que quiere realizar la inferencia. También puede utilizar el explorador 
+    para cancelar la selección.
+    
+    En el momento que el fichero se selecciona, aparece un botón de inferencia como se ve en la \autoref{fig:InicialSeleccion}. Cuando se pulsa el botón, se realizan una series de comprobaciones sobre el video para ver sí es 
+    compatible, en caso contrario la inferencia no se realizará y se volverá al estado inicial.
+
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}{0.8\textwidth}
+            \centering
+            \includegraphics[width=0.9\textwidth]{images/6/6.5/Explorador.png}
+            \caption{Aspecto del explorador de archivos para seleccionar video}
+        \end{subfigure}
+        \begin{subfigure}{0.8\textwidth}
+            \centering
+            \includegraphics[width=0.9\textwidth]{images/6/6.5/InicialSeleccionado.png}
+            \caption{En cuanto se selecciona el fichero, aparece el botón para iniciar el procesado}
+        \end{subfigure}
+        \caption{Flujo de selección de video}
+        \label{fig:InicialSeleccion}
+    \end{figure}
+    \clearpage
+    \item \textbf{Ventana de inferencia}: esta ventana sirve como pantalla de carga mientras se procesa el video, como se ve en la \autoref{fig:VentanaCarga} se implementó junto con un botón para cancelar por dos motivos:
+    \begin{itemize}
+        \item Permitir al usuario conocer el estado del procesamiento del video y que la aplicación no se quede estática.
+        \item Permitir al usuario cancelar el proceso si se ha equivocado de video seleccionado.
+    \end{itemize}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/6/6.5/Carga.png}
+        \caption{Aspecto de la pantalla de carga de la aplicación}
+        \label{fig:VentanaCarga}
+    \end{figure}
+\clearpage
+    \item \textbf{Ventana de datos}: esta ventana tiene tres propósitos:
+    \begin{itemize}
+        \item Mostrar un análisis por gráficas sobre las \texttt{bounding boxes} de las truchas de cada lado, eliminando o añadiendo elementos de la \acrshort{gui} dependiendo de sí hay 1 o 2 truchas en el video. En concreto se 
+        ha diseñado para mostrar 2 conjuntos de gráficas, el primer conjunto contiene gráficas para cada uno de los datos como el área, centroide, relación de tamaño y \texttt{blur} para las 2 truchas. El segundo conjunto tiene 
+        una gráfica para cada trucha donde se representan la gráfica del área, centroide y \texttt{blur} al mismo tiempo.
+        \item Mostrar el número de movimientos para cada trucha.
+        \item Validar los resultados: se quería permitir que los usuarios pudiesen verificar los movimientos que han sucedido, para esto se han creado dos líneas de tiempo, una para cada trucha. A través de ellas y un reproductor 
+        del video integrado en la aplicación, se pueden verificar los movimientos que han sucedido, pudiendo añadir o quitar movimientos.\newline
+        Esta funcionalidad se realiza añadiendo la capacidad de que el usuario pueda pinchar en las líneas de tiempo, sirviendo como referencia del fotograma donde se quiere añadir el movimiento. Para que el usuario sepa donde está, se 
+        marca con una línea vertical.
+    \end{itemize}
+    Los datos para rellenar las gráficas se obtienen cuando finaliza la inferencia previa y su transformación de datos, como se explicó en una sección anterior.\newline
+    Elementos como las líneas de tiempo se han creado a base de unir gráficas y crear series discretas según los datos obtenidos. Estas series y gráficas se actualizan en tiempo de fotograma, además de ser ajustadas en altura 
+    para aprovechar al máximo la pantalla del usuario y para no tener que depender de una aplicación a pantalla completa.
+
+    El aspecto de esta ventana se puede verificar en la \autoref{fig:VentanaDatos}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.95\textwidth]{images/6/6.5/VentanaDatos.png}
+        \caption{Aspecto de la ventana de datos}
+        \label{fig:VentanaDatos}
+    \end{figure}
 \end{itemize}
+\clearpage
+\subsubsection{Implementación de las funcionalidades a través de procesos}
+
+Para poder implementar todas las funcionalidades de forma correcta, se necesitaba realizar de forma paralela diferentes tareas. Para esto se utilizó la librería \texttt{Multiprocessing} de \texttt{Python}.
+
+El uso de \texttt{Multiprocessing} es debido a que la implementación de hilos en \texttt{Python} a través de la librería \texttt{Threading} no es como se espera. Esto es debido a que \texttt{Python} es 
+un lenguaje interpretado, lo que implica que hay una aplicación que va analizando los ficheros de código y ejecutando operaciones.\newline
+Para realizar esas tareas de forma segura respecto a la aplicación padre, \texttt{Python} implementa un \texttt{\acrfullr{gil}}, el cual evita que haya más de un hilo en ejecución a la vez.
+
+Las implicaciones del \acrshort{gil} son en resumen:
+\begin{itemize}
+    \item El uso de hilos en \texttt{Python} se limita a situaciones especiales donde haya mucho \texttt{I/O}, ya que no son capaz de funcionar en paralelo.
+    \item Para poder obtener concurrencia real, se necesita usar librerías que manejen varios intérpretes de \texttt{Python} a través de un lenguaje con mayor control como \texttt{C} o \texttt{C++}. 
+    La librería \texttt{Multiprocessing} realiza esto, manejando los cambios de contexto y la relación entre procesos.
+\end{itemize}
+
+El uso de \texttt{multiprocessing}, al contrario que el uso de \texttt{threading} implica que no hay memoria compartida entre procesos, por lo tanto hay que pensar la forma para comunicar información 
+entre procesos. Es un punto muy importante, ya que pueden aparecer problemas de concurrencia por falta de operaciones atómicas (1 línea de código de alto nivel no se ejecuta de golpe en el procesador).
+
+Para la comunicación entre procesos existen muchas técnicas y sistemas ya existentes. En este trabajo se ha decidido utilizar técnicas basadas en colas. Aún sin ser el mecanismo que podría ser más 
+eficiente en sobrecarga de memoria, es extremadamente fácil de usar.
+
+Una cola es un mecanismo de bajo nivel que consiste en un \texttt{buffer} de tipo \texttt{\acrfullr{fifo}} que comunica diferentes procesos como se puede ver en la \autoref{fig:Pipe}. Permite operaciones de varios procesos productores y varios 
+procesos consumidores. Además de esto, maneja los problemas de concurrencia de manera que el acceso para introducir y adquirir elementos se controle para todos los procesos, teniendo llamadas bloqueantes 
+y métodos de \texttt{polling} sobre la cola.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/6/6.5/Pipe.png}
+    \caption{Funcionamiento de una cola para datos de procesos}
+    \label{fig:Pipe}
+\end{figure}
+
+En la librería de \texttt{multiprocessing}, este mecanismo esta completamente implementado de dos formas:
+\begin{itemize}
+    \item \texttt{Queue}: la cola que se ha explicado anteriormente, con varios productores y consumidores.
+    \item \texttt{Pipe}: una cola que solo gestiona 1 productor y 1 consumidor. Es hasta 3 veces más rápida que una \texttt{Queue}, y por las tareas en las que se va a usar, es el mecanismo perfecto 
+    para comunicar procesos en este trabajo. Cada objeto de esta clase cuenta con dos \texttt{enpoints}, uno para entrada de datos y otro para salida (si esto no se respeta saltan excepciones).
+\end{itemize}
+\clearpage
+En este trabajo se utilizó \texttt{multiprocessing} para las siguientes tareas:
+\begin{enumerate}
+    \item \textbf{Realizar la inferencia}:\newline
+    Cuando se creó una solución secuencial de prueba en anteriores secciones, se observó que procesar el \texttt{blur} de la imagen al final de procesar el video obligaba a acumular todas las imágenes 
+    descomprimidas del video. Esto efectivamente creaba un pico en el uso de memoria \acrfullr{ram} (para un video de 15 s, era capaz de utilizar \texttt{3GB}), lo cual era extremadamente problemático.
+
+    Para poder realizar la inferencia sin que la aplicación se quedase colgada y poder crear una pantalla de carga se implementó un sistema, en el que al momento de procesar un video, se crean dos procesos 
+    en el programa principal a la vez que se crean dos objetos \texttt{Pipe}, comunicados como se ve en la \autoref{fig:DatosInferencia}:
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/6/6.5/Procesos1.png}
+        \caption{Flujo de datos entre procesos para la inferencia}
+        \label{fig:DatosInferencia}
+    \end{figure}
+    \vspace{2\baselineskip}
+    \begin{itemize}
+        \item Proceso de inferencia: va realizando la inferencia sobre el video fotograma a fotograma en modo streaming con el modelo \texttt{YOLO} entrenado en secciones anteriores. Antes de ser arrancado, 
+        a este proceso se le pasa el \texttt{endpoint} que le permite introducir datos hacia el proceso para resultados. Para cada fotograma introduce en el \texttt{endpoint} un array que contiene: 
+        [resultados del \texttt{YOLO}, imagen original, resolución de la imagen]. Para poder serializar correctamente los resultados de \texttt{YOLO} se utilizó la librería \texttt{Pickle} de \texttt{Python}.
+        
+        \item Proceso para resultados: este proceso va eliminando los mensajes que obtiene por el \texttt{endpoint} de salida en el que el proceso de inferencia va mandando los resultados y los acumula 
+        en una variable propia. Cuando hay 50 mensajes, realiza la estimación del número de truchas que hay en el video, y a partir de aquí va procesando los resultados (incluyendo el cálculo del \texttt{blur}).
+        Esto permite que las imágenes solo se guarden en memoria \texttt{RAM} el tiempo que estén en la \texttt{Pipe}. A la par que se realiza esto, a través del \texttt{endpoint} de entrada hacia el proceso 
+        principal, se va indicando el fotograma por el que va el proceso de inferencia, lo cual permite rellenar la barra de carga para que el usuario pueda verlo. Cuando todos los resultados han sido 
+        procesados, en el \texttt{endpoint} que se comunica con el proceso principal se manda un diccionario con el resultado del cálculo de movimientos y los datos de las truchas.
+    \end{itemize}
+
+    En el anexo c....
+    \clearpage
+    \item \textbf{Mostrar el video en la pestaña de datos}:\newline
+\end{enumerate}
+
+El diagrama de clases general de la aplicación se encuentra en el \hyperref[esquema:DiagramaClases]{anexo c} de este documento.
+
+\clearpage
+\subsubsection{Guardado de los datos y despliegue de la aplicación}
