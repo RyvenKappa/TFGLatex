@@ -1,2 +1,40 @@
 \subsection{Desarrollo de aplicación completa}
-Hola, soy la explicación
+
+El siguiente objetivo del trabajo fue desarrollar una aplicación completa que permitiese a los usuarios obtener los resultados de forma fácil. Esto fue decidido principalmente por dos razones:
+
+\begin{itemize}
+    \item Era necesario cumplir el requisito que afecta al nivel de conocimiento necesario para manejar la herramienta. Con una aplicación que tuviese interfaz gráfica, se podría manejar mucho mejor que 
+    obligar al usuario a usar una consola de comandos o a conocer como funcionar las diferentes dependencias de las librerías usadas.
+    \item Servía como oportunidad para mejorar los servicios que era capaz de proporcionar el sistema, además de poder diseñar la aplicación para poder aprovechar de forma eficiente los recursos del 
+    \texttt{HardWare}.
+\end{itemize}
+
+Para desarrollar esta aplicación primero se seleccionó la librería de \acrfullr{gui}. Este paso fue importante porque existen muchas posibles librerías en el entorno de \texttt{Python}, pero cada una 
+aporta diferentes utilidades y abstracciones, siendo las más comunes:
+\begin{itemize}
+    \item \texttt{TKinter}: es el \texttt{framework} más usado en \texttt{Python}. Es una librería simple y que no se suele usar para manejar datos multimedia, ya que es muy simple.
+    \item \texttt{PyQT}: librería que internamente usa el \texttt{framework} \texttt{QT}. Es mucho más potente y capaz de manejar videos y elementos complejos.
+    \item \texttt{Kivy}: librería pensada para el desarrollo de aplicaciones móviles.
+    \item \texttt{PySimpleGUI}: es una librería \texttt{wrapper} sobre \texttt{Tkinter} y similares, por lo tanto es muy simple, pero limita mucho.
+    \item \texttt{Remi}: se usa para crear interfaces web.
+    \item \texttt{DearPyGUI}\cite{HoffstadtDearPyGuiDear}: librería muy reciente que se centra en dar al usuario la máxima eficiencia posible, usando aceleración \texttt{HardWare} a través de \texttt{OpenGL}.
+\end{itemize}
+
+\vspace{2\baselineskip}
+
+Al estar trabajando con redes neuronales, queremos que la interfaz gráfica utilice la menor cantidad de recursos posible y de la manera más eficiente. Además, como se verá en los siguientes puntos, 
+se implementaron partes multimedia en la aplicación, por lo tanto fue necesaria una librería centrada en la eficiencia, lo cual dejaba como posibles opciones 
+\texttt{PyQT} y \texttt{DearPyGUI}, sin embargo por motivos personales del autor, la librería seleccionada fue \texttt{DearPyGUI}.
+
+La selección se debe a la experiencia del autor en otros trabajos con la misma librería para realizar aplicaciones de manejo de cámaras IP. Al conocer ya la librería, se reducirían 
+los posibles problemas y la necesidad de mirar documentación. Además de esta experiencia pasada, quedó patente que \texttt{DearPyGUI} es capaz de manejar los recursos del ordenador de forma muy eficiente.
+
+\clearpage
+\subsubsection{Diseño de interfaz para la aplicación}
+
+Para realizar el diseño de la aplicación, se diseñó a través de la herramienta \texttt{DrawIO}, un esquema general del flujo y ventanas de la aplicación (completo en el \hyperref[esquema:FlujoVentanas]{anexo c}).\newline
+Usando este esquema como idea general, se fue desarrollando la aplicación poco a poco, desde la ventana inicial hasta la ventana de datos
+
+\begin{itemize}
+    \item Ventana inicial de la interfaz
+\end{itemize}
