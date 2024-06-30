@@ -1,38 +1,5 @@
 \section{DESARROLLO DEL TRABAJO}
 
-\subsection{Descripción de la solución propuesta}
-
-Se busca desarrollar una aplicación completa que sirva como sistema en gran medida automatizado para obtener una estimación 
-de los movimientos realizados por truchas en videos de experimentos \textit{NetTest}. Para realizar esta tarea, se diseñará 
-una arquitectura dividida en tres sistemas específicos como se puede ver en la \autoref{fig:ArquitecturaBasicaSolucion}.
-
-\begin{itemize}
-    \item Interfaz gráfica de usuario: permitirá al usuario seleccionar el video a analizar, observar los resultados y guardarlos.
-    \item Capa de análisis del video: a través de técnicas como el \texttt{Machine Learning} o el análisis de flujo óptico, parametrizará 
-    los movimientos de las truchas que aparezcan en el video.
-    \item Capa de procesado de datos: obtendrá la caracterización realizada por la capa de análisis y a través de la transformación y 
-    procesado de los datos, devolverá los datos que se deban mostrar en la interfaz gráfica. Además realizará la estimación final del número 
-    de movimientos por trucha.
-\end{itemize}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\textwidth]{images/6/IdeaAplicación.png}
-    \caption{Arquitectura básica de la solución propuesta}
-    \label{fig:ArquitecturaBasicaSolucion}
-\end{figure}
-
-El bucle de uso principal consistirá en la selección de un video a procesar, el análisis del mismo, la transformación de los datos resultantes, 
-la estimación de los movimientos y la devolución de los datos al usuario a través de la interfaz gráfica.\newline
-El usuario podrá elegir verificar los datos o guardar directamente un archivo con los resultados. Realizado esto, el usuario podrá volver a la 
-pantalla inicial para seleccionar otro video para continuar con el proceso.
-
-La solución se implementará de manera que se puedan aprovechar al máximo los recursos del sistema, permitiendo una reducción en el tiempo global 
-que toma procesar un experimento.
-
-En los siguientes puntos, se explicará el desarrollo que se ha seguido para la implementación de la propuesta, empezando por los componentes internos 
-del módulo de obtención de datos, luego su procesado en una arquitectura secuencial y finalmente la implementación en una aplicación completa.
-
-\clearpage
 \subsection{Pruebas de concepto: \texttt{OpticalFlow} y \texttt{YOLO}}
 
 El desarrollo del módulo de procesado del video afectaba al tratamiento de datos que se iba a realizar posteriormente, por esto mismo se decidió 
