@@ -179,12 +179,100 @@ En este trabajo se utilizó \texttt{multiprocessing} para las siguientes tareas:
         procesados, en el \texttt{endpoint} que se comunica con el proceso principal se manda un diccionario con el resultado del cálculo de movimientos y los datos de las truchas.
     \end{itemize}
 
-    En el anexo c....
+    Una vez se ha acabado de procesar el video, se cambia de pantalla y se matan los anteriores procesos hijos creados.
+
+    En el \hyperref[esquema:SecuenciaInferir]{anexo c} se puede encontrar un diagrama de secuencia con más detalle de estas operaciones.
     \clearpage
     \item \textbf{Mostrar el video en la pestaña de datos}:\newline
+    Para permitir que el usuario pudiese editar los movimientos que han sucedido, se implementó una utilidad de reproducción de video. Esto se consigue añadiendo una textura a la interfaz y actualizándola 
+    en cada bucle de renderizado. Para conseguir esto se implementó un proceso que controla la reproducción del video internamente manejando peticiones desde el hilo principal.
+    Para esto se utilizan dos \texttt{Pipe}, uno del proceso principal al controlador de video, a través del cual se mandan indicaciones para comenzar la reproducción, parar y saltar a otra posición del video.\newline
+    Estas comunicaciones se pueden ver en la \autoref{fig:DatosVideo}.
+
+    Antes de entrar en la ventana de datos, se usa la primera imagen del video (esta se guardó al verificar los 50 fotogramas mínimos de duración antes de la pantalla de carga) para cargar en la textura.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/6/6.5/Procesos2.png}
+        \caption{Flujo de información entre el proceso principal y el controlador de video}
+        \label{fig:DatosVideo}
+    \end{figure}
+
+    El proceso principal puede mandar como señales:
+    \begin{itemize}
+        \item True: indica que se debe reproducir el video para obtener fotogramas.
+        \item False: indica que se debe pausar el video
+        \item Un valor entero positivo: indica una posición en fotograma al que se debe saltar en el reproductor. Esta es la parte que permite al usuario verificar los diferentes movimientos.
+    \end{itemize}
+    El proceso controlador de video tomará como referencia temporal $ t = 0.8/fps $ y, sí se encuentra en modo reproducción, ira obteniendo, procesando y mandando los fotogramas en ese ritmo. Para todo 
+    esto se aprovecha de la librería \texttt{OpenCV}.
+    
+    En el \hyperref[esquema:SecuenciaResto]{anexo c} se pueden encontrar los diagramas de secuencia que se asocian a estas situaciones.
 \end{enumerate}
 
-El diagrama de clases general de la aplicación se encuentra en el \hyperref[esquema:DiagramaClases]{anexo c} de este documento.
+\vspace{2\baselineskip}
+
+Aparte de todo lo anterior, se pueden encontrar todas las referencias de métodos, clases y módulos en el diagrama de clases general de la aplicación, el cual se encuentra en el 
+\hyperref[esquema:DiagramaClases]{anexo c} de este documento.
 
 \clearpage
 \subsubsection{Guardado de los datos y despliegue de la aplicación}
+
+Como parte del sistema global, se espera poder almacenar la información detectada en un fichero. Para realizar esto se añadió un selector de carpeta y un botón de guardado de resultados, como se puede 
+ver en la \autoref{fig:Guardar}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/6/6.5/Guardar.png}
+    \caption{Widgets relacionados con el guardado}
+    \label{fig:Guardar}
+\end{figure}
+
+Para permitir flexibilidad en el manejo de los datos, se guardan a la vez dos archivos:
+\begin{itemize}
+    \item Archivo \acrfullr{csv}: este tipo de archivos se pueden abrir directamente con editores de texto plano y son compatibles con Excel.\newline
+    Manejan datos con un conjunto de separaciones por comas en horizontal, y saltos de líneas en vertical. En este caso se guarda la estructura de la \autoref{fig:CSVFormat}, no siendo obligatorio los datos 
+    de la trucha de la derecha (esto ocurre cuando hay solo una trucha).
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/6/6.5/csvFormat.png}
+        \caption{Formato de los resultados guardados en \acrshort{csv}}
+        \label{fig:CSVFormat}
+    \end{figure}
+    \item Archivo \acrfullr{json}: este tipo de archivos son semi-estructurados y funcionan muy bien, ya que se usan en todos los lenguajes de programación. En este caso la estructura que se guarda es 
+    la de la \autoref{fig:JSONFormat}.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.32\textwidth]{images/6/6.5/jsonFormat.png}
+        \caption{Formato de los resultados guardados en \acrshort{json}}
+        \label{fig:JSONFormat}
+    \end{figure}
+\end{itemize}
+
+Si no se selecciona una carpeta con el selector, se guardará por defecto en la carpeta raíz que contenga el módulo principal o el ejecutable.\newline
+Para añadir velocidad, se ha asumido que cada nombre de video es único (esto se indica en el manual de la aplicación), esto nos permite que el archivo guardado sea simplemente añadir la extensión al nombre original. 
+Por ejemplo, si tenemos el video \verb|video1.mp4|, los archivos de guardado seran \verb|video1.mp4.csv| y \verb|video1.mp4.json|.
+
+\vspace{3\baselineskip}
+
+Finalmente, para desplegar la aplicación se utilizó la herramienta \texttt{PyInstaller}. Esta herramienta permite crear ejecutables que consiguen encapsular la aplicación de manera que el usuario no necesite 
+manejar las dependencias de la aplicación. Además de esto, dentro de la aplicación inserta el intérprete de \texttt{Python}.
+
+Su manera de funcionamiento es, para cada vez que se abra la aplicación, crear un entorno virtual. Y se puede crear un ejecutable creando:
+\begin{itemize}
+    \item Un ejecutable: contiene todo dentro, por lo tanto también realiza compresión. Suele pesar mucho menos, pero tarda en abrirse, ya que crea en una carpeta temporal del usuario el entorno de \texttt{Python}.
+    \item Una carpeta con un ejecutable dentro: funciona de la misma manera que lo anterior, pero las dependencias vienen ya descomprimidas, por lo tanto no le hace falta crear una carpeta temporal y se abre mucho 
+    más rápido, sin embargo pesa casi el doble habitualmente.
+\end{itemize}
+
+En el caso se han creado las dos versiones, con los siguientes comandos, el primero para crear un ejecutable completo, y el segundo para una carpeta (cambiando --onefile por --onedir):
+\begin{lstlisting}[language=bash,breaklines=true]
+    pyinstaller --onefile --add-data="C:/Users/Diego/Documents/Codigo/TFG2024/.venv/Lib/site-packages/ultralytics":"ultralytics/" --add-binary="C:/Users/Diego/Documents/Codigo/TFG2024/.venv/Lib/site-packages/openvino/libs":"." --hidden-import openvino --collect-submodules openvino --collect-binaries openvino --collect-data openvino --hidden-import onnx --hidden-import onnxruntime  .\main.py
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash,breaklines=true]
+    pyinstaller --onedir --add-data="C:/Users/Diego/Documents/Codigo/TFG2024/.venv/Lib/site-packages/ultralytics":"ultralytics/" --add-binary="C:/Users/Diego/Documents/Codigo/TFG2024/.venv/Lib/site-packages/openvino/libs":"." --hidden-import openvino --collect-submodules openvino --collect-binaries openvino --collect-data openvino --hidden-import onnx --hidden-import onnxruntime  .\main.py
+\end{lstlisting}
+
+Ambas instrucciones cargan los runtimes necesarios (como el de \texttt{CUDA}, \texttt{ONNX} y \texttt{OpenVino}) para que la aplicación pueda aprovechar al máximo el \texttt{HardWare} y detectar cuál formato de 
+modelo de red neuronal utilizar.
