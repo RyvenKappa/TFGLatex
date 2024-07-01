@@ -1,3 +1,14 @@
 \section*{ABSTRACT}
 \thispagestyle{abstract}
-Aquí dentro se introduciría el abstract en Inglés.
+In recent years, the development of computer vision tools has become very important in our lives. In this field there are techniques such as optical flow analysis or 
+convolutional neural networks, being YOLO one of the most popular architectures.
+
+In this document, an application for detecting and counting trout movements in \textit{NetTest} videos is presented. To accomplish this, a data set was made and 
+a \texttt{YOLOv8} model was trained. The model task is to process the video and return data related to the \texttt{Bounding Boxes} detected for each trout.\newline
+Later, all this data is transformed, and an algorithm is applied to estimate the frame and the number of movements. In top of this, a graphical user interface has been 
+developed to do this tasks in a transparent way to the knowledge of the user. To implement all these functionalities, different tools were used such as multiprocessing 
+and \texttt{HardWare} independent inference.
+
+In the validation of the results, the \texttt{YOLOv8n} model was trained till the \texttt{Box Loss} error was minimized and the \texttt{F1} metric maximized. Finally, 
+the movement results were compared to labels obtain from scientist of the \textit{NetTest}. The labels and the results were compared in 64 videos, obtaining an error 
+of \texttt{$ \pm 20\% $}.

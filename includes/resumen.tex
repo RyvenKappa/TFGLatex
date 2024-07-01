@@ -1,3 +1,13 @@
 \section*{RESUMEN}
 \thispagestyle{abstract}
-Aqui va el resumen en castellano.
+En los últimos años la visión por ordenador ha tomado un papel muy importante en la vida cotidiana. Dentro de este campo encontramos técnicas como el análisis de 
+flujo óptico o las redes neuronales de tipo \texttt{CNN}, siendo \texttt{YOLO} una arquitectura muy popular.
+
+En este trabajo se ha desarollado una aplicación de detección y contabilización del número de movimientos realizados por truchas en videos del experimento \textit{NetTest}. 
+Para esto se ha formado un conjunto de datos y se ha entrenado un modelo de \texttt{YOLOv8}, el cual procesa el video y devuelve los resultados de las \texttt{Bounding Boxes} 
+asociadas a cada trucha.\newline Posteriormente los datos son transformados y se les aplica un algoritmo para estimar los fotogramas en los que ha sucedido un movimiento. 
+Encima de esto, se ha desarrollado una interfaz gráfica que realiza todo esto de forma transparente a los conocimientos del usuario. Para implementar todas las funcionalidades 
+se han utilizado herramientas como la ejecución paralela y la inferencia de forma transparente al \texttt{HardWare}.
+
+Como resultados, el modelo \texttt{YOLOv8n} se ha entrenado hasta reducir el error asociado a la \texttt{Bounding Box} y maximizar la puntuación \texttt{F1}. Finalmente, la 
+comparación de resultados con una serie de datos etiquetados en 64 videos ha demostrado una tasa de error de \texttt{$ \pm 20\% $}.
