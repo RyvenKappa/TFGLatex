@@ -145,7 +145,7 @@ y métodos de \texttt{polling} sobre la cola.
     \label{fig:Pipe}
 \end{figure}
 
-En la librería de \texttt{multiprocessing}, este mecanismo esta completamente implementado de dos formas:
+En la librería de \texttt{multiprocessing}, este mecanismo está completamente implementado de dos formas:
 \begin{itemize}
     \item \texttt{Queue}: la cola que se ha explicado anteriormente, con varios productores y consumidores.
     \item \texttt{Pipe}: una cola que solo gestiona 1 productor y 1 consumidor. Es hasta 3 veces más rápida que una \texttt{Queue}, y por las tareas en las que se va a usar, es el mecanismo perfecto 
@@ -169,7 +169,7 @@ En este trabajo se utilizó \texttt{multiprocessing} para las siguientes tareas:
     \vspace{2\baselineskip}
     \begin{itemize}
         \item Proceso de inferencia: va realizando la inferencia sobre el video fotograma a fotograma en modo streaming con el modelo \texttt{YOLO} entrenado en secciones anteriores. Antes de ser arrancado, 
-        a este proceso se le pasa el \texttt{endpoint} que le permite introducir datos hacia el proceso para resultados. Para cada fotograma introduce en el \texttt{endpoint} un array que contiene: 
+        a este proceso se le pasa el \texttt{endpoint} que le permite introducir datos hacia el proceso para resultados. Para cada fotograma introduce en el \texttt{endpoint} un \texttt{array} que contiene: 
         [resultados del \texttt{YOLO}, imagen original, resolución de la imagen]. Para poder serializar correctamente los resultados de \texttt{YOLO} se utilizó la librería \texttt{Pickle} de \texttt{Python}.
         
         \item Proceso para resultados: este proceso va eliminando los mensajes que obtiene por el \texttt{endpoint} de salida en el que el proceso de inferencia va mandando los resultados y los acumula 

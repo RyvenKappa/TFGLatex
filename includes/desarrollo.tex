@@ -178,7 +178,7 @@ para el método Lucas-Kanade.
 \end{figure}
 
 El principal problema del método Horn-Schunck es que se ve muy afectado por el ruido, en el caso de este experimento, ese ruido aparece por el poco \texttt{bitrate} que tiene el video 
-en comparación con la velocidad de movimiento que tienen las truchas. Aparte de esto, es un método computacionalmente muy costoso. en el caso de este video de 15 segundos tardó cerca de 10 
+en comparación con la velocidad de movimiento que tienen las truchas. Aparte de esto, es un método computacionalmente muy costoso. En el caso de este video de 15 segundos tardó cerca de 10 
 minutos en realizar el análisis completo del flujo óptico, lo cual incumple el requisito 18.
 
 Vemos cierta mejoría usando el método de Lucas-Kanade, pero al realizar el análisis de forma local en zonas con similitudes, en cuanto la trucha hace un movimiento, el análisis deja de funcionar 
@@ -309,7 +309,7 @@ tanto para los siguientes entrenamientos se decidió trabajar con un número de 
 Posteriormente, se decidió usar el conjunto de videos antiguos del \textit{NetTest} para expandir el conjunto de datos. Esto se debía a 3 razones principales:
 \begin{enumerate}
     \item \textbf{Aumento de datos y creación de un modelo más robusto}: el usar imágenes como las de los videos antiguos permitiría una capacidad alta al modelo de detectar truchas bajo diferentes condiciones de luz y de diferentes tamaños (las de esos videos son 
-    jovenes). Además de esto, los movimientos de los peces en los videos antiguos eran mas dificiles de analizar por su falta de detalle, mejorando la cantidad de datos que representaban movimiento.
+    jóvenes). Además de esto, los movimientos de los peces en los videos antiguos eran más difíciles de analizar por su falta de detalle, mejorando la cantidad de datos que representaban movimiento.
     \item \textbf{Evitar Overfitting para futuros entrenamientos}: el \texttt{overfitting} es una situación conocida en el entrenamiento de redes neuronales en las que las redes son entrenadas de forma excesiva, aprendiendo el ruido
      del conjunto de datos. Esto se ve representado por la incapacidad del modelo de predecir correctamente sobre datos que no haya visto en ningún momento del entrenamiento. No es una situación que deba suceder, pero cuanto más 
     variado sea el conjunto de datos, menos posibilidades hay de llegar a esta situación.
@@ -317,7 +317,7 @@ Posteriormente, se decidió usar el conjunto de videos antiguos del \textit{NetT
 
 En total se añadieron 34 imágenes de los videos antiguos, dando como resultado un conjunto de datos de 84 imágenes en la división 70-15-15.\newline
 Con este conjunto de datos se realizaron 2 entrenamientos(ver \hyperref[train:4]{anexo B}), uno con un modelo \texttt{YOLO} de detección tradicional y otro a un modelo \texttt{OBB}, el cual se tuvo que realizar en una herramienta similar a \texttt{Google collab} 
-llamada \texttt{Kaggle} (se decidio usar esta plataforma porque daba más flexibilidad y mayor potencia de \acrshort{gpu}).\newline
+llamada \texttt{Kaggle} (se decidió usar esta plataforma porque daba más flexibilidad y mayor potencia de \acrshort{gpu}).\newline
 Ambos modelos dieron buenos resultados en detectar todas las situaciones de la trucha completamente. 
 El modelo \acrshort{obb} se observó que tenía menos confianza en las predicciones de manera general, lo cual necesitaría mejorarse con mejores datos, etiquetas y ajuste de hiperparámetros.
 
@@ -459,7 +459,7 @@ De forma más concreta, por cada trucha y por cada fotograma se guarda:
 
 El \texttt{DataFrame} con todos los datos se procesa de la siguiente manera:
 \begin{enumerate}
-    \item Para cada columna de trucha, se realiza un nuevo \texttt{DataFrame} que almacene en columnas separadas los valores de área, centroides, blur, etc. Esto es para no tratar con diccionarios.
+    \item Para cada columna de trucha, se realiza un nuevo \texttt{DataFrame} que almacene en columnas separadas los valores de área, centroides, \texttt{blur}, etc. Esto es para no tratar con diccionarios.
     \item Se calcula el gradiente de la columna del área. Esto nos permite ver el cambio entre fotogramas de área y es uno de los puntos importantes a la hora de buscar movimientos.
     \item Se calcula el cambio absoluto de la posición del centroide de las \texttt{Bounding Boxes} entre fotogramas.
 \end{enumerate}

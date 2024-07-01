@@ -71,7 +71,7 @@ trabajo y diseño de neurona sería conocido más tarde como perceptron.
     \label{fig:Escalon}
 \end{figure}
 
-La estructura básica del perceptron se puede observar en la \autoref{fig:Perceptron} consiste en un nodo con un número \(\mathcal{N}\) de conexiones entrantes, con un peso asociado \(\mathcal{W}\) 
+La estructura básica del perceptron se puede observar en la \autoref{fig:Perceptron} y consiste en un nodo con un número \(\mathcal{N}\) de conexiones entrantes, con un peso asociado \(\mathcal{W}\) 
 a cada entrada. El nodo calcula el sumatorio de cada conexión con su respectivo peso. Al resultado de este cálculo se le añade un factor de \texttt{bias} y por último, mediante una función de 
 activación como la vista anteriormente, se decide el resultado de salida de la neurona. 
 
@@ -120,7 +120,7 @@ visión por ordenador.
 \clearpage
 \subsection{Detección de Objetos con redes neuronales}
 
-La detección de objetos como tarea surge de la necesidad de analizar la existencia de objetos en imágenes y; opcionalmente, posicionarlos en las mismas.Para realizar este tipo de tareas se han ido 
+La detección de objetos como tarea surge de la necesidad de analizar la existencia de objetos en imágenes y; opcionalmente, localizarlos en las mismas. Para realizar este tipo de tareas se han ido 
 desarrollando técnicas tradicionales basadas en algoritmos extremadamente deterministas, pero, con el auge del aprendizaje automático, a partir de 2012\cite{zouObjectDetection202023} 
 el paradigma pasó a centrarse en la creación de sistemas detectores basados en \texttt{Deep Learning} (Sistemas de Redes Neuronales con una gran cantidad de capas ocultas).
 
@@ -143,8 +143,8 @@ neuronales convolucionales.\newline
 
 \subsubsection{Arquitecturas de redes neuronales tipo \texttt{CNN}}
 
-Las \texttt{\acrfullr{cnn}} definen una arquitectura basada en dos pasos: la extracción de las características de las imágenes y la clasificación de las imágenes según las características. Su estructura básica se compone de dos subredes 
-que cumplen las dos funciones diferentes para los datos de entrada (ver \autoref{fig:ArquitecturaCNN}).
+Las \texttt{\acrfullr{cnn}} definen una arquitectura basada en dos pasos: la extracción de las características de las imágenes y la clasificación de las imágenes según las características. Su estructura básica se 
+puede ver \autoref{fig:ArquitecturaCNN} y  se compone de dos subredes que cumplen las dos funciones diferentes para los datos de entrada.
 
 \begin{figure}[H]
     \centering
@@ -163,13 +163,13 @@ La fase de caracterización se compone principalmente de capas neuronales convol
     Dependiendo de la característica a buscar, existen diferentes filtros convolucionales y en las fases de entrenamiento se va conformando el \texttt{Kernel} que caracteriza mejor esa zona de la imagen para los datos esperados.
 
     Un ejemplo de \texttt{Kernel} es un filtro laplaciano gaussiano como el de la \autoref{fig:LaplaceKernel}, que, a través del gradiente, sirve para darle más énfasis a los bordes de la imagen, como se puede ver 
-    en la \autoref{fig:LaplaceResultado}
+    en la \autoref{fig:LaplaceResultado}.
     \begin{figure}[H]
         \centering
         \(
         \begin{vmatrix}
             1 & 1 & 1 \\
-            1 & 8 & 1 \\
+            1 & -8 & 1 \\
             1 & 1 & 1
         \end{vmatrix}
         \)
@@ -201,7 +201,7 @@ La fase de caracterización se compone principalmente de capas neuronales convol
         \label{fig:MuestreoCNN}
     \end{figure}
     
-    Este sistema se va repitiendo para cada capa de convolución, hasta que en la última capa de polling, la salida es un vector horizontal cuya profundidad es la misma que neuronas de entrada tenga la etapa de clasificación. 
+    Este sistema se va repitiendo para cada capa de convolución, hasta que en la última capa de \texttt{polling}, la salida es un vector horizontal cuya profundidad es la misma que neuronas de entrada tenga la etapa de clasificación. 
 
 \end{itemize}
 
@@ -222,12 +222,12 @@ una de estas funciones habituales es la \texttt{SoftMax} de la \autoref{fig:soft
 \vspace{3\baselineskip}
 
 El uso de estas redes neuronales convolucionales para solucionar un problema está asociado al tipo de trabajo a realizar. Cuando se define un problema en el que se va a aplicar esta técnica, normalmente 
-cae en tres tipos de categorías(ver \autoref{fig:tareasCNN}). Además, esta selección tiene unas implicaciones en la complejidad computacional de la tarea, ya que la capa de clasificación debe ser cambiada para soportarla.
+cae en tres tipos de categorías presentadas en la \autoref{fig:tareasCNN}. Además, esta selección tiene unas implicaciones en la complejidad computacional de la tarea, ya que la capa de clasificación debe ser cambiada para soportarla.
 
 \begin{itemize}
     \item Clasificación: las imágenes son marcadas dependiendo de si existe o no un elemento específico dentro de ella.
     \item Detección de objetos: regiones locales de la imagen son clasificadas y marcadas dependiendo de la existencia del elemento en cuestión.
-    \item Segmentación semántica: se realiza una clasificación por cada pixel para delimitar todos los píxeles que conforman la instancia del objeto
+    \item Segmentación semántica: se realiza una clasificación por cada pixel para delimitar todos los píxeles que conforman la instancia del objeto.
 \end{itemize}
 
 \begin{figure}[H]
@@ -333,12 +333,12 @@ comparan diferentes versiones posteriores a la versión 5 en el conjunto de dato
 
 Esto ha convertido a \texttt{YOLO} en un estándar de facto en la implementación rápida de soluciones basadas en \texttt{Deep Learning} para muchos investigadores por sus resultados basados en obtener detección en tiempo real.
 
-Actualmente \texttt{YOLO} es un proyecto llevado una la empresa \texttt{ultralytics}, siendo el último modelo \texttt{YOLOv8}. Este modelo esta conformado por una capa convolucional personalizada basada en la 
-arquitectura \texttt{CSPDarknet53}, basada en conectar diferentes fases de la arquitectura convolucional para obtener un entrenamiento mucho más rapido. Esta capa convolucional se conecta al cuello de \texttt{YOLO}, 
+Actualmente \texttt{YOLO} es un proyecto llevado una la empresa \texttt{ultralytics}, siendo el último modelo \texttt{YOLOv8}. Este modelo está conformado por una capa convolucional personalizada basada en la 
+arquitectura \texttt{CSPDarknet53}, basada en conectar diferentes fases de la arquitectura convolucional para obtener un entrenamiento mucho más rápido. Esta capa convolucional se conecta al cuello de \texttt{YOLO}, 
 cuya función es utilizar varias salidas de algunas de las secciones de la capa convolucional para tener información de diferentes escalas (cada capa convolucional va transformando la anterior entrada en un vector más y más horizontal).
 
 Lo anterior es común a todos los modelos de \texttt{YOLOv8} independientemente de la tarea que realizan, lo que cambia es la parte final de la red, que, aprovechando la presencia de datos de diferentes escalas, 
-utiliza redes neuronales completamente conectadas para diferentes tareas, una para las localizaciones, otra para las probabilidades de clase de cada elemento y otra para trabajar con regiones de interes.
+utiliza redes neuronales completamente conectadas para diferentes tareas, una para las localizaciones, otra para las probabilidades de clase de cada elemento y otra para trabajar con regiones de interés.
 
 Para facilitar la lectura del documento, en el \hyperref[subsec:A]{anexo A} se realiza una explicación detallada de los parámetros e hiperparámetros habituales de los modelos de \texttt{YOLOv8} y una explicación 
 de los estadísticos que parametrizan la calidad de los entrenamientos de la red en los modelos \texttt{YOLOv8}.
