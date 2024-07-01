@@ -1,1 +1,33 @@
 \section{CONCLUSIONES Y TRABAJOS FUTUROS}
+
+Los experimentos actuales en la ciencia cada vez manejan mayores cantidades de datos. La capacidad de automatizar la obtención de los datos, su procesado y su análisis es uno de los campos más importantes 
+de la tecnología moderna. Dentro de esto encontramos la visión por ordenador como campo que engloba diversas tecnologías para procesar imagen.
+
+Dentro la visión por ordenador, uno de los paradigmas más eficientes en la actualidad para conseguir analizar videos son las arquitecturas de redes neuronales \texttt{CNN}l que aprovechan un planteamiento de 
+operaciones por matrices para poder manejar grandes cantidades de datos a la vez. Una de las \texttt{CNN} más populares actualmente es \texttt{YOLOv8} por su rendimiento y eficiencia.
+
+A través de pruebas comparativas, se ha observado que respecto a métodos tradicionales como el análisis de flujo óptico, las arquitecturas \texttt{CNN}; más específicamente \texttt{YOLO}, se pueden usar 
+para caracterizar el movimiento de truchas de forma extremadamente rápida. Estos sistemas son capaces de reconocer correctamente truchas en movimiento y con una tasa de error muy baja con poco tiempo de entrenamiento.
+
+En este trabajo se ha usado el modelo \texttt{YOLO} entrenado para la detección de truchas para construir una aplicación que cuente el número de movimientos. Para conseguir esto se han aprovechado técnicas como 
+los sistemas basados en ejecución paralela y la correcta elección del modelo dependiendo del \texttt{HardWWare} disponible del ordenador. Con esto se han conseguido obtener resultados como el 
+procesamiento de 64 videos en 1 hora, obteniendo una tasa de error respecto a los movimientos detectados sobre movimientos previamente etiquetados en su mayoría de entre -20\% y 20\%. \newline
+Estos resultados son muy buenos y cumplen con los objetivos marcados en el proyecto.
+
+Con todo esto se ha conseguido construir una aplicación capaz de funcionar a tiempo real, que no necesita conocimientos de tecnologías sobre las redes neuronales, lenguajes de programación o 
+uso de una consola de comandos para ser usada. Esto permite potenciar la automatización de procesos experimentales en campos donde el uso de este tipo de herramientas va retrasado.
+
+A través de este trabajo, se ha podido estudiar el desarrollo de soluciones aplicando técnicas de ingeniería (Planteamiento → Prueba de concepto → Desarrollo → Validación de resultados → Entrega final), entendiendo 
+los requisitos que puede tener una persona ajena al mundo de la ingeniería y sabiendo definir las limitaciones que puede tener la puesta a prueba de un concepto en un entorno real donde hay variables que no se 
+pueden controlar.
+
+\vspace{2\baselineskip}
+
+Las futuras líneas que se plantean en este trabajo son las siguientes:
+\begin{itemize}
+    \item Mejora de la interfaz de usuario: principalmente añadir funcionalidades centradas en la accesibilidad.
+    \item Mejora de la red neuronal: hacer un \texttt{fine-tunning} de hiperparámetros y realizar un entrenamiento lo mejor posible teniendo un conjunto de datos mucho más amplio. Esto permitiría ajustar completamente la 
+    \texttt{Bounding Box} de la trucha. También sería interesante entrenar la red neuronal para trabajar con peces similares.
+    \item Despliegue sobre dispositivos IoT y creación de un cliente ligero: esto permitiría distribuir el sistema y que un usuario pudiese usarlo sin tener un ordenador de altas prestaciones.
+    \item Mejorar el algoritmo de control de movimiento: plantear una alternativa mucho más flexible e inteligente, como un árbol de decisión.
+\end{itemize}
