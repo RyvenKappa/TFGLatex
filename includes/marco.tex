@@ -277,27 +277,9 @@ Cada arquitectura ha traído consigo mejoras, a veces, a cambio de perdida de re
 existentes entre diferentes arquitecturas.
 
 Uno de estos trabajos\cite{hanAdvancedDeepLearningTechniques2018} compara diferentes arquitecturas contra el conjunto de datos de la universidad de Oxford "Pascal2012"\cite{PASCALVisualObject}, que contiene 20 clases de objetos.\newline
-Como resultado de este análisis; resumido en la \autoref{ResumenCNN}, se puede observar que \texttt{YOLOv2}, aún no teniendo la mejor precisión, tiene un rendimiento bastante competente. Si nos quedásemos con solo este dato, podríamos llegar a pensar que \texttt{YOLO} 
-no tiene por qué ser la mejor elección, pero hay que tener en cuenta el factor de rendimiento, que se mide principalmente en el tiempo que se tarda en realizar la inferencia en una imagen. En este caso, podemos observar 
-que \texttt{YOLOv2} es capaz de superar a \texttt{SSD512} obteniendo un mejor \texttt{\acrfullr{map}}(parámetro de caracterización del error medio típico sobre todo el conjunto de datos) con el doble de rendimiento.
-
-\begin{table}[H]
-    \begin{center} {\footnotesize
-    \begin{tabular}{lcccc}
-    \hline
-     & \multicolumn{1}{c}{bike} & \multicolumn{1}{c}{bird} & \multicolumn{1}{c}{train} & \multicolumn{1}{c}{mAP}\\
-    \hline
-    \raisebox{0ex}{Faster R-CNN} & 81.6 & 77.2 & 84.7 & 73.8\\[0ex]
-    \raisebox{0ex}{SSD300} & 80.1 & 70.5 & 81.9 & 72.4\\[0ex]
-    \raisebox{0ex}{SSD512} & 82.3 & 75.8 & 86.3 & 74.9\\[0ex]
-    \raisebox{0ex}{YOLO} & 67.2 & 57.7 & 73.9 & 57.9\\[0ex]
-    \raisebox{0ex}{YOLOv2 $544\cdot544$} & 82.0 & 74.8 & 83.8 & 73.4\\[0ex]
-    \hline
-    \end{tabular} }
-    \end{center}
-    \caption{Resumen de la comparación entre diferentes arquitecturas de \texttt{CNN} con el conjunto de datos \texttt{PASCAL2012}\cite{hanAdvancedDeepLearningTechniques2018}}
-    \label{ResumenCNN}
-\end{table}
+A través del estudio del estado del arte, en el artículo se observa que \texttt{YOLOv2} es muy competente a la hora de obtener rendimiento y velocidad de procesamiento, aún sin ser la red con los mejores resultados, es 
+capaz de superar a arquitecturas ya establecidas como \texttt{SSD512}, obteniendo un mejor \texttt{\acrfullr{map}}(parámetro de caracterización del error medio típico sobre todo el conjunto de datos) con el doble de rendimiento. 
+Se puede observar un resumen de los resultados de este artículo en la \autoref{ResumenCNNFPS}.
 
 \begin{table}[H]
     \begin{center} {\footnotesize
@@ -320,22 +302,23 @@ que \texttt{YOLOv2} es capaz de superar a \texttt{SSD512} obteniendo un mejor \t
 Estos resultados comparativos, a diferencia de otros artículos\cite{manojkumarPerformanceComparisonReal2023}, son útiles, ya que utilizan reglas tales como la comparación bajo el mismo conjunto de datos e 
 indican el tamaño de la imagen de entrada a la red neuronal. Esto permite realizar una comparación realista y en las mismas condiciones.
 
-Podemos observar además, que \texttt{YOLOv2} tiene ciertos problemas al tratar con objetos pequeños. Algunos estudios\cite{bhagyaOverviewDeepLearning2019} ya han observado que es un problema bastante típico de \texttt{YOLO} y es una de las situaciones en las que 
-peor funciona.\newline
+En el estudio, también se observa que \texttt{YOLOv2} tiene ciertos problemas al tratar con objetos pequeños. Algunos estudios\cite{bhagyaOverviewDeepLearning2019} ya han observado que es un problema bastante típico 
+de \texttt{YOLO} y es una de las situaciones en las que peor funciona.\newline
 Estos problemas han ido solucionándose con el tiempo, a través de la mejora y el aumento de rendimiento y puntuación \texttt{\acrshort{map}}. Esto se puede ver en la \autoref{fig:YOLOVersiones}, donde se 
-comparan diferentes versiones posteriores a la versión 5 en el conjunto de datos \texttt{COCO}.
+comparan diferentes versiones posteriores a la versión 5 sobre el conjunto de datos \texttt{\acrfullr{coco}} (conjunto de datos con más de 200.000 imágenes etiquetadas que se usa como estándar para validar redes neuronales en 
+objetos comunes).
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/4/YOLOVersiones.png}
+    \includegraphics[width=0.95\textwidth]{images/4/YOLOVersiones.png}
     \caption{Rendimiento de diferentes versiones de \texttt{YOLO} superiores a la 5 en el conjunto de datos \texttt{COCO}\cite{ultralyticsYOLOv8}}
     \label{fig:YOLOVersiones}
 \end{figure}
 
-Esto ha convertido a \texttt{YOLO} en un estándar de facto en la implementación rápida de soluciones basadas en \texttt{Deep Learning} para muchos investigadores por sus resultados basados en obtener detección en tiempo real.
+Esto ha convertido a \texttt{YOLO} en un estándar de facto en la implementación rápida de soluciones basadas en \texttt{Deep Learning} para muchos investigadores por sus resultados en la detección en tiempo real.
 
-Actualmente \texttt{YOLO} es un proyecto llevado una la empresa \texttt{ultralytics}, siendo el último modelo \texttt{YOLOv8}. Este modelo está conformado por una capa convolucional personalizada basada en la 
-arquitectura \texttt{CSPDarknet53}, basada en conectar diferentes fases de la arquitectura convolucional para obtener un entrenamiento mucho más rápido. Esta capa convolucional se conecta al cuello de \texttt{YOLO}, 
+Actualmente \texttt{YOLO} es un proyecto llevado por la empresa \texttt{ultralytics}, siendo el último modelo \texttt{YOLOv8}. Este modelo está conformado por una capa convolucional personalizada basada en la 
+arquitectura \texttt{CSPDarknet53}, que conecta diferentes fases convolucionales para obtener un entrenamiento mucho más rápido. Esta capa convolucional se conecta al cuello de \texttt{YOLO}, 
 cuya función es utilizar varias salidas de algunas de las secciones de la capa convolucional para tener información de diferentes escalas (cada capa convolucional va transformando la anterior entrada en un vector más y más horizontal).
 
 Lo anterior es común a todos los modelos de \texttt{YOLOv8} independientemente de la tarea que realizan, lo que cambia es la parte final de la red, que, aprovechando la presencia de datos de diferentes escalas, 
@@ -358,7 +341,7 @@ En la literatura de este ámbito se lleva implementando tecnologías basadas en 
     \cite{ulucanLargeScaleDatasetFish2020} para experimentos con diferentes peces.
 \end{itemize}
 
-Existen ejemplos del uso de estas tecnologías son proyectos como el del \acrfullr{citsem} ``Acuicultura 4.0"\cite{Acuicultura} y diversos trabajos de fin de grado y máster relacionados, pero no para el conteo de movimientos a través de YOLO.
+Existen ejemplos del uso de estas tecnologías en proyectos como el del \acrfullr{citsem} ``Acuicultura 4.0"\cite{Acuicultura} y diversos trabajos de fin de grado y máster relacionados, pero no para el conteo de movimientos a través de YOLO.
 
 \clearpage
 \subsection{Técnicas para el análisis de movimiento en la visión por ordenador}
@@ -378,12 +361,12 @@ Debemos entender que el análisis de movimiento tiene en cuenta el eje temporal 
 cabe destacar que hay muy poco análisis realizado sobre el uso de aprendizaje automático para estimación de movimiento en video. Los principales sistemas se basan en análisis a través de algoritmos.
 
 \begin{itemize}
-    \item \textbf{Análisis diferencial}: un ejemplo de esta técnica es la resta de una imagen número $n$ con la imagen número $n-1$, para obtener una diferencia de en ciertos pixeles y determinar a través de un límite 
+    \item \textbf{Análisis diferencial}: un ejemplo de esta técnica es la resta de una imagen número $n$ con la imagen número $n-1$, para obtener una diferencia en ciertos pixeles y determinar a través de un límite 
     la existencia de movimiento. Uno de los tipos de algoritmos más interesantes en este campo es el análisis de flujo óptico.
     \item \textbf{Correspondencia de puntos de interés}: se basa en la detección y seguimiento a través del eje temporal de ciertos puntos claves, para detectar el movimiento de elementos. Existen operadores para este 
     objetivo, pero no se adaptan bien a cambios demasiado rápidos.
     \item \textbf{Detección de patrones de movimiento}: uno de los pocos sistemas que se basa en entrenar un clasificador capaz de detectar patrones de movimiento, sin embargo son herramientas muy complejas 
-    de implementación y tienen un alto coste computacional, ya que normalmente realizan las tres tareas: detección, clasificación y segmentación.
+    de implementar y tienen un alto coste computacional, ya que normalmente realizan las tres tareas: detección, clasificación y segmentación.
 \end{itemize}
 
 La mayoría de herramientas desarrolladas en este campo tienen necesidades muy específicas y no se adaptan bien a cambios demasiado bruscos, la única que puede manejarlos es una herramienta como el análisis de flujo óptico. 
@@ -425,7 +408,7 @@ El análisis de flujo óptico se ha usado en acuicultura de forma diversa:
 \begin{itemize}
     \item Analizar comportamientos de grupo, por ejemplo, para determinar la actividad de un conjunto de peces de forma global\cite{kobayashiAquaColonyFully2023}.
     \item Realizar una detección, conteo y seguimiento de peces en un tanque en la India, mezclando \texttt{YOLOv5} con \texttt{OpticalFlow}\cite{paiComputerVisionBased2022}. Este método dio buenos resultados porque 
-    la distancia del pez a la cámara era lo suficientemente grande como para que no hubiese movimientos demasiado grandes como se puede ver en la \autoref{fig:DatosOpticalEstudio}.
+    la distancia del pez a la cámara era suficiente como para que no hubiese movimientos demasiado grandes como se puede ver en la \autoref{fig:DatosOpticalEstudio}.
 \end{itemize}
 
 \begin{figure}[H]
@@ -448,7 +431,7 @@ El análisis de flujo óptico se ha usado en acuicultura de forma diversa:
     En el caso de \texttt{YOLO}, la empresa \texttt{Ultralytics} retomó el proyecto y creo las versiones a partir de \texttt{YOLOv5}. El objetivo de esto ha sido crear una librería para 
     que el usuario no tenga que interactuar con las librerías de bajo nivel. Esto nos permite entrenar, validar y desplegar modelos a través de modelos base.
     \item \textbf{Transfer Learning y Fine Tunning}: Entrenar una red neuronal desde 0 es demasiado complejo, por ejemplo, una red \texttt{YOLOv8} de tamaño pequeño tiene \texttt{11.2} millones de pesos que 
-    deben ser entrenados y ajustados. Estos pesos son contabilizando las capas convolucionales y la capa de clasificación.\newline
+    deben ser entrenados y ajustados. Estos pesos incluyen las capas convolucionales y la capa de clasificación.\newline
     Pero lo habitual es obtener un modelo ya entrenado, cuyas capas convolucionales sean capaces de extraer características típicas de cualquier imagen y, solo entrenar la parte de clasificación. 
     Esto reduce mucho el coste computacional de entrenamiento y por lo tanto, el tiempo requerido para llegar al objetivo deseado con la red. Esta técnica se conoce como \texttt{Transfer Learning} 
     y se puede ver en la \autoref{fig:TransferLearning}.
@@ -469,7 +452,7 @@ El análisis de flujo óptico se ha usado en acuicultura de forma diversa:
     
     \item \textbf{Abstracción de la red neuronal al \texttt{HardWare}}: A la hora de desplegar una red neuronal, se debe diseñar una estrategia para 
     poder aprovechar todos los recursos del sistema que va a ejecutar la red. Esto es debido a que una red neuronal se aprovecha de la computación en paralelo, ya que principalmente 
-    resuelve problemas y multiplicaciones con matrices.
+    resuelve sumas y multiplicaciones con matrices.
 
     En este sentido, los despliegues más eficientes son los que son capaces de aprovechar elementos como las \texttt{\acrfullr{gpu}}, que se centran en este tipo de operaciones. Al contrario 
     que una \texttt{\acrfullr{cpu}}, la \texttt{\acrfullr{gpu}} cuenta con más núcleos de cómputo de menor potencia como se puede ver en la \autoref{fig:GPUCPU}.
