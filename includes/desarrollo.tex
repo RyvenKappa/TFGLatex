@@ -343,7 +343,8 @@ Para poder aprovechar los diferentes recursos del sistema, se trabajó con 3 for
     las \acrfullr{tpu}. Su principal problema es que no está optimizado realmente para funcionar en \acrshort{cpu}. Obteniendo muy malos tiempos por fotograma. Su uso ideal es sobre las \texttt{GPU} de \texttt{NVidia}, 
     aprovechando el uso de operaciones \texttt{CUDA} para hacer cálculos con matrices. 
     \item \textbf{ONNX}: plataforma de traducción abierta entre modelos, ofrece mucho mejor soporte a distintos \texttt{HardWare} y ofrece mejor rendimiento si se quiere inferir sobre \texttt{cpu}.
-    \item \textbf{OpenVino}: plataforma propietaria de \texttt{Intel}, que optimiza redes neuronales para todo el \texttt{HardWare} de su marca. Funciona extremadamente bien.
+    \item \textbf{OpenVino}: plataforma propietaria de \texttt{Intel}, que optimiza redes neuronales para todo el \texttt{HardWare} de su marca. Las redes neuronales exportadas en este formato son capaces 
+    de aprovechar operaciones \texttt{\acrfullr{simd}}, consiguiendo aprovechar \texttt{GPUs} de \texttt{Intel} y mejorar mucho el rendimiento.
 \end{itemize}
 
 En un ordenador con un \texttt{i7-8700} y una \texttt{GTX 1060 6GB} se han visto los resultados para cada modelo mostrados en la \autoref{DiferenciasFormatos}.
