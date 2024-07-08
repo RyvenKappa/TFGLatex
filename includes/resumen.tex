@@ -3,11 +3,24 @@
 En los últimos años la visión por ordenador ha tomado un papel muy importante en la vida cotidiana. Dentro de este campo encontramos técnicas como el análisis de 
 flujo óptico o las redes neuronales de tipo \texttt{CNN}, siendo \texttt{YOLO} una arquitectura muy popular.
 
-En este trabajo se ha desarollado una aplicación de detección y contabilización del número de movimientos realizados por truchas en videos del experimento \textit{NetTest}. 
-Para esto se ha formado un conjunto de datos y se ha entrenado un modelo de \texttt{YOLOv8}, el cual procesa el video y devuelve los resultados de las \texttt{Bounding Boxes} 
-asociadas a cada trucha.\newline Posteriormente los datos son transformados y se les aplica un algoritmo para estimar los fotogramas en los que ha sucedido un movimiento. 
-Encima de esto, se ha desarrollado una interfaz gráfica que realiza todo esto de forma transparente a los conocimientos del usuario. Para implementar todas las funcionalidades 
-se han utilizado herramientas como la ejecución paralela y la inferencia de forma transparente al \texttt{HardWare}.
+Con estas nuevas técnicas se busca automatizar procesos en la industria de la acuicultura, tanto de producción como experimentales. En el estado del arte se presentan 
+usos actuales recientes en piscifactorías para controlar bancos de peces, detectar especímenes y contabilización de los mismos. Algunas de las ventajas del uso de estas 
+líneas de investigación es la mejora de las condiciones de los peces en la acuicultura. 
+
+En este trabajo se trata la automatización del experimento \textit{NetTest}, que se utiliza para analizar la cantidad de estrés que genera en los animales el cambio de 
+condiciones en los entornos en los que viven. Este experimento se basa en contar el número de movimientos realizados por un pez en una red fuera del agua, y, actualmente 
+es realizado de forma manual.
+
+Para conseguir esto, se ha desarrollado una aplicación de detección automática y contabilización del número de movimientos realizados por truchas en videos del experimento 
+\textit{NetTest}. Con este objetivo, se ha formado un conjunto de datos y se ha entrenado un modelo de \texttt{YOLOv8}, el cual procesa el video y devuelve los resultados de 
+las \texttt{Bounding Boxes} asociadas a cada trucha.\newline
+Una vez localizada la trucha se ha diseñado un algoritmo que utiliza el área de la \texttt{bounding box} y elementos como el desplazamiento del centroide para marcar en qué 
+fotograma del video se ha producido un movimiento de escape. Finalmente, para poder facilitar el uso de esta herramienta, se ha desarrollado una interfaz gráfica para 
+facilitar el análisis de los resultados en los experimentos \textit{NetTest}.
+
+Para implementar todas las funcionalidades se han utilizado herramientas como la ejecución paralela y la inferencia de forma transparente al \texttt{HardWare} a través del uso 
+de múltiples formatos de modelo de red neuronal.
 
 Como resultados, el modelo \texttt{YOLOv8n} se ha entrenado hasta reducir el error asociado a la \texttt{Bounding Box} y maximizar la puntuación \texttt{F1}. Finalmente, la 
-comparación de resultados con una serie de datos etiquetados en 64 videos ha demostrado una tasa de error de \texttt{$ \pm 20\% $}.
+comparación de resultados con una serie de datos etiquetados en 64 videos ha demostrado una tasa de error de \texttt{$ \pm 20\% $}. Estos mismos resultados que antes se tardaban 
+en obtener semanas, con esta herramienta se han podido obtener en menos de una hora.
