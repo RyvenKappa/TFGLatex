@@ -58,8 +58,9 @@ Las métricas que se tienen en cuenta durante el entrenamiento son:
 
 \begin{itemize}
     \item \textbf{Box Loss sobre el conjunto de entrenamiento}: representa el error del tamaño y posición de las \texttt{Bounding Boxes} de las etiquetas sobre las predichas en cada época. Cuando menor sea, 
-    mayor es la cercanía entre las cajas predichas en el conjunto de entrenamiento respecto a sus etiquetas reales.\newline Una representación de un cálculo simple de este valor se puede ver en la \autoref{fig:IoU}, a través de la 
-    intersección entre unidad, cuanto más cerca esté de 1, mejor.
+    mayor es la cercanía entre las cajas predichas en el conjunto de entrenamiento respecto a sus etiquetas reales.\newline 
+    Para calcularlo se utilizan métricas como la intersección entre unión, parámetro que indica cuanta parte del área coincide entre \texttt{bounding box} real y predicha. Su funcionamiento se puede observar 
+    en la \autoref{fig:IoU}.
 
     \begin{figure}[H]
         \centering
@@ -72,9 +73,9 @@ Las métricas que se tienen en cuenta durante el entrenamiento son:
     \item \textbf{Dfl Loss sobre el conjunto de entrenamiento}: es un error sobre la capacidad del modelo \texttt{YOLO} para soportar deformaciones de los objetos detectados.
     \item \textbf{Precisión (B)}: indica la precisión general sobre los objetos detectados, para realizar este cálculo se tienen en cuenta todas las métricas anteriores como una media con pesos y condiciones. Idealmente es 1 como máximo.
     \item \textbf{Recall (B)}: indica la capacidad que se ha tenido para detectar todas las instancias, se utiliza después para saber cuantos elementos detecta con una precisión determinada. Idealmente es 1.
-    \item \textbf{Métrica \acrshort{map}50 (B)}: es una métrica sobre la precisión media en elementos con una intersección entre unidad de \texttt{0.5}. Esta métrica se puede entender como la capacidad de detección 
+    \item \textbf{Métrica \acrshort{map}50 (B)}: es una métrica sobre la precisión media en elementos con una intersección entre unión de \texttt{0.5}. Esta métrica se puede entender como la capacidad de detección 
     en elementos fáciles de forma correcta. Es bastante representativa en el entrenamiento para saber si algo malo esta sucediendo.
-    \item \textbf{Métrica \acrshort{map}50-95 (B)}: igual que antes, representa una media ponderada de precisión, pero en este caso de los elementos con una intersección entre unidad en el rango de \texttt{0.5} a 
+    \item \textbf{Métrica \acrshort{map}50-95 (B)}: igual que antes, representa una media ponderada de precisión, pero en este caso de los elementos con una intersección entre unión en el rango de \texttt{0.5} a 
     \texttt{0.95}. Podemos considerar esto como las detecciones dificiles y ajustadas a los resultados que esperamos.
     \item \textbf{Box Loss sobre el conjunto de validación}: igual que el \texttt{Box Loss} sobre el conjunto de entrenamiento, pero en este caso, al no variar el conjunto de validación, se va tomando como referencia 
     entre épocas para saber si el entrenamiento esta siendo correcto.
