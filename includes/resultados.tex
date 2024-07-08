@@ -4,8 +4,9 @@ Como proyecto de ingeniería, se debe llevar a cabo un análisis de cumplimiento
 diferentes partes del trabajo.
 
 Primeramente, a través del entrenamiento de la red neuronal, se ha buscado minimizar el error asociado a las \texttt{Bounding Boxes}, ya que el sistema usa esto como base para calcular movimientos. 
-En este sentido, con el último conjunto de datos y 600 épocas, se han conseguido alcanzar un error de \texttt{0.2} y \texttt{0.9} en el conjunto de datos de entrenamiento y validación respectivamente, siendo 
-este resultado uno de los mejores de todos los entrenamientos y con un conjunto de validación mucho más realista. Los resultados de la validación se pueden ver en la \autoref{fig:ValidacionRed}.
+
+En este sentido, con el último conjunto de datos y 600 épocas, se han conseguido alcanzar un error de perdida de la \texttt{bounding box} de \texttt{0.2} y \texttt{0.9} en el conjunto de datos de entrenamiento 
+y validación respectivamente, siendo este resultado uno de los mejores de todos los entrenamientos y con un conjunto de validación mucho más realista. Los resultados de la validación se pueden ver en la \autoref{fig:ValidacionRed}.
 
 \begin{figure}[H]
     \centering
@@ -34,27 +35,10 @@ Seguidamente, se realizó la validación del número de movimientos utilizando l
 videos del \textit{NetText}1 al \textit{NetText}4, a través de las jaulas 1 a la 4, excluyendo los videos que contenían el primer y el segundo pez (ya que para entrenamiento se han usado los videos \verb|23_NT_R1_J1_P1_2|, \verb|23_NT_R2_J1_P1_P2|, \verb|23_NT_R3_J1_P1_P2| 
 y \verb|23_NT_R3_J2_P1_P2|).
 
-Al principio de este trabajo, se pensó que las etiquetas de los investigadores eran incorrectas, ya que al revisar manualmente el movimiento de los videos, el número de movimientos no era ni cercano. Sin embargo, según se realizaba el 
-análisis de los videos, se observó que extrañamente, las etiquetas asociadas a la trucha izquierda eran más similares a los movimientos de la derecha y viceversa.
+En total se han procesado 64 videos, los cuales eran completamente nuevos para la red neuronal. Este procesamiento sin la aplicación conllevaría el gasto de tiempo por parte de los investigadores de varias semanas anotando manualmente movimientos. 
+A través de la aplicación los videos se han conseguido procesar en menos de una hora.
 
-Analizando los coeficientes de correlación y graficando la relación lineal de los datos de la \autoref{fig:EtiquetadosMal}, se observó que efectivamente, los datos etiquetados simplemente no estaban en \acrshort{ltr}, sino al revés. Por lo tanto se arreglaron 
-los datos para la .
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[b]{0.7\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{images/7/IzquierdaMal.png}
-        \caption{Relación lineal de los movimientos estimados y etiquetados en la izquierda sin el arreglo(Coeficiente R = 0,154365645)}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.7\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{images/7/DerechaMal.png}
-        \caption{Relación lineal de los movimientos estimados y etiquetados en la derecha sin el arreglo(Coeficiente R = 0,032476833)}
-    \end{subfigure}
-    \caption{Relación de los datos estimados con los etiquetados asumiendo \texttt{LTR}}
-    \label{fig:EtiquetadosMal}
-\end{figure}
+Los resultados por video y por pez se pueden observar en la \autoref{fig:TablaResultados}.
 
 \begin{figure}[H]
     \centering

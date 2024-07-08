@@ -69,6 +69,8 @@ Las métricas que se tienen en cuenta durante el entrenamiento son:
         \label{fig:IoU}
     \end{figure}
 
+    Aparte de esto, se utilizan otras métricas como la distancia, el ángulo de libertad respecto a la \texttt{bounding box} esperada y una medición de perdida en la relación alto/ancho de la caja.
+
     \item \textbf{Cls Loss sobre el conjunto de entrenamiento}: representa el error de clasificación de cada objeto detectado en la imagen respecto al de la etiqueta real en el conjunto de entrenamiento.
     \item \textbf{Dfl Loss sobre el conjunto de entrenamiento}: es un error sobre la capacidad del modelo \texttt{YOLO} para soportar deformaciones de los objetos detectados.
     \item \textbf{Precisión (B)}: indica la precisión general sobre los objetos detectados, para realizar este cálculo se tienen en cuenta todas las métricas anteriores como una media con pesos y condiciones. Idealmente es 1 como máximo.
