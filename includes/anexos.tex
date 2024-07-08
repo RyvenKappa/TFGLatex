@@ -122,8 +122,8 @@ Adicionalmente, \texttt{YOLO} produce resultados adicionales, que dependiendo de
 \begin{itemize}
     \item \textbf{Fecha}: 9 de abril de 2024 (Prueba de concepto).
     \item \textbf{Descripción del conjunto de datos}: 24 imágenes seleccionadas manualmente del video \verb|23_NT_R1_J1_P1_2.mp4|. Conjunto dividido en 70-15-15 para los respectivos subconjuntos.
-    \item \textbf{Resultados de entrenamiento}: En las siguientes figuras se observan  unos resultados que aparentan buenos  para ser un primer entrenamiento, pero debido al conjunto de datos con datos gran similares entre sí, en 
-    situaciones de posiciones de trucha nuevas, se observó problemas en la precisión de la red. Aparte de esto se puede ajustar más ya que con 100 épocas vemos que se para cuando todavía hay una tendencia 
+    \item \textbf{Resultados de entrenamiento}: En las siguientes figuras se observan  unos resultados que aparentan buenos  para ser un primer entrenamiento, pero debido al conjunto de datos con datos similares entre sí, en 
+    situaciones de posiciones de trucha nuevas, se observó problemas en la precisión de la red. Aparte de esto se puede ajustar más, ya que con 100 épocas vemos que se para cuando todavía hay una tendencia 
     descendente en el error en el conjunto de validación.
     
     \begin{figure}[H]
@@ -142,7 +142,7 @@ Adicionalmente, \texttt{YOLO} produce resultados adicionales, que dependiendo de
 \subsubsection*{Entrenamiento 2}
 \label{train:2}
 \begin{itemize}
-    \item \textbf{Fecha}: 25 de abril de 2024
+    \item \textbf{Fecha}: 25 de abril de 2024.
     \item \textbf{Descripción del conjunto de datos}: al conjunto del \hyperref[train:1]{entrenamiento de prueba} se le añadieron imágenes extra y situaciones con redes vacías. En total 50 imágenes en división 70-15-15 para los subconjuntos.
     \item \textbf{Resultados del entrenamiento}: A través del aumento de datos del conjunto y con el mismo número de épocas, se puede observar en la \autoref{fig:Estadisticos2} que hemos mejorado mucho el \texttt{recall} teniendo menos falsos positivos, 
     pero hemos perdido precisión en situaciones de poca confianza, esto puede ser debido al añadir imágenes de redes sin peces, pero no es nada problemático, ya que para \texttt{Bounding Boxes} con tan poca confianza, es mejor no procesarlas. 
@@ -163,8 +163,8 @@ Adicionalmente, \texttt{YOLO} produce resultados adicionales, que dependiendo de
 \subsubsection*{Entrenamiento 3}
 \label{train:3}
 \begin{itemize}
-    \item \textbf{Fecha}: 4 de mayo de 2024
-    \item \textbf{Descripción del conjunto de datos}: Mismo conjunto que el \hyperref[train:2]{entrenamiento anterior}
+    \item \textbf{Fecha}: 4 de mayo de 2024.
+    \item \textbf{Descripción del conjunto de datos}: Mismo conjunto que el \hyperref[train:2]{entrenamiento anterior}.
     \item \textbf{Resultados del entrenamiento}: a través del aumento de las épocas hasta 300, se pudo observar como se podían alcanzar valores de error en las \texttt{Bounding Boxes} bastante más bajas. 
     Este entrenamiento también dejo claro que el conjunto de datos de validación era demasiado reducido y no era suficientemente representativo, las imágenes eran muy similares entre sí.
 
@@ -185,7 +185,7 @@ Adicionalmente, \texttt{YOLO} produce resultados adicionales, que dependiendo de
 \subsubsection*{Entrenamiento 4}
 \label{train:4}
 \begin{itemize}
-    \item \textbf{Fecha}: 4 de mayo de 2024
+    \item \textbf{Fecha}: 4 de mayo de 2024.
     \item \textbf{Descripción del conjunto de datos}: el conjunto de datos fue expandido con imágenes de los videos antiguos, obteniendo en total 84 imágenes representativas divididas en 70-15-15.
     \item \textbf{Resultados del entrenamiento}: por los nuevos tipos de imágenes añadidas, hemos perdido en la mayoría de métricas, pero esta red es mucho más representativa para los datos reales. 
     Además de esto, el conjunto de validación que se usa de referencia ahora es mucho más realista y tiene imágenes difíciles que implican movimientos, ya que para imágenes de truchas estáticas ha 
@@ -211,7 +211,7 @@ Adicionalmente, \texttt{YOLO} produce resultados adicionales, que dependiendo de
 \subsubsection*{Entrenamiento Final}
 \label{train:final}
 \begin{itemize}
-    \item \textbf{Fecha}: 9 de junio de 2024
+    \item \textbf{Fecha}: 9 de junio de 2024.
     \item \textbf{Descripción del conjunto de datos}: 203 imágenes en total. Se añadieron fotogramas aleatorios de varios videos del experimento \textit{NetTest} para poder manejar un conjunto más grande.
     \item \textbf{Resultados del entrenamiento}: resultados muy positivos, sobre todo en la \autoref{fig:ResultadosFinal} en la confianza con la que se realizan las clasificaciones y la curva F1, que aún siendo mejorable, solo tiene problemas 
     con falsos positivos en valores de confianza muy altos. Aparte de esto, como se puede apreciar en la \autoref{fig:EstadisticosFinal}, el error de aproximación a la \texttt{Bounding Box} predicha se ha 
@@ -236,7 +236,7 @@ Adicionalmente, \texttt{YOLO} produce resultados adicionales, que dependiendo de
 \subsubsection*{Entrenamiento OBB}
 \label{OBB:1}
 \begin{itemize}
-    \item \textbf{Fecha}: 9 de mayo de 2024
+    \item \textbf{Fecha}: 9 de mayo de 2024.
     \item \textbf{Descripción del conjunto de datos}: conjunto común al \hyperref[train:4]{entrenamiento 4}, 84 imágenes tanto de videos nuevos como de videos antiguos.
     \item \textbf{Resultados del entrenamiento}: se observan los problemas que conllevan trabajar con \texttt{Bounding Boxes} orientadas, se pierde mucho tanto en métricas como en rendimiento general. 
     El punto positivo de este sistema es acotar lo máximo posible la \texttt{Bounding Box} al elemento, pero principalmente se observa una dificultad añadida y necesidad de mucho más entrenamiento y 
