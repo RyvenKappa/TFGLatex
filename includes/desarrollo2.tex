@@ -124,7 +124,7 @@ Para realizar esas tareas de forma segura respecto a la aplicación padre, \text
 
 Las implicaciones del \acrshort{gil} son en resumen:
 \begin{itemize}
-    \item El uso de hilos en \texttt{Python} se limita a situaciones especiales donde haya mucho \texttt{I/O}, ya que no son capaz de funcionar en paralelo.
+    \item El uso de hilos en \texttt{Python} se limita a situaciones especiales donde haya mucho \texttt{I/O}, ya que no son capaces de funcionar en paralelo.
     \item Para poder obtener concurrencia real, se necesita usar librerías que manejen varios intérpretes de \texttt{Python} a través de un lenguaje con mayor control como \texttt{C} o \texttt{C++}. 
     La librería \texttt{Multiprocessing} realiza esto, manejando los cambios de contexto y la relación entre procesos.
 \end{itemize}
@@ -204,7 +204,7 @@ En este trabajo se utilizó \texttt{multiprocessing} para las siguientes tareas:
         \item False: indica que se debe pausar el video
         \item Un valor entero positivo: indica una posición en fotograma al que se debe saltar en el reproductor. Esta es la parte que permite al usuario verificar los diferentes movimientos.
     \end{itemize}
-    El proceso controlador de video tomará como referencia temporal $ t = 0.8/fps $ y, sí se encuentra en modo reproducción, ira obteniendo, procesando y mandando los fotogramas en ese ritmo. Para todo 
+    El proceso controlador de video tomará como referencia temporal $ t = 0.8/fps $ y, sí se encuentra en modo reproducción, irá obteniendo, procesando y mandando los fotogramas en ese ritmo. Para todo 
     esto se aprovecha de la librería \texttt{OpenCV}.
     
     En el \hyperref[esquema:SecuenciaResto]{anexo c} se pueden encontrar los diagramas de secuencia que se asocian a estas situaciones.
