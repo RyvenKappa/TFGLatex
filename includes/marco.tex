@@ -1,7 +1,7 @@
 \section{MARCO TECNOLÓGICO}
 
-El problema que se busca solucionar en este trabajo tiene relación directa con el campo de estudio de la visión por ordenador. Este campo de la Ingeniería Informática busca, 
-a través de sistemas de captación y procesamiento de imágenes, generar información y automatizar procesos con ordenadores. \newline Dentro de este campo se han desarrollado tecnologías que usamos día a día
+El problema que se busca solucionar en este trabajo tiene relación directa con el estudio de la visión por ordenador. Este campo de la Ingeniería busca, 
+a través de sistemas de captación y procesamiento de imágenes, generar información y automatizar procesos con ordenadores. \newline Dentro de este área se han desarrollado tecnologías que usamos día a día
 \cite{szeliskiComputerVisionAlgorithms2022}:
 
 \begin{itemize}
@@ -25,7 +25,7 @@ Las aplicaciones que usan herramientas basadas en este tipo de soluciones suelen
 En el caso de este trabajo, se tratan problemas de detección de objetos y análisis de cambio. Este tipo de tareas se han llevado a cabo antiguamente a través de algoritmos complejos y deterministas, pero en los últimos 
 años, con el auge del aprendizaje automático, se ha creado un nuevo paradigma.
 
-En los siguientes puntos se va a describir de forma breve las técnicas de aprendizaje automático, los sistemas de detección de objetos, seguimiento de cambio y los entornos de desarrollo y despliegue 
+En los siguientes puntos se van a describir de forma breve las técnicas de aprendizaje automático, los sistemas de detección de objetos, seguimiento de cambio y los entornos de desarrollo y despliegue 
 de estas técnicas de forma transparente al \texttt{Hardware} disponible así como proyectos relacionados con este trabajo.
 \clearpage
 
@@ -52,7 +52,7 @@ Dentro del campo existen diferentes ramas dependientes del objetivo del aprendiz
 \begin{itemize}
     \item \textbf{Entrenamiento supervisado}: es un tipo de entrenamiento en el que se conoce la relación entre los datos de entrada y los datos esperados. 
     \item \textbf{Entrenamiento no supervisado}: el objetivo de este aprendizaje es aprender las relaciones de los datos de entrada entre sí.
-    \item \textbf{Entrenamiento reforzado}: es una variación del entrenamiento supervisado en el que el investigador proporciona feedback sobre los resultados como parte de la fase de aprendizaje. Se utiliza 
+    \item \textbf{Entrenamiento reforzado}: es una variación del entrenamiento supervisado en el que el sistema recibe feedback sobre los resultados como parte de la fase de aprendizaje. Se utiliza 
     mucho en el ámbito de la robótica.
 \end{itemize}
 
@@ -111,7 +111,7 @@ variaciones en la arquitectura de la red según las necesidades (ver \autoref{fi
 \end{figure}
 
 El avance progresivo de la capacidad de cómputo de los ordenadores ha permitido el uso de redes neuronales de mayor tamaño, que permiten mayor capacidad de abstracción. Es en este marco donde aparece el término 
-\texttt{Deep Learning}, que no indica nada más que el uso de redes neuronales con una cantidad masiva de capas intermedias. Además, son sistemas que trabajan muy bien en sistemas con gran grado de paralelización, 
+\texttt{Deep Learning}, que no indica nada más que el uso de redes neuronales con una cantidad masiva de capas intermedias. Además, son sistemas que trabajan muy bien cuando se implementan con ejecución paralela, 
 aunque esto se explicará más adelante.
 
 Este tipo de sistemas han demostrado su gran capacidad de abstracción y rapidez, es por esto mismo que las redes neuronales profundas son una de las principales herramientas que se utilizan hoy en día en 
@@ -121,7 +121,7 @@ visión por ordenador.
 \subsection{Detección de Objetos con redes neuronales}
 
 La detección de objetos como tarea surge de la necesidad de analizar la existencia de objetos en imágenes y; opcionalmente, localizarlos en las mismas. Para realizar este tipo de tareas se han ido 
-desarrollando técnicas tradicionales basadas en algoritmos extremadamente deterministas, pero, con el auge del aprendizaje automático, a partir de 2012\cite{zouObjectDetection202023} 
+desarrollando técnicas tradicionales basadas en algoritmos deterministas, pero, con el auge del aprendizaje automático, a partir de 2012\cite{zouObjectDetection202023} 
 el paradigma pasó a centrarse en la creación de sistemas detectores basados en \texttt{Deep Learning} (Sistemas de Redes Neuronales con una gran cantidad de capas ocultas).
 
 Ambas técnicas se basan en la extracción y el análisis de características de las imágenes, esto es, la caracterización de imágenes o zonas de interés a través de algoritmos o filtros. Podemos entender la caracterización 
@@ -134,9 +134,10 @@ de una imagen como la parametrización de los elementos que la definen. Dentro d
     \item \textbf{Ruido}
 \end{itemize}
 
-Pero estos ejemplos son características que da un humano para una imagen, las redes neuronales trabajan con características de bajo nivel (P. ej.: existencia de bordes en una zona específica, colores en un área, 
-patrones de puntos, etc.) que permitan analizar zonas de la imagen. Sin embargo, las redes neuronales tipo \texttt{\acrshort{mlp}} no están pensadas para obtener características (el análisis de características 
-no escala bien con el aumento de resolución), ya que utilizan los valores para realizar la aproximación.
+Se debe tener en cuenta que estos ejemplos son características que da un humano para una imagen, de forma contraria, las redes neuronales trabajan con características de bajo nivel (P. ej.: existencia de bordes en una zona específica, colores en un área, 
+patrones de puntos, etc.) que permitan analizar zonas de la imagen. Sin embargo, las redes neuronales tipo \texttt{\acrshort{mlp}} no fueron pensadas para este tipo de tareas. Esto es debido a que el 
+análisis de características en una imagen es una tarea cuya dificultad computacional aumenta de forma exponencial con el aumento de la resolución, ya que, para cualquier imagen, debería haber una neurona de entrada por 
+cada pixel y canal de la imagen, sobre cuyos valores la red \texttt{\acrshort{mlp}} aplicaría los cálculos.
 
 Por estos motivos, se buscó una forma de añadir independencia espacial a la entrada de las redes neuronales. Esto se consigue mediante el uso de diferentes arquitecturas, siendo la más importante las redes 
 neuronales convolucionales.\newline
@@ -155,7 +156,7 @@ puede ver \autoref{fig:ArquitecturaCNN} y  se compone de dos subredes que cumple
 
 \clearpage
 
-La fase de caracterización se compone principalmente de capas neuronales convolucionales y, habitualmente capas de \texttt{polling}:
+La fase de caracterización se compone principalmente de capas neuronales convolucionales y, habitualmente capas de \texttt{pooling}:
 
 \begin{itemize}
     \item Capas convolucionales: tienen como objetivo la extracción de características a través de neuronas que implementan operaciones de convolución sobre las imágenes. 
@@ -178,13 +179,13 @@ La fase de caracterización se compone principalmente de capas neuronales convol
     \end{figure}
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.5\textwidth]{images/4/KernelsTipicos.jpg}
+        \includegraphics[width=0.7\textwidth]{images/4/KernelsTipicos.jpg}
         \caption{Aplicación de un filtro gaussiano de Laplace a una imagen médica\cite{LaplacianFilterOverview}}
         \label{fig:LaplaceResultado}
     \end{figure}
 
     Estas capas convolucionales van obteniendo la abstracción de las características transformando los volúmenes de entrada a volúmenes de salida de mayor profundidad pero de menor resolución vertical y horizontal.\newline
-    Habitualmente es la parte convolucional se utilizan funciones de activación como la \acrfullr{relu} de la \autoref{fig:relu}.
+    Habitualmente en la parte convolucional se utilizan funciones de activación como la \acrfullr{relu} de la \autoref{fig:relu}.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{images/4/relu.jpeg}
@@ -192,7 +193,7 @@ La fase de caracterización se compone principalmente de capas neuronales convol
         \label{fig:relu}
     \end{figure}
     \clearpage
-    \item Capas de \texttt{polling}: Su objetivo es ir haciendo sub-muestreo de las capas convolucionales superiores para conformar el volumen de entrada de la siguiente capa convolucional, reduciendo la carga computacional necesaria. 
+    \item Capas de \texttt{pooling}: Su objetivo es ir haciendo sub-muestreo de las capas convolucionales superiores para conformar el volumen de entrada de la siguiente capa convolucional, reduciendo la carga computacional necesaria. 
     Se puede ver su funcionamiento en la \autoref{fig:MuestreoCNN}, donde sub-muestrean un volumen de resolución \texttt{28x28} a una resolución \texttt{14x14}, pero habitualmente se aumenta la profundidad del tensor.
     \begin{figure}[H]
         \centering
@@ -201,12 +202,12 @@ La fase de caracterización se compone principalmente de capas neuronales convol
         \label{fig:MuestreoCNN}
     \end{figure}
     
-    Este sistema se va repitiendo para cada capa de convolución, hasta que en la última capa de \texttt{polling}, la salida es un vector horizontal cuya profundidad es la misma que neuronas de entrada tenga la etapa de clasificación. 
+    Este sistema se va repitiendo para cada capa de convolución, hasta que en la última capa de \texttt{pooling}, la salida es un vector horizontal cuyo tamaño es el miso que neuronas de entrada tenga la etapa de clasificación. 
 
 \end{itemize}
 
 
-La fase de clasificación habitualmente usa una red neuronal profunda conectada completamente entre capas como se ha podido ver en la anterior sección, similar a la idea de una \texttt{\acrshort{mlp}}. Esta 
+La fase de clasificación habitualmente se compone de una capa conectada completamente como se ha podido ver en la anterior sección, similar a la idea de una \texttt{\acrshort{mlp}}. Esta 
 red toma como entrada un vector aplanado final de la parte de extracción de características y realiza la clasificación. Habitualmente utiliza funciones de activación que son capaces de tener \(\mathcal{N}\) salidas 
 una de estas funciones habituales es la \texttt{SoftMax} de la \autoref{fig:softmax}, que mapea un vector de entrada a un vector de salida de probabilidades que escalan según los valores de entrada.
 
@@ -240,20 +241,20 @@ cae en tres tipos de categorías presentadas en la \autoref{fig:tareasCNN}. Adem
 Toda red neuronal sobre la que se realice entrenamiento supervisado debe ser entrenada con un conjunto de datos etiquetados de forma coherente a la tarea que se quiera realizar. Por ejemplo, una \texttt{CNN} 
 entrenada para clasificar imágenes deberá ser alimentada con etiquetas adecuadas, no con coordenadas sobre la posición del elemento detectado.
 
-Estos conjuntos de datos que se preparan para las redes neuronales se dividen habitualmente en conjuntos con diferentes objetivos y diferentes propósitos en el entrenamiento de la red neuronal:
+Estos conjuntos de datos que se preparan para las redes neuronales se dividen habitualmente en conjuntos con diferentes propósitos en el entrenamiento de la red neuronal:
 
 \begin{itemize}
-    \item Conjunto de datos de entrenamiento: es el conjunto de datos sobre el que la red va a aprender, aplicando de forma constante su algoritmo. Pasar por este conjunto entero 1 vez suele llamarse época 
+    \item Conjunto de datos de entrenamiento: es el conjunto de datos sobre el que la red va a aprender, aplicando de forma constante su algoritmo. Pasar por este conjunto entero una vez suele llamarse época 
     de entrenamiento.
     \item Conjunto de datos de prueba: es un conjunto de datos completamente separado que nunca se aplicará a la red en la fase de entrenamiento. Su objetivo es evaluar al final del entrenamiento el 
     rendimiento general de la red en un conjunto de datos que nunca haya visto.
-    \item Conjunto de datos de validación: este conjunto es dependiente de la arquitectura de red neuronal que se utilice, esto es debido porque es un conjunto de datos de referencia entre épocas. Existen 
-    algunos algoritmos que modifican hiperparámetros específicos del entrenamiento de la red entre épocas.\newline
+    \item Conjunto de datos de validación: estos datos se utilizan como conjunto de referencia entre épocas, su existencia y uso depende de la arquitectura de red neuronal, ya que existen 
+    algunos algoritmos que modifican parámetros del entrenamiento de la red entre épocas.\newline
     Cuando se habla de los parámetros de la red, habitualmente se refieren a cosas como los pesos entre neuronas, la función de activación, el número de capas ocultas, etc\dots Sin embargo, los parámetros 
     que se definen para el entrenamiento como el número de épocas, parámetros del algoritmo de aprendizaje, tamaño de los datos introducidos a la vez, etc., son llamados hiperparámetros.
 \end{itemize}
 
-Normalmente estos conjuntos de datos se preparan a la vez y luego se separan los conjuntos. Es habitual una separación de \texttt{70\%} para el conjunto de entrenamiento, \texttt{15\%} para el conjunto de 
+Normalmente se dispone de un conjunto de datos que se divide en entrenamiento, validación y prueba. Es habitual una separación de \texttt{70\%} para el conjunto de entrenamiento, \texttt{15\%} para el conjunto de 
 validación y \texttt{15\%} para el conjunto de prueba.
 
 La incorrecta preparación del conjunto de datos puede afectar severamente a los resultados obtenidos. Por lo tanto es habitual intentar evitar redundancia de datos y alimentar a la red con datos que no sean muy 
@@ -272,7 +273,7 @@ sistemas. Algunos ejemplos de esto son:
     \item \texttt{\acrfullr{yolo}}\cite{redmonYouOnlyLook2016}: arquitectura extremadamente rápida perteneciente al estado del arte moderno en redes neuronales, que ha ido mejorándose en forma de versiones.
 \end{itemize}
 
-Cada arquitectura ha traído consigo mejoras y a veces, a cambio de perdida de rendimiento. Esto es un problema que debe tenerse en cuenta y existen diversos trabajos que tratan simplemente las diferencias 
+Cada arquitectura ha traído consigo mejoras, a veces, a cambio de perdida de rendimiento. Esto es un problema que debe tenerse en cuenta y existen diversos trabajos que tratan simplemente las diferencias 
 existentes entre diferentes arquitecturas.
 
 Uno de estos trabajos\cite{hanAdvancedDeepLearningTechniques2018} compara diferentes arquitecturas contra el conjunto de datos de la universidad de Oxford "Pascal2012"\cite{PASCALVisualObject}, que contiene 20 clases de objetos.\newline
@@ -316,8 +317,8 @@ que \texttt{YOLOv2} es capaz de superar a \texttt{SSD512} obteniendo un mejor \t
     \label{ResumenCNNFPS}
 \end{table}
 
-Estos resultados comparativos, a diferencias de otros artículos\cite{manojkumarPerformanceComparisonReal2023}, son útiles, ya que utilizan reglas tales como la comparación bajo mismo conjunto de datos e 
-indicar tamaño de imagen de entrada a la red neuronal. Esto permite realizar una comparación lo más realista y cercana posible a lo esperable.
+Estos resultados comparativos, a diferencia de otros artículos\cite{manojkumarPerformanceComparisonReal2023}, son útiles, ya que utilizan reglas tales como la comparación bajo el mismo conjunto de datos e 
+indican el tamaño de la imagen de entrada a la red neuronal. Esto permite realizar una comparación realista y en las mismas condiciones.
 
 Podemos observar además, que \texttt{YOLOv2} tiene ciertos problemas al tratar con objetos pequeños. Algunos estudios\cite{bhagyaOverviewDeepLearning2019} ya han observado que es un problema bastante típico de \texttt{YOLO} y es una de las situaciones en las que 
 peor funciona.\newline
