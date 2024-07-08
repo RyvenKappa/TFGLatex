@@ -3,12 +3,19 @@
 In recent years, the development of computer vision tools has become very important in our lives. In this field there are techniques such as optical flow analysis or 
 convolutional neural networks, being YOLO one of the most popular architectures.
 
-In this document, an application for detecting and counting trout movements in \textit{NetTest} videos is presented. To accomplish this, a data set was made and 
-a \texttt{YOLOv8} model was trained. The model task is to process the video and return data related to the \texttt{Bounding Boxes} detected for each trout.\newline
-Later, all this data is transformed, and an algorithm is applied to estimate the frame and the number of movements. In top of this, a graphical user interface has been 
-developed to do this tasks in a transparent way to the knowledge of the user. To implement all these functionalities, different tools were used such as multiprocessing 
-and \texttt{HardWare} independent inference.
+The use of these new technologies aims to automate different processes in the aquaculture industry, both in the production and in the experimental phases. The research in the 
+state of the art in this field presents recent case use scenarios like fish schools monitoring, detect different specimens and count the number of fishes in an image.
+
+This document deals with the automation of the NetTest experiment, which is being used to analize the amount of stress that changes in the environment can generate in a fish. 
+In this experiment, the number of movements made by a trout in a net are counted, while being out of the water. Currently, this experiment is performed manually.
+
+To achieve this, an application for automate detection and counting of the number of movements made by a trout in the NetTest experiment is presented. To accomplish this, 
+a data set was made and a \texttt{YOLOv8} model was trained. The model task is to process the video and return data related to the \texttt{Bounding Boxes} detected for each trout.\newline
+When the trout is located, an algorithm has been designed that takes elements such as the area of the bounding box and it's centre to indicate the frames of the video in which a 
+movement has occurred. Finally, to facilitate the use of this tool, a graphical user interface has been developed that helps to analize the results obtained in the videos processed.
+
+To implement all these functionalities, different tools were used such as multiprocessing and \texttt{HardWare} independent inference with different formats of the same model.
 
 In the validation of the results, the \texttt{YOLOv8n} model was trained till the \texttt{Box Loss} error was minimized and the \texttt{F1} metric maximized. Finally, 
 the movement results were compared to labels obtain from scientist of the \textit{NetTest}. The labels and the results were compared in 64 videos, obtaining an error 
-of \texttt{$ \pm 20\% $}.
+of \texttt{$ \pm 20\% $}. These results, which previously took weeks to obtain, can now be obtained in less than an hour with this tool.
