@@ -10,12 +10,12 @@ y validación respectivamente, siendo este resultado uno de los mejores de todos
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.7\textwidth}
+    \begin{subfigure}[b]{0.9\textwidth}
         \centering
         \includegraphics[width=0.95\textwidth]{images/7/labels.jpg}
         \caption{Etiquetas del conjunto de validación final}
     \end{subfigure}
-    \begin{subfigure}[b]{0.7\textwidth}
+    \begin{subfigure}[b]{0.9\textwidth}
         \centering
         \includegraphics[width=0.95\textwidth]{images/7/pred.jpg}
         \caption{Predicciones sobre el conjunto de validación final}
@@ -23,13 +23,11 @@ y validación respectivamente, siendo este resultado uno de los mejores de todos
     \caption{Resultados finales sobre el conjunto de validación}
     \label{fig:ValidacionRed}
 \end{figure}
-
+\clearpage
 Aparte de los resultados de validación, como ya se ha dicho en el trabajo y se puede ver en \hyperref[train:final]{las gráficas de resultados del anexo c}, se buscaba maximizar otras métricas como son 
 el \texttt{recall} a niveles altos para obtener una cantidad elevada de verdaderos 
 positivos. Finalmente, también se ha conseguido alcanzar una precisión \texttt{mAP50-95} muy elevada (0.82) teniendo en cuenta la variabilidad del conjunto de datos, lo cual nos indica una precisión 
 general de la red muy buena.
-
-\clearpage
 
 Seguidamente, se realizó la validación del número de movimientos utilizando las etiquetas proporcionadas por los investigadores como ya se comentó en el análisis de los datos. Para esto, se utilizó la aplicación en el conjunto de 
 videos del \textit{NetText}1 al \textit{NetText}4, a través de las jaulas 1 a la 4, excluyendo los videos que contenían el primer y el segundo pez (ya que para entrenamiento se han usado los videos \verb|23_NT_R1_J1_P1_2|, \verb|23_NT_R2_J1_P1_P2|, \verb|23_NT_R3_J1_P1_P2| 
@@ -42,12 +40,13 @@ Los resultados por video y por pez se pueden observar en la \autoref{fig:TablaRe
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\textwidth]{images/7/ValidacionMovimientos.png}
+    \includegraphics[width=0.9\textwidth]{images/7/ValidacionMovimientos.png}
     \caption{Tabla comparativa entre los movimientos estimados y los movimientos etiquetados}
     \label{fig:TablaResultados}
 \end{figure}
 \clearpage
-Si se calcula según el arreglo de los datos, se obtienen las gráficas de la \autoref{fig:EtiquetadosBien}, donde se puede observar que la correlación de la aplicación y el algoritmo desarrollado es muy bueno para ser una primera versión.
+Analizando los anteriores resultados, se obtienen las gráficas de la \autoref{fig:EtiquetadosBien}, donde se puede observar que la correlación de la aplicación y el algoritmo desarrollado frente a las etiquetas disponibles, la gran aproximación lineal 
+que se observa demuestra la correcta automatización para videos disponibles.
 
 \begin{figure}[H]
     \centering
