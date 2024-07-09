@@ -45,37 +45,43 @@ Los resultados por video y por pez se pueden observar en la \autoref{fig:TablaRe
     \label{fig:TablaResultados}
 \end{figure}
 \clearpage
-Analizando los anteriores resultados, se obtienen las gráficas de la \autoref{fig:EtiquetadosBien}, donde se puede observar que la correlación de la aplicación y el algoritmo desarrollado frente a las etiquetas disponibles, la gran aproximación lineal 
-que se observa demuestra la correcta automatización para videos disponibles.
+Analizando los anteriores resultados, se obtienen las gráficas de la \autoref{fig:EtiquetadosBien}, donde se puede observar que la correlación de la aplicación y el algoritmo desarrollado frente a las etiquetas disponibles demuestra buenos resultados.
+
+La gran aproximación lineal que se observa demuestra la correcta automatización para videos disponibles.
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.7\textwidth}
+    \begin{subfigure}[b]{0.95\textwidth}
         \centering
-        \includegraphics[width=0.9\textwidth]{images/7/IzquierdaBien.png}
+        \includegraphics[width=0.95\textwidth]{images/7/IzquierdaBien.png}
         \caption{Relación lineal de los movimientos estimados y etiquetados en la izquierda con el arreglo(Coeficiente R = 0,539455863)}
     \end{subfigure}
-    \begin{subfigure}[b]{0.7\textwidth}
+    \begin{subfigure}[b]{0.95\textwidth}
         \centering
-        \includegraphics[width=0.9\textwidth]{images/7/DerechaBien.png}
+        \includegraphics[width=0.95\textwidth]{images/7/DerechaBien.png}
         \caption{Relación lineal de los movimientos estimados y etiquetados en la derecha con el arreglo(Coeficiente R = 0,584222239)}
     \end{subfigure}
     \caption{Relación de los datos estimados con los etiquetados aplicando el arreglo}
     \label{fig:EtiquetadosBien}
 \end{figure}
 \vspace{3\baselineskip}
-Finalmente, se ha calculado los respectivos histogramas de la \autoref{fig:HistogramasError}, en donde se puede observar la distribución del error en la validación. Se puede observar que la mayor parte del error está entre -20\% y el 30\%.
+\clearpage
+Finalmente, se ha calculado los respectivos histogramas de la \autoref{fig:HistogramasError}, en donde se puede observar la distribución del error en la validación. Se puede observar que la mayor parte del error está entre -20\% y el 30\%:
+\begin{itemize}
+    \item Para la comparación de las etiquetas del lado izquierdo se ha obtenido una media del error de \texttt{0.07089} con una desviación estándar con valor \texttt{0.27341}.
+    \item Para la comparación de las etiquetas del lado derecho se ha obtenido una media del error de \texttt{0.00476} con una desviación estándar con valor \texttt{0.30162}.
+\end{itemize}
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.7\textwidth}
+    \begin{subfigure}[b]{0.95\textwidth}
         \centering
-        \includegraphics[width=0.9\textwidth]{images/7/ErrorIzquierda.png}
+        \includegraphics[width=0.95\textwidth]{images/7/ErrorIzquierda.png}
         \caption{Distribución del error en las truchas de la izquierda en validación de resultados}
     \end{subfigure}
-    \begin{subfigure}[b]{0.7\textwidth}
+    \begin{subfigure}[b]{0.98\textwidth}
         \centering
-        \includegraphics[width=0.9\textwidth]{images/7/ErrorDerecha.png}
+        \includegraphics[width=0.95\textwidth]{images/7/ErrorDerecha.png}
         \caption{Distribución del error en las truchas de la derecha en validación de resultados}
     \end{subfigure}
     \caption{Distribución del error respecto a las etiquetas de los investigadores}
