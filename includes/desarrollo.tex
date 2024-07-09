@@ -277,11 +277,17 @@ todas las instancias de los objetos en la imagen y los cuatro puntos que definen
 Para poder entrenar la red \texttt{OBB}, se usó una herramienta disponible en un repositorio de \texttt{GitHub}\cite{kolesnikovKoldim2001COCO_to_YOLOv82024} que transformaba etiquetas en formato \texttt{COCO} (formato estándar 
 que se estructura en un \texttt{XML}) a las etiquetas necesarias. 
 
-En este proyecto, se busca obtener buenos resultados en el entrenamiento para ciertos estadísticos, siendo el más importante la precisión de la \texttt{Bounding Box}, ya que queremos que se ajuste lo máximo posible al mínimo tamaño 
+\vspace*{2\baselineskip}
+
+\input{includes/metricas.tex}
+
+En este proyecto, se busca obtener buenos resultados en el entrenamiento para ciertos estadísticos. Siendo el más importante la precisión de la \texttt{Bounding Box}, ya que queremos que se ajuste lo máximo posible al mínimo tamaño 
 necesario. También nos interesa mucho las métricas de precisión y obtener un área máxima bajo la curva \texttt{F1}, ya que tiene en cuenta la precisión y, si conseguimos buenos resultados en la parte alta para la confianza, implicará 
 que tenemos un buen número de verdaderos positivos respecto a falsos positivos con buena precisión. Al trabajar con una sola clase, los estadísticos relacionados con el ámbito de clasificación no son tan relevantes siendo que se 
 cumpla un mínimo de clasificación en las detecciones.
 
+Estas métricas van a ser muy importantes para las siguientes páginas donde se detallan el entrenamiento progresivo del modelo.
+\clearpage
 Lo primero que se realizó fue un pequeño aumento de datos. Como se buscaba que la red generalizase mejor el concepto de trucha, se añadieron imágenes sin truchas como las de 
 la \autoref{fig:VaciasTrain2}, en la que apareciesen la mesa vacía y partes de la red vacías.
 
@@ -304,7 +310,6 @@ la \autoref{fig:VaciasTrain2}, en la que apareciesen la mesa vacía y partes de 
 Esto permitió al modelo entrenado tener mejor capacidad de generalización de las truchas, además de tener menos falsos positivos (ver \hyperref[train:2]{anexo B: entrenamiento 2}). En otro entrenamiento 
 posterior aumentando las épocas hasta 300, se observó que se podía seguir reduciendo el error asociado al ajustado de las \texttt{Bounding Boxes} (ver \hyperref[train:3]{anexo B: entrenamiento 3}), por lo 
 tanto para los siguientes entrenamientos se decidió trabajar con un número de épocas mayor o igual a 300.
-\clearpage
 
 Posteriormente, se decidió usar el conjunto de videos antiguos del \textit{NetTest} para expandir el conjunto de datos. Esto se debía a 3 razones principales:
 \begin{enumerate}
@@ -320,7 +325,7 @@ Con este conjunto de datos se realizaron 2 entrenamientos(ver \hyperref[train:4]
 llamada \texttt{Kaggle} (se decidió usar esta plataforma porque da flexibilidad y potencia de \acrshort{gpu}).\newline
 Ambos modelos dieron buenos resultados en detectar todas las situaciones de la trucha completamente. 
 El modelo \acrshort{obb} se observó que tenía menos confianza en las predicciones de manera general, lo cual necesitaría mejorarse con mejores datos, etiquetas y ajuste de hiperparámetros.
-
+\clearpage
 Más tarde se descubrió que no se había tenido en cuenta un factor importante: el color de la red. Este factor se vio cuando se intentó realizar inferencia sobre un video del \textit{NetTest} número 2, donde 
 la red era completamente negra y había fotogramas como el de la \autoref{fig:RedNegra} donde generalizar el pez era demasiado complicado para el modelo entrenado.
 
@@ -368,7 +373,7 @@ En un ordenador con un \texttt{i7-8700} y una \texttt{GTX 1060 6GB} se han visto
     \label{DiferenciasFormatos}
 \end{table}
 
-Más tarde en el documento se verá la integración de estos diferentes modelos en la aplicación y en el uso dependiendo del \texttt{HardWare} del usuario.
+Estos formatos de exportación de modelo se integrarán en la aplicación para conseguir acelerar el proceso de inferencia en el ordenador del usuario dependiendo de sus recursos \texttt{HardWare}.
 
 \clearpage
 
