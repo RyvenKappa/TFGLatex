@@ -191,7 +191,7 @@ tipo de información de manera consistente para todo el video es el método de H
 
 \subsubsection{Pruebas de concepto con \texttt{YOLO}}
 
-Para realizar esta prueba, creo un conjunto de datos con el que entrenar a través de fotogramas del video \verb|23_NT_R1_J1_P1_2.mp4|. Esto se realizó a través de la herramienta \texttt{\acrfullr{cvat}}.\newline
+Para realizar esta prueba, creo un conjunto de datos con el que entrenar a través de fotogramas del video \verb|23_NT_R1_J1_P1_2.mp4|. Esto se realizó a través de la herramienta \texttt{\acrfullr{cvat}}. 
 Esta herramienta de código abierto\cite{cvat.aicorporationComputerVisionAnnotation2023} es mantenida por los creadores de la librería \texttt{OpenCV}. Dispone de una versión online limitada al número de 
 archivos que se pueden subir a \texttt{500 MB} y en otros aspectos, pero también dispone de una versión desplegable por \texttt{Docker}. Uno de sus puntos fuertes y el motivo de su uso en este trabajo es 
 la compatibilidad con muchos formatos de exportación de etiquetas.
@@ -206,7 +206,8 @@ Con esta aplicación se realizó el etiquetado de 24 imágenes para realizar un 
 \end{itemize}
 
 Posteriormente se realizó el entrenamiento de la red neuronal \texttt{YOLOv8} versión \texttt{nano}, que es la más pequeña y rápida de entrenar. Los detalles en profundidad de resultados de este 
-entrenamiento se pueden observar en el \hyperref[train:1]{anexo B}. \newline
+entrenamiento se pueden observar en el \hyperref[train:1]{anexo B}.
+
 Se consiguió unos buenos resultados y al inferir sobre el video \verb|23_NT_R1_J1_P7_8.mp4|, se observó que el seguimiento de la trucha se conseguía incluso en situaciones críticas donde la trucha realizaba 
 el movimiento como en la \autoref{fig:YOLOTrain1Bien}. Sin embargo, situaciones como las de la \autoref{fig:YOLOTrain1Mal},en donde la trucha tenía formas suficientemente extrañas o se ocultaba detrás del marco de la red resaltaron la falta de entrenamiento y la 
 necesidad de expandir el conjunto de datos.
@@ -241,7 +242,6 @@ Esta prueba de concepto demuestra la viabilidad del uso de \texttt{YOLO} como he
 Teniendo en cuenta que la mayoría de los movimientos observables de las truchas se basan en coletazos, podemos determinar que la trucha cuando busca realizar un movimiento, tendrá que comprimir su cuerpo en un menor 
 área y después volver a estirar el cuerpo. Esto es directamente caracterizable con los datos de las \texttt{Bounding Boxes} obtenidos usando \texttt{YOLO}.
 
-\vspace{2\baselineskip}
 
 \subsubsection{Análisis de las pruebas de concepto}
 
@@ -277,13 +277,12 @@ todas las instancias de los objetos en la imagen y los cuatro puntos que definen
 Para poder entrenar la red \texttt{OBB}, se usó una herramienta disponible en un repositorio de \texttt{GitHub}\cite{kolesnikovKoldim2001COCO_to_YOLOv82024} que transformaba etiquetas en formato \texttt{COCO} (formato estándar 
 que se estructura en un \texttt{XML}) a las etiquetas necesarias. 
 
-\vspace*{2\baselineskip}
 
 \input{includes/metricas.tex}
 
 En este proyecto, se busca obtener buenos resultados en el entrenamiento para ciertos estadísticos. Siendo el más importante la precisión de la \texttt{Bounding Box}, ya que queremos que se ajuste lo máximo posible al mínimo tamaño 
 necesario. También nos interesa mucho las métricas de precisión y obtener un área máxima bajo la curva \texttt{F1}, ya que tiene en cuenta la precisión y, si conseguimos buenos resultados en la parte alta para la confianza, implicará 
-que tenemos un buen número de verdaderos positivos respecto a falsos positivos con buena precisión. Al trabajar con una sola clase, los estadísticos relacionados con el ámbito de clasificación no son tan relevantes siendo que se 
+que tenemos un buen número de verdaderos positivos respecto a falsos positivos con buena precisión. Al trabajar con una sola clase, los estadísticos relacionados con el ámbito de clasificación no son tan relevantes mientras se 
 cumpla un mínimo de clasificación en las detecciones.
 
 Estas métricas van a ser muy importantes para las siguientes páginas donde se detallan el entrenamiento progresivo del modelo.
@@ -311,16 +310,17 @@ Esto permitió al modelo entrenado tener mejor capacidad de generalización de l
 posterior aumentando las épocas hasta 300, se observó que se podía seguir reduciendo el error asociado al ajustado de las \texttt{Bounding Boxes} (ver \hyperref[train:3]{anexo B: entrenamiento 3}), por lo 
 tanto para los siguientes entrenamientos se decidió trabajar con un número de épocas mayor o igual a 300.
 
-Posteriormente, se decidió usar el conjunto de videos antiguos del \textit{NetTest} para expandir el conjunto de datos. Esto se debía a 3 razones principales:
+Posteriormente, se decidió usar el conjunto de videos con truchas jóvenes del \textit{NetTest} para expandir el conjunto de datos. Esto se debía a 3 razones principales:
 \begin{enumerate}
-    \item \textbf{Aumento de datos y creación de un modelo más robusto}: el usar imágenes como las de los videos antiguos permitiría una capacidad alta al modelo de detectar truchas bajo diferentes condiciones de luz y de diferentes tamaños (las de esos videos son 
-    jóvenes). Además de esto, los movimientos de los peces en los videos antiguos eran más difíciles de analizar por su falta de detalle, mejorando la cantidad de datos que representaban movimiento.
+    \item \textbf{Aumento de datos y creación de un modelo más robusto}: el usar imágenes como las de los videos con truchas jóvenes permitiría una capacidad alta al modelo de detectar truchas bajo diferentes condiciones de luz y de diferentes tamaños (las de esos videos son 
+    mucho más pequeñas). Además de esto, los movimientos de los peces en estos videos eran más difíciles de analizar por su falta de detalle, mejorando la cantidad de datos que representaban movimiento.
     \item \textbf{Evitar Overfitting para futuros entrenamientos}: el \texttt{overfitting} es una situación conocida en el entrenamiento de redes neuronales en las que las redes son entrenadas de forma excesiva, aprendiendo el ruido
      del conjunto de datos. Esto se ve representado por la incapacidad del modelo de predecir correctamente sobre datos que no haya visto en ningún momento del entrenamiento. No es una situación que deba suceder, pero cuanto más 
     variado sea el conjunto de datos, menos posibilidades hay de llegar a esta situación.
 \end{enumerate}
 
-En total se añadieron 34 imágenes de los videos antiguos, dando como resultado un conjunto de datos de 84 imágenes que se dividieron en subconjuntos entrenamiento, validación y prueba con la relación 70-15-15.\newline
+En total se añadieron 34 imágenes de los videos con truchas jóvenes, dando como resultado un conjunto de datos de 84 imágenes que se dividieron en subconjuntos entrenamiento, validación y prueba con la relación 70-15-15.
+
 Con este conjunto de datos se realizaron 2 entrenamientos(ver \hyperref[train:4]{anexo B}), uno con un modelo \texttt{YOLO} de detección tradicional y otro a un modelo \texttt{OBB}, el cual se tuvo que realizar en una herramienta 
 llamada \texttt{Kaggle} (se decidió usar esta plataforma porque da flexibilidad y potencia de \acrshort{gpu}).\newline
 Ambos modelos dieron buenos resultados en detectar todas las situaciones de la trucha completamente. 
@@ -337,7 +337,7 @@ la red era completamente negra y había fotogramas como el de la \autoref{fig:Re
 \end{figure}
 
 Para solucionar este problema y como entrenamiento final, se decidió hacer un último aumento del conjunto de datos. Para esto se tomaron imágenes aleatorias de los videos \verb|23_NT_R2_J1_P1_P2|, 
-\verb|23_NT_R3_J1_P1_P2| y \verb|23_NT_R3_J2_P1_P2|. En total el conjunto de datos fue aumentado hasta los 203 fotogramas.\newline
+\verb|23_NT_R3_J1_P1_P2| y \verb|23_NT_R3_J2_P1_P2|. En total el conjunto de datos fue aumentado hasta los 203 fotogramas. 
 Esto sumado a expandir el entrenamiento hasta las 600 épocas, permitió crear un modelo entrenado muy robusto para todo tipo de iluminaciones, cambios de redes y de variaciones de fondo.
 
 
@@ -476,18 +476,18 @@ Con el procesamiento de los datos realizados, se puede aplicar el algoritmo para
 \begin{algorithmic}[1]
     \State $GradienteTotalSubconjunto \gets \texttt{suma de los gradientes del subconjunto}$
     \If{$gradienteTotalSubconjunto \geq -1 $} 
-        \State $return -1$
+        \State $return \texttt{  no movimiento}$
     \ElsIf{$\texttt{todos los valores del gradiente del subconjunto} \geq -0.8$}
-        \State $return -1$
+        \State $return \texttt{  posibilidad de movimiento}$
     \ElsIf{$0.3 \leq \texttt{Todos los valores de la relacion x/y del subconjunto} \leq 2.7$}
         \If{$\texttt{El mayor área del subconjunto} \geq \texttt{mediana de los datos}\cdot0.9$}
-            \State $return -1$
+            \State $return \texttt{  posibilidad de movimiento}$
         \Else{$ $}
             \State $resultado \gets \texttt{Fotograma del subconjunto con menor varianza del Blur}$
             \State $return \texttt{  resultado}$
             \EndIf
     \Else{$ $}
-        \State $return -1$
+        \State $return \texttt{  posibilidad de movimiento}$
     \EndIf
 \end{algorithmic}
 \end{algorithm}\newline

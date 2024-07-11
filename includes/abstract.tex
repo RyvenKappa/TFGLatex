@@ -10,7 +10,8 @@ This document deals with the automation of the NetTest experiment, which is bein
 In this experiment, the number of movements made by a trout in a net are counted, while being out of the water. Currently, this experiment is performed manually.
 
 To achieve this, an application for automate detection and counting of the number of movements made by a trout in the NetTest experiment is presented. To accomplish this, 
-a data set was made and a \texttt{YOLOv8} model was trained. The model task is to process the video and return data related to the \texttt{Bounding Boxes} detected for each trout.\newline
+a data set was made and a \texttt{YOLOv8} model was trained. The model task is to process the video and return data related to the \texttt{Bounding Boxes} detected for each trout.
+
 When the trout is located, an algorithm has been designed that takes elements such as the area of the bounding box and it's centre to indicate the frames of the video in which a 
 movement has occurred. Finally, to facilitate the use of this tool, a graphical user interface has been developed that helps to analize the results obtained in the videos processed.
 

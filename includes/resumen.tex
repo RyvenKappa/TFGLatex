@@ -13,7 +13,8 @@ es realizado de forma manual.
 
 Para conseguir esto, se ha desarrollado una aplicación de detección automática y contabilización del número de movimientos realizados por truchas en videos del experimento 
 \textit{NetTest}. Con este objetivo, se ha formado un conjunto de datos y se ha entrenado un modelo de \texttt{YOLOv8}, el cual procesa el video y devuelve los resultados de 
-las \texttt{Bounding Boxes} asociadas a cada trucha.\newline
+las \texttt{Bounding Boxes} asociadas a cada trucha.
+
 Una vez localizada la trucha se ha diseñado un algoritmo que utiliza el área de la \texttt{bounding box} y elementos como el desplazamiento del centroide para marcar en qué 
 fotograma del video se ha producido un movimiento de escape. Finalmente, para poder facilitar el uso de esta herramienta, se ha desarrollado una interfaz gráfica para 
 el análisis de los resultados en los experimentos \textit{NetTest}.

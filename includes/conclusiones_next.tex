@@ -3,15 +3,19 @@
 Los experimentos actuales en la ciencia cada vez manejan mayores cantidades de datos. La capacidad de automatizar la obtención de los datos, su procesado y su análisis es uno de los campos más importantes 
 de la tecnología moderna. Dentro de esto encontramos la visión por ordenador como campo que engloba diversas tecnologías para procesar imagen.
 
-Dentro la visión por ordenador, uno de los paradigmas más eficientes en la actualidad para conseguir analizar videos son las arquitecturas de redes neuronales \texttt{CNN}l que aprovechan un planteamiento de 
+Dentro la visión por ordenador, uno de los paradigmas más eficientes en la actualidad para conseguir analizar videos son las arquitecturas de redes neuronales \texttt{CNN} que aprovechan un planteamiento de 
 operaciones por matrices para poder manejar grandes cantidades de datos a la vez. Una de las \texttt{CNN} más populares actualmente es \texttt{YOLOv8} por su rendimiento y eficiencia.
 
 A través de pruebas comparativas, se ha observado que respecto a métodos tradicionales como el análisis de flujo óptico, las arquitecturas \texttt{CNN}; más específicamente \texttt{YOLO}, se pueden usar 
 para caracterizar el movimiento de truchas de forma extremadamente rápida. Estos sistemas son capaces de reconocer correctamente truchas en movimiento y con una tasa de error muy baja con poco tiempo de entrenamiento.
 
+Esto ha dado lugar a la participación en un artículo de congreso sobre la viabilidad de automatizar procesos experimentales en acuicultura a través de la obtención de datos por aprendizaje profundo.
+
 En este trabajo se ha usado el modelo \texttt{YOLO} entrenado para la detección de truchas para construir una aplicación que cuente el número de movimientos. Para conseguir esto se han aprovechado técnicas como 
-los sistemas basados en ejecución paralela y la correcta elección del modelo dependiendo del \texttt{HardWWare} disponible del ordenador. Con esto se han conseguido obtener resultados como el 
-procesamiento de 64 videos en 1 hora, obteniendo una tasa de error respecto a los movimientos detectados sobre movimientos previamente etiquetados en su mayoría de entre -20\% y 20\%. \newline
+los sistemas basados en ejecución paralela y la correcta elección del modelo dependiendo del \texttt{HardWWare} disponible del ordenador.
+
+Con esto se ha conseguido obtener resultados como el procesamiento de 64 videos en 1 hora, obteniendo una tasa de error respecto a los movimientos detectados sobre movimientos 
+previamente etiquetados en su mayoría de entre -20\% y 20\%. \newline
 Estos resultados son muy buenos y cumplen con los objetivos marcados en el proyecto.
 
 Con todo esto se ha conseguido construir una aplicación capaz de funcionar a tiempo real, que no necesita conocimientos de tecnologías sobre las redes neuronales, lenguajes de programación o 

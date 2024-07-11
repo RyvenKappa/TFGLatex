@@ -258,8 +258,9 @@ Normalmente se dispone de un conjunto de datos que se divide en entrenamiento, v
 validación y \texttt{15\%} para el conjunto de prueba.
 
 La incorrecta preparación del conjunto de datos puede afectar severamente a los resultados obtenidos. Por lo tanto es habitual intentar evitar redundancia de datos y alimentar a la red con datos que no sean muy 
-similares entre sí para que sea capaz de generalizar correctamente en la mayor cantidad de situaciones posibles.\newline
-Justo con este propósito podemos encontrar técnicas de aumento de datos, que generan artificialmente datos extra haciendo transformaciones en las imágenes, cambiando el color o incluso aplicando distorsión. 
+similares entre sí para que sea capaz de generalizar correctamente en la mayor cantidad de situaciones posibles.
+
+Para solucionar este problema, podemos encontrar técnicas de aumento de datos, que generan artificialmente datos extra haciendo transformaciones en las imágenes, cambiando el color o incluso aplicando distorsión. 
 Esto permite solucionar situaciones en las que se dispongan de pocos datos o los datos sean demasiado parecidos entre sí como para poder asegurar una buena generalización a otros tipos de situaciones.
 
 \clearpage
@@ -276,8 +277,9 @@ sistemas. Algunos ejemplos de esto son:
 Cada arquitectura ha traído consigo mejoras, a veces, a cambio de perdida de rendimiento. Esto es un problema que debe tenerse en cuenta y existen diversos trabajos que tratan simplemente las diferencias 
 existentes entre diferentes arquitecturas.
 
-Uno de estos trabajos\cite{hanAdvancedDeepLearningTechniques2018} compara diferentes arquitecturas contra el conjunto de datos de la universidad de Oxford "Pascal2012"\cite{PASCALVisualObject}, que contiene 20 clases de objetos.\newline
-A través del estudio del estado del arte, en el artículo se observa que \texttt{YOLOv2} es muy competente a la hora de obtener rendimiento y velocidad de procesamiento, aún sin ser la red con los mejores resultados, es 
+Uno de estos trabajos\cite{hanAdvancedDeepLearningTechniques2018} compara diferentes arquitecturas contra el conjunto de datos de la universidad de Oxford "Pascal2012"\cite{PASCALVisualObject}, que contiene 20 clases de objetos. 
+
+A través del estudio del estado del arte realizado en el artículo, se observa que \texttt{YOLOv2} es muy competente a la hora de obtener rendimiento y velocidad de procesamiento, aún sin ser la red con los mejores resultados, es 
 capaz de superar a arquitecturas ya establecidas como \texttt{SSD512}, obteniendo un mejor \texttt{\acrfullr{map}}(parámetro de caracterización del error medio típico sobre todo el conjunto de datos) con el doble de rendimiento. 
 Se puede observar un resumen de los resultados de este artículo en la \autoref{ResumenCNNFPS}.
 
@@ -303,7 +305,8 @@ Estos resultados comparativos, a diferencia de otros artículos\cite{manojkumarP
 indican el tamaño de la imagen de entrada a la red neuronal. Esto permite realizar una comparación realista y en las mismas condiciones.
 
 En el estudio, también se observa que \texttt{YOLOv2} tiene ciertos problemas al tratar con objetos pequeños. Algunos estudios\cite{bhagyaOverviewDeepLearning2019} ya han observado que es un problema bastante típico 
-de \texttt{YOLO} y es una de las situaciones en las que peor funciona.\newline
+de \texttt{YOLO} y es una de las situaciones en las que peor funciona.
+
 Estos problemas han ido solucionándose con el tiempo, a través de la mejora y el aumento de rendimiento y puntuación \texttt{\acrshort{map}}. Esto se puede ver en la \autoref{fig:YOLOVersiones}, donde se 
 comparan diferentes versiones posteriores a la versión 5 sobre el conjunto de datos \texttt{\acrfullr{coco}} (conjunto de datos con más de 200.000 imágenes etiquetadas que se usa como estándar para validar redes neuronales en 
 objetos comunes).

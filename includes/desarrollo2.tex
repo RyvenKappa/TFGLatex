@@ -20,7 +20,7 @@ aporta diferentes utilidades y abstracciones, siendo las más comunes:
     \item \texttt{DearPyGUI}\cite{HoffstadtDearPyGuiDear}: librería muy reciente que se centra en dar al usuario la máxima eficiencia posible, usando aceleración \texttt{HardWare} a través de \texttt{OpenGL}.
 \end{itemize}
 
-\vspace{2\baselineskip}
+
 
 Al estar trabajando con redes neuronales, queremos que la interfaz gráfica utilice la menor cantidad de recursos posible y de la manera más eficiente. Además, como se verá en los siguientes puntos, 
 se implementaron partes multimedia en la aplicación, por lo tanto fue necesaria una librería centrada en la eficiencia, lo cual dejaba como posibles opciones 
@@ -253,7 +253,7 @@ Si no se selecciona una carpeta con el selector, se guardará por defecto en la 
 Para añadir velocidad, se ha asumido que cada nombre de video es único (esto se indica en el manual de la aplicación), esto nos permite que el archivo guardado sea simplemente añadir la extensión al nombre original. 
 Por ejemplo, si tenemos el video \verb|video1.mp4|, los archivos de guardado seran \verb|video1.mp4.csv| y \verb|video1.mp4.json|.
 
-\vspace{3\baselineskip}
+\vspace{1\baselineskip}
 
 Finalmente, para desplegar la aplicación se utilizó la herramienta \texttt{PyInstaller}. Esta herramienta permite crear ejecutables que consiguen encapsular la aplicación de manera que el usuario no necesite 
 manejar las dependencias de la aplicación. Además de esto, dentro de la aplicación inserta el intérprete de \texttt{Python}.
