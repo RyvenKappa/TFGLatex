@@ -11,7 +11,9 @@
 \begin{titlepage}
     \includepdf[pages=1,offset=0 0, pagecommand={}]{./TFG_Primera Hoja.pdf}
 \end{titlepage}
-
+\newpage
+\thispagestyle{abstract}
+\mbox{}
 \newpage
 \pagenumbering{arabic}
 \input{./includes/agradecimientos.tex}
@@ -41,15 +43,16 @@
 \fancyfoot[OR]{\thepage}
 \tableofcontents
 \clearpage
+\newpage
+\thispagestyle{abstract}
+\mbox{}
+\newpage
 \thispagestyle{indicefig}
 \listoffigures
 \thispagestyle{indicefig}
 \listoftables
 
-\newpage
-\thispagestyle{abstract}
-\mbox{}
-\newpage
+
 \include{./includes/acronimos.tex}
 \newpage
 \thispagestyle{abstract}
